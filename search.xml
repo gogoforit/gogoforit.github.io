@@ -633,6 +633,22 @@
     </entry>
     
     <entry>
+      <title><![CDATA[代理ip池]]></title>
+      <url>/2017/08/18/Python/%E4%BB%A3%E7%90%86ip%E6%B1%A0/</url>
+      <content type="html"><![CDATA[<p>url<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://127.0.0.1:8000/?types=0&amp;count=5&amp;country=国内</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line">import json</div><div class="line">r = requests.get(&apos;http://127.0.0.1:8000/?types=0&amp;count=5&amp;country=国内&apos;)</div><div class="line">ip_ports = json.loads(r.text)</div><div class="line">print (ip_ports)</div><div class="line">ip = ip_ports[0][0]</div><div class="line">port = ip_ports[0][1]</div><div class="line">proxies=&#123;</div><div class="line">    &apos;http&apos;:&apos;http://%s:%s&apos;%(ip,port),</div><div class="line">    &apos;https&apos;:&apos;http://%s:%s&apos;%(ip,port)</div><div class="line">&#125;</div><div class="line">r = requests.get(&apos;http://exercise.kingname.info/exercise_middleware_ip&apos;,proxies=proxies)</div><div class="line">r.encoding=&apos;utf-8&apos;</div><div class="line">print (r.text)</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[定位并登陆QQ空间]]></title>
       <url>/2017/08/18/Python/%E5%AE%9A%E4%BD%8D%E5%B9%B6%E7%99%BB%E9%99%86QQ%E7%A9%BA%E9%97%B4/</url>
       <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">try:    </div><div class="line">  driver.find_elements_by_id(&apos;login&apos;)    </div><div class="line">a = Trueexcept:    a = False</div><div class="line">  if a == True:    </div><div class="line">   driver.switch_to.frame(&apos;login_frame&apos;) </div><div class="line">   driver.find_element_by_id(&apos;switcher_plogin&apos;).click()  </div><div class="line">   driver.find_element_by_id(&apos;u&apos;).clear() </div><div class="line">   driver.find_element_by_id(&apos;u&apos;).send_keys(QQ)    </div><div class="line">   driver.find_element_by_id(&apos;p&apos;).clear() </div><div class="line">   driver.find_element_by_id(&apos;p&apos;).send_keys(key)  </div><div class="line">   driver.find_element_by_id(&apos;login_button&apos;).click()</div></pre></td></tr></table></figure>
@@ -765,23 +781,6 @@
     </div>
   </body>
 </html>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[启动mongoDB和redis]]></title>
-      <url>/2017/08/18/Python/%E5%90%AF%E5%8A%A8mongoDB%E5%92%8Credis/</url>
-      <content type="html"><![CDATA[<p>(1)Robomongo得mongoDB运行起来以后，才可以连接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongod.exe --dbpath H:\mong\bin\data\db  #这个路径是在bin文件里面的</div></pre></td></tr></table></figure></p>
-<p>(2)启动redis<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-server.exe redis.windows.conf</div></pre></td></tr></table></figure></p>
-<p>出现一个盒子图标那种，就是启动成功了。如果失败了，可以参考一下我的另外一个解决方法。</p>
 ]]></content>
       
         <categories>
@@ -1007,9 +1006,10 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Selenium实在不好定位的问题]]></title>
-      <url>/2017/08/18/Python/Selenium%E5%AE%9E%E5%9C%A8%E4%B8%8D%E5%A5%BD%E5%AE%9A%E4%BD%8D%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-      <content type="html"><![CDATA[<p>实在不好定位，可以把标签全部提取出来以后，按照文字对比<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mylist = driver.find_elements_by_tag_name(&apos;button&apos;)  #比较难定位，只能遍历所有标签，找到相同名字的</div><div class="line">           for each in mylist:</div><div class="line">               if each.text==&apos;发私信&apos;:</div><div class="line">                   each.click()</div><div class="line">                   break</div></pre></td></tr></table></figure></p>
+      <title><![CDATA[Selenium发表图片说说]]></title>
+      <url>/2017/08/18/Python/Selenium%E5%8F%91%E8%A1%A8%E5%9B%BE%E7%89%87%E8%AF%B4%E8%AF%B4/</url>
+      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">from selenium </div><div class="line">import webdriver</div><div class="line">import time</div><div class="line">import win32gui</div><div class="line">import win32con</div><div class="line">driver = webdriver.Chrome(r&apos;H:\python\chromedrive\chromedriver.exe&apos;)</div><div class="line">url = &apos;http://user.qzone.qq.com/715157026/infocenter?ptsig=YAykvv1IN0eLgVhwb9vnl2AyS*9pwf23WfDbffrZ20k_&apos;</div><div class="line">driver.get(url)</div><div class="line">try:</div><div class="line">    driver.find_elements_by_id(&apos;login&apos;)</div><div class="line">    a = True</div><div class="line">except:    a = False</div><div class="line">if a == True:  #模拟登陆</div><div class="line">    driver.switch_to.frame(&apos;login_frame&apos;) </div><div class="line">    driver.find_element_by_id(&apos;switcher_plogin&apos;).click() </div><div class="line">    driver.find_element_by_id(&apos;u&apos;).clear()</div><div class="line">    driver.find_element_by_id(&apos;u&apos;).send_keys(QQ)</div><div class="line">    driver.find_element_by_id(&apos;p&apos;).clear() </div><div class="line">    driver.find_element_by_id(&apos;p&apos;).send_keys(keys)      </div><div class="line">    driver.find_element_by_id(&apos;login_button&apos;).click()</div><div class="line">time.sleep(20)   </div><div class="line">driver.find_element_by_id(&quot;qz_poster_editor_v4_container&quot;).click() #很奇怪，好像是发说说的方式变了，直接点击发图片没有效果，必须要先点这个才行</div><div class="line">time.sleep(5)</div><div class="line">ele = driver.find_element_by_class_name(&quot;pic&quot;)</div><div class="line">time.sleep(3)</div><div class="line">ele.click()</div><div class="line">time.sleep(10)</div><div class="line">driver.find_element_by_id(&apos;qz_app_imageReader_1&apos;).click()</div><div class="line">time.sleep(5)</div><div class="line">dialog = win32gui.FindWindow(0, u&apos;打开&apos;)  # 对话框</div><div class="line">ComboBoxEx32 = win32gui.FindWindowEx(dialog, 0, &apos;ComboBoxEx32&apos;, None)</div><div class="line">ComboBox = win32gui.FindWindowEx(ComboBoxEx32, 0, &apos;ComboBox&apos;, None)</div><div class="line">Edit = win32gui.FindWindowEx(ComboBox, 0, &apos;Edit&apos;, None)  #输入相对地址</div><div class="line">button = win32gui.FindWindowEx(dialog, 0, &apos;Button&apos;, None) #确定按钮</div><div class="line">win32gui.SendMessage(Edit, win32con.WM_SETTEXT, None, r&quot;H:\自己瞎搞的[root,单片]\奇怪的图片\123.png&quot;)</div><div class="line">win32gui.SendMessage(dialog, win32con.WM_COMMAND, 1, button)</div><div class="line">time.sleep(35)  #等待图片上传到图床，时间较长</div><div class="line">driver.find_element_by_xpath(&quot;//*[@id=&apos;QM_Mood_Poster_Inner&apos;]/div/div[4]/div[4]/a[2]&quot;).click() #点击发表，因为class里面有空格，find_class无法定位，所以用Xpath，好像用css也可以</div></pre></td></tr></table></figure>
+<p>一些注释都在代码里面了，有些东西单独拿出来说。一个是说说上传图片好像变了<br><img src="http://upload-images.jianshu.io/upload_images/3841786-3bbc0c6f65f208fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>直接点这个并不能直接把隐藏的东西点出来了，不知道是不是我的浏览器抽风了，必须要点一下这个才可以。<br><img src="http://upload-images.jianshu.io/upload_images/3841786-bbd5ee61094c481d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>后面一部分是用Python操作Windows上传的代码。<br>sleep可以解决很多问题。。很多问题都是因为没有加载出来，才引发的问题。</p>
 ]]></content>
       
         <categories>
@@ -1022,10 +1022,9 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Selenium发表图片说说]]></title>
-      <url>/2017/08/18/Python/Selenium%E5%8F%91%E8%A1%A8%E5%9B%BE%E7%89%87%E8%AF%B4%E8%AF%B4/</url>
-      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">from selenium </div><div class="line">import webdriver</div><div class="line">import time</div><div class="line">import win32gui</div><div class="line">import win32con</div><div class="line">driver = webdriver.Chrome(r&apos;H:\python\chromedrive\chromedriver.exe&apos;)</div><div class="line">url = &apos;http://user.qzone.qq.com/715157026/infocenter?ptsig=YAykvv1IN0eLgVhwb9vnl2AyS*9pwf23WfDbffrZ20k_&apos;</div><div class="line">driver.get(url)</div><div class="line">try:</div><div class="line">    driver.find_elements_by_id(&apos;login&apos;)</div><div class="line">    a = True</div><div class="line">except:    a = False</div><div class="line">if a == True:  #模拟登陆</div><div class="line">    driver.switch_to.frame(&apos;login_frame&apos;) </div><div class="line">    driver.find_element_by_id(&apos;switcher_plogin&apos;).click() </div><div class="line">    driver.find_element_by_id(&apos;u&apos;).clear()</div><div class="line">    driver.find_element_by_id(&apos;u&apos;).send_keys(QQ)</div><div class="line">    driver.find_element_by_id(&apos;p&apos;).clear() </div><div class="line">    driver.find_element_by_id(&apos;p&apos;).send_keys(keys)      </div><div class="line">    driver.find_element_by_id(&apos;login_button&apos;).click()</div><div class="line">time.sleep(20)   </div><div class="line">driver.find_element_by_id(&quot;qz_poster_editor_v4_container&quot;).click() #很奇怪，好像是发说说的方式变了，直接点击发图片没有效果，必须要先点这个才行</div><div class="line">time.sleep(5)</div><div class="line">ele = driver.find_element_by_class_name(&quot;pic&quot;)</div><div class="line">time.sleep(3)</div><div class="line">ele.click()</div><div class="line">time.sleep(10)</div><div class="line">driver.find_element_by_id(&apos;qz_app_imageReader_1&apos;).click()</div><div class="line">time.sleep(5)</div><div class="line">dialog = win32gui.FindWindow(0, u&apos;打开&apos;)  # 对话框</div><div class="line">ComboBoxEx32 = win32gui.FindWindowEx(dialog, 0, &apos;ComboBoxEx32&apos;, None)</div><div class="line">ComboBox = win32gui.FindWindowEx(ComboBoxEx32, 0, &apos;ComboBox&apos;, None)</div><div class="line">Edit = win32gui.FindWindowEx(ComboBox, 0, &apos;Edit&apos;, None)  #输入相对地址</div><div class="line">button = win32gui.FindWindowEx(dialog, 0, &apos;Button&apos;, None) #确定按钮</div><div class="line">win32gui.SendMessage(Edit, win32con.WM_SETTEXT, None, r&quot;H:\自己瞎搞的[root,单片]\奇怪的图片\123.png&quot;)</div><div class="line">win32gui.SendMessage(dialog, win32con.WM_COMMAND, 1, button)</div><div class="line">time.sleep(35)  #等待图片上传到图床，时间较长</div><div class="line">driver.find_element_by_xpath(&quot;//*[@id=&apos;QM_Mood_Poster_Inner&apos;]/div/div[4]/div[4]/a[2]&quot;).click() #点击发表，因为class里面有空格，find_class无法定位，所以用Xpath，好像用css也可以</div></pre></td></tr></table></figure>
-<p>一些注释都在代码里面了，有些东西单独拿出来说。一个是说说上传图片好像变了<br><img src="http://upload-images.jianshu.io/upload_images/3841786-3bbc0c6f65f208fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>直接点这个并不能直接把隐藏的东西点出来了，不知道是不是我的浏览器抽风了，必须要点一下这个才可以。<br><img src="http://upload-images.jianshu.io/upload_images/3841786-bbd5ee61094c481d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>后面一部分是用Python操作Windows上传的代码。<br>sleep可以解决很多问题。。很多问题都是因为没有加载出来，才引发的问题。</p>
+      <title><![CDATA[Selenium实在不好定位的问题]]></title>
+      <url>/2017/08/18/Python/Selenium%E5%AE%9E%E5%9C%A8%E4%B8%8D%E5%A5%BD%E5%AE%9A%E4%BD%8D%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<p>实在不好定位，可以把标签全部提取出来以后，按照文字对比<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mylist = driver.find_elements_by_tag_name(&apos;button&apos;)  #比较难定位，只能遍历所有标签，找到相同名字的</div><div class="line">           for each in mylist:</div><div class="line">               if each.text==&apos;发私信&apos;:</div><div class="line">                   each.click()</div><div class="line">                   break</div></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>
@@ -1054,15 +1053,11 @@
     </entry>
     
     <entry>
-      <title><![CDATA[写的第一个淘宝信息爬虫总结]]></title>
-      <url>/2017/08/18/Python/%E5%86%99%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%B7%98%E5%AE%9D%E4%BF%A1%E6%81%AF%E7%88%AC%E8%99%AB%E6%80%BB%E7%BB%93/</url>
-      <content type="html"><![CDATA[<p>###1.用的selenium 来处理js<br>driver = webdriver.Chrome(r’H:\python\chromedrive\chromedriver.exe’) #应该更改为相对路径<br>driver.get(url)element=driver.find_elements_by_xpath(‘//*[starts-with(@class,”item J_MouserOnverReq  “)]’) #先抓大再抓小</p>
-<p>#####此处注意chrome的版本要和chromedrive的版本相匹配不然会报错。</p>
-<p>###2.打开csv文件<br>csvfile = open(‘taobao.csv’,’w’)<br>writer = csv.writer(csvfile)<br>…<br>writer.writerow(…)  #此处的变量应该是一个字典</p>
-<p>#####字典<br>dicc = {‘产地’:’’, ‘店铺名称’:’’, ‘商品网址’:’’, ‘销售数量’:’’, ‘价格’:’’, ‘商品名字’:’’}<br>dicc.keys()获取字典的键值，dicc.value()获取字典的值</p>
-<p>###3.element的信息处理<br>shopname = element[i].find_element_by_class_name(‘shop’)<br>这个还是比较好处理的，class,tags,id什么的同理用这个方法。<br>主要是属性,href之类的，我弄了很久。。半路出家python。。没有系统学过web之类的知识。。</p>
-<p>#####itemname = driver.find_elements_by_xpath(‘//div[@class=”row row-2 title”]/a’)[i]  # 产品名字</p>
-<p>#####itemurl = itemname.get_attribute(‘href’)#网址<br>我先用的xpath抓到class，然后再获取这个class的属性，用get_attribute</p>
+      <title><![CDATA[启动mongoDB和redis]]></title>
+      <url>/2017/08/18/Python/%E5%90%AF%E5%8A%A8mongoDB%E5%92%8Credis/</url>
+      <content type="html"><![CDATA[<p>(1)Robomongo得mongoDB运行起来以后，才可以连接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongod.exe --dbpath H:\mong\bin\data\db  #这个路径是在bin文件里面的</div></pre></td></tr></table></figure></p>
+<p>(2)启动redis<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-server.exe redis.windows.conf</div></pre></td></tr></table></figure></p>
+<p>出现一个盒子图标那种，就是启动成功了。如果失败了，可以参考一下我的另外一个解决方法。</p>
 ]]></content>
       
         <categories>
@@ -1287,22 +1282,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[代理ip池]]></title>
-      <url>/2017/08/18/Python/%E4%BB%A3%E7%90%86ip%E6%B1%A0/</url>
-      <content type="html"><![CDATA[<p>url<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://127.0.0.1:8000/?types=0&amp;count=5&amp;country=国内</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line">import json</div><div class="line">r = requests.get(&apos;http://127.0.0.1:8000/?types=0&amp;count=5&amp;country=国内&apos;)</div><div class="line">ip_ports = json.loads(r.text)</div><div class="line">print (ip_ports)</div><div class="line">ip = ip_ports[0][0]</div><div class="line">port = ip_ports[0][1]</div><div class="line">proxies=&#123;</div><div class="line">    &apos;http&apos;:&apos;http://%s:%s&apos;%(ip,port),</div><div class="line">    &apos;https&apos;:&apos;http://%s:%s&apos;%(ip,port)</div><div class="line">&#125;</div><div class="line">r = requests.get(&apos;http://exercise.kingname.info/exercise_middleware_ip&apos;,proxies=proxies)</div><div class="line">r.encoding=&apos;utf-8&apos;</div><div class="line">print (r.text)</div></pre></td></tr></table></figure>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[使用Scrapy爬取的基本]]></title>
       <url>/2017/08/18/Python/%E4%BD%BF%E7%94%A8Scrapy%E7%88%AC%E5%8F%96%E7%9A%84%E5%9F%BA%E6%9C%AC/</url>
       <content type="html"><![CDATA[<p>（1）创建工程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scrapy startproject name #name为你想创建的工程名字，名字不可与第三方库名冲突</div></pre></td></tr></table></figure></p>
@@ -1327,6 +1306,27 @@
       <title><![CDATA[使用多线程]]></title>
       <url>/2017/08/18/Python/%E4%BD%BF%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
       <content type="html"><![CDATA[<p>x = threading.Thread(target=solve,args=(urll,))  //solve的参数是有后面的args里面的urll传递的，solve为一个函数<br>x.start()<br>[threadGet(urll) for urll in list]</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[写的第一个淘宝信息爬虫总结]]></title>
+      <url>/2017/08/18/Python/%E5%86%99%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%B7%98%E5%AE%9D%E4%BF%A1%E6%81%AF%E7%88%AC%E8%99%AB%E6%80%BB%E7%BB%93/</url>
+      <content type="html"><![CDATA[<p>###1.用的selenium 来处理js<br>driver = webdriver.Chrome(r’H:\python\chromedrive\chromedriver.exe’) #应该更改为相对路径<br>driver.get(url)element=driver.find_elements_by_xpath(‘//*[starts-with(@class,”item J_MouserOnverReq  “)]’) #先抓大再抓小</p>
+<p>#####此处注意chrome的版本要和chromedrive的版本相匹配不然会报错。</p>
+<p>###2.打开csv文件<br>csvfile = open(‘taobao.csv’,’w’)<br>writer = csv.writer(csvfile)<br>…<br>writer.writerow(…)  #此处的变量应该是一个字典</p>
+<p>#####字典<br>dicc = {‘产地’:’’, ‘店铺名称’:’’, ‘商品网址’:’’, ‘销售数量’:’’, ‘价格’:’’, ‘商品名字’:’’}<br>dicc.keys()获取字典的键值，dicc.value()获取字典的值</p>
+<p>###3.element的信息处理<br>shopname = element[i].find_element_by_class_name(‘shop’)<br>这个还是比较好处理的，class,tags,id什么的同理用这个方法。<br>主要是属性,href之类的，我弄了很久。。半路出家python。。没有系统学过web之类的知识。。</p>
+<p>#####itemname = driver.find_elements_by_xpath(‘//div[@class=”row row-2 title”]/a’)[i]  # 产品名字</p>
+<p>#####itemurl = itemname.get_attribute(‘href’)#网址<br>我先用的xpath抓到class，然后再获取这个class的属性，用get_attribute</p>
 ]]></content>
       
         <categories>
@@ -1980,14 +1980,14 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Docker免去使用sudo命令]]></title>
-      <url>/2017/08/18/Docker/Docker%E5%85%8D%E5%8E%BB%E4%BD%BF%E7%94%A8sudo%E5%91%BD%E4%BB%A4/</url>
-      <content type="html"><![CDATA[<p>1）创建docker组<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo groupadd docker</div></pre></td></tr></table></figure></p>
-<p>2）将当前用户加入docker组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gpasswd -a $&#123;USER&#125; docker</div></pre></td></tr></table></figure></p>
-<p>3）重启服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service docker restart</div></pre></td></tr></table></figure></p>
-<p>4）刷新Docker成员</p>
-<pre><code>newgrp - docker
-</code></pre>]]></content>
+      <title><![CDATA[Docker中无法正确调用-etc-default-docker文件的问题]]></title>
+      <url>/2017/08/18/Docker/Docker%E4%B8%AD%E6%97%A0%E6%B3%95%E6%AD%A3%E7%A1%AE%E8%B0%83%E7%94%A8-etc-default-docker%E6%96%87%E4%BB%B6%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<p>1）打开docker.service文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim /lib/systemd/system/docker.service</div></pre></td></tr></table></figure></p>
+<p>2）在[Service]一栏中添加一行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EnvironmentFile=-/etc/default/docker   //这行一定要添加在下面那个操作的前面</div></pre></td></tr></table></figure></p>
+<p>并将<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ExecStart=/usr/bin/dockerd -H fd://    or   ExecStart=/usr/bin/docker -H fd://</div></pre></td></tr></table></figure></p>
+<p>改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ExecStart=/usr/bin/dockerd  -H fd:// $DOCKER_OPTS</div></pre></td></tr></table></figure></p>
+<p>3）重启服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo systemctl daemon-reload</div><div class="line">sudo service docker restart</div></pre></td></tr></table></figure></p>
+]]></content>
       
         <categories>
             
@@ -1999,14 +1999,14 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Docker中无法正确调用-etc-default-docker文件的问题]]></title>
-      <url>/2017/08/18/Docker/Docker%E4%B8%AD%E6%97%A0%E6%B3%95%E6%AD%A3%E7%A1%AE%E8%B0%83%E7%94%A8-etc-default-docker%E6%96%87%E4%BB%B6%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-      <content type="html"><![CDATA[<p>1）打开docker.service文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim /lib/systemd/system/docker.service</div></pre></td></tr></table></figure></p>
-<p>2）在[Service]一栏中添加一行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EnvironmentFile=-/etc/default/docker   //这行一定要添加在下面那个操作的前面</div></pre></td></tr></table></figure></p>
-<p>并将<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ExecStart=/usr/bin/dockerd -H fd://    or   ExecStart=/usr/bin/docker -H fd://</div></pre></td></tr></table></figure></p>
-<p>改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ExecStart=/usr/bin/dockerd  -H fd:// $DOCKER_OPTS</div></pre></td></tr></table></figure></p>
-<p>3）重启服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo systemctl daemon-reload</div><div class="line">sudo service docker restart</div></pre></td></tr></table></figure></p>
-]]></content>
+      <title><![CDATA[Docker免去使用sudo命令]]></title>
+      <url>/2017/08/18/Docker/Docker%E5%85%8D%E5%8E%BB%E4%BD%BF%E7%94%A8sudo%E5%91%BD%E4%BB%A4/</url>
+      <content type="html"><![CDATA[<p>1）创建docker组<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo groupadd docker</div></pre></td></tr></table></figure></p>
+<p>2）将当前用户加入docker组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gpasswd -a $&#123;USER&#125; docker</div></pre></td></tr></table></figure></p>
+<p>3）重启服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service docker restart</div></pre></td></tr></table></figure></p>
+<p>4）刷新Docker成员</p>
+<pre><code>newgrp - docker
+</code></pre>]]></content>
       
         <categories>
             
