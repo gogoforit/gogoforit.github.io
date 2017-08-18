@@ -185,6 +185,161 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Git/git的版本回退" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Git/git的版本回退/">git的版本回退</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Git/git的版本回退/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.946Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>回到上一个版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset --hard HEAD^</div></pre></td></tr></table></figure></p>
+<p>也可以这样回到某一个版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset --hard 3628164</div></pre></td></tr></table></figure></p>
+<p>查看每一次操作，当回到以前版本以后，再返回当前的版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git reflog</div><div class="line">ea34578 HEAD@&#123;0&#125;: reset: moving to HEAD^</div><div class="line">3628164 HEAD@&#123;1&#125;: commit: append GPL</div><div class="line">ea34578 HEAD@&#123;2&#125;: commit: add distributed</div><div class="line">cb926e7 HEAD@&#123;3&#125;: commit (initial): wrote a readme file</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Git/" class="article-tag-list-link color4">Git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Git/git的版本回退/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Git/git的本地与远程操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Git/git的本地与远程操作/">git的本地与远程操作</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Git/git的本地与远程操作/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.946Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>删除本地分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch -d &lt;branch-name&gt;</div></pre></td></tr></table></figure></p>
+<p>删除远程分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin --delete &lt;branch-name&gt;</div></pre></td></tr></table></figure></p>
+<p>打本地标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git tag &lt;tag-name&gt;</div></pre></td></tr></table></figure></p>
+<p>将本地标签push到远程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin --tag</div></pre></td></tr></table></figure></p>
+<p>把本地分支push到远程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin local-branch-name:remote-branch-name</div></pre></td></tr></table></figure></p>
+<p>创建一个分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch son-branch mother-branch</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Git/" class="article-tag-list-link color4">Git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Git/git的本地与远程操作/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Git/git撤销修改" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -412,82 +567,6 @@
 
 
   
-    <article id="post-Flask/无标题文章" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Flask/无标题文章/">无标题文章</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Flask/无标题文章/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.942Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>validate_on_submit（）总是验证错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://segmentfault.com/q/1010000008854162</div></pre></td></tr></table></figure></p>
-<p>‘Flask’ object has no attribute ‘login_manager’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://stackoverflow.com/questions/31067249/attributeerror-flask-object-has-no-attribute-login-manager-login-manager</div></pre></td></tr></table></figure></p>
-<p>在app/<strong>inin</strong>.py中添加，flask_manage()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">app.secret_key = &apos;xxxxyyyyyzzzzz&apos;</div><div class="line"></div><div class="line">login_manager = LoginManager()</div><div class="line">login_manager.init_app(app)</div><div class="line">login_manager.login_view = &apos;login&apos;</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Flask/" class="article-tag-list-link color1">Flask</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Flask/无标题文章/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Flask/flask使用mongoengine来login" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -565,19 +644,19 @@
 
 
   
-    <article id="post-Flask/ImportError，包导入错误" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Flask/无标题文章" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Flask/ImportError，包导入错误/">ImportError，包导入错误</a>
+      <a class="article-title" href="/2017/08/18/Flask/无标题文章/">无标题文章</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/Flask/ImportError，包导入错误/" class="archive-article-date">
+        <a href="/2017/08/18/Flask/无标题文章/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:38.942Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -585,7 +664,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>使用<code>from app import db</code>这种导入包的方式的时候，可能会出现包导入错误，应该包的加载顺序的问题，每当一次引用，即<code>import</code>，就会加载一次包文件，当加载app包的时候，我写的时候把注册蓝图放到了上面，所以加载了一次蓝图的包，即auth包，而此时db变量还没有申明，所以会出现无法导出的错误，注意加载的顺序就可避免这种错误。</p>
+        <p>validate_on_submit（）总是验证错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://segmentfault.com/q/1010000008854162</div></pre></td></tr></table></figure></p>
+<p>‘Flask’ object has no attribute ‘login_manager’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://stackoverflow.com/questions/31067249/attributeerror-flask-object-has-no-attribute-login-manager-login-manager</div></pre></td></tr></table></figure></p>
+<p>在app/<strong>inin</strong>.py中添加，flask_manage()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">app.secret_key = &apos;xxxxyyyyyzzzzz&apos;</div><div class="line"></div><div class="line">login_manager = LoginManager()</div><div class="line">login_manager.init_app(app)</div><div class="line">login_manager.login_view = &apos;login&apos;</div></pre></td></tr></table></figure></p>
 
       
 
@@ -609,7 +690,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Flask/ImportError，包导入错误/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/Flask/无标题文章/">展开全文 >></a>
         </p>
       
 
@@ -685,6 +766,80 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/08/18/Flask/Flask使用多线程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Flask/ImportError，包导入错误" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Flask/ImportError，包导入错误/">ImportError，包导入错误</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Flask/ImportError，包导入错误/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.942Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用<code>from app import db</code>这种导入包的方式的时候，可能会出现包导入错误，应该包的加载顺序的问题，每当一次引用，即<code>import</code>，就会加载一次包文件，当加载app包的时候，我写的时候把注册蓝图放到了上面，所以加载了一次蓝图的包，即auth包，而此时db变量还没有申明，所以会出现无法导出的错误，注意加载的顺序就可避免这种错误。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Flask/" class="article-tag-list-link color1">Flask</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Flask/ImportError，包导入错误/">展开全文 >></a>
         </p>
       
 
@@ -791,162 +946,9 @@
 
 
   
-    <article id="post-Flask/Flask与Ajax结合" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Flask/Flask与Ajax结合/">Flask与Ajax结合</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Flask/Flask与Ajax结合/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.942Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>视图函数，处理出Json数据，即字典以后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return jsonify(my_dic)</div></pre></td></tr></table></figure></p>
-<p>这样，直接访问这个返回数据的路由，可以直接看到生成的Json数据，但是记得千万不要这样写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return jsonify(my_dic = my_dic)</div></pre></td></tr></table></figure></p>
-<p>这样就是一个json变量了，而不是一个json数据，特么的。。。我在这里卡了好久。。。<br>Ajax部分这么写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function check_stu()&#123;</div><div class="line">        $.ajax(&#123;</div><div class="line">            url: &apos;/main_page/data&apos;, //在这里提填写你的路由地址</div><div class="line">            async: true,</div><div class="line">            dataType: &apos;json&apos;,</div><div class="line">            success: function (json_obj) &#123;</div><div class="line">                object_js=json_obj;</div><div class="line">                showAllList();</div><div class="line">            &#125;  </div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">setInterval(&apos;check_stu()&apos;,2000);  //这里，一定要加括号</div></pre></td></tr></table></figure></p>
-<p>showAllList（）为要执行的js代码函数</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Flask/" class="article-tag-list-link color1">Flask</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Flask/Flask与Ajax结合/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Flask/蓝图的装饰器的运用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Flask/蓝图的装饰器的运用/">蓝图的装饰器的运用</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Flask/蓝图的装饰器的运用/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.942Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>views从<strong>init</strong>里面调用的时候，头部引用应该这么写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">from app.main_page import main_page as main_page_Blueprint</div></pre></td></tr></table></figure></p>
-<p>不能直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">from . import main_page</div></pre></td></tr></table></figure></p>
-<p>如果这样，好像会和包名冲突，具体原因还没查，反正就是这样容易出错。。<br>然后后面的装饰器都应该写为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@main_page_Blueprint.route(&apos;/&apos;)</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Flask/" class="article-tag-list-link color1">Flask</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Flask/蓝图的装饰器的运用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/10/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/12/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/10/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/12/">Next &raquo;</a>
     </nav>
   
 
@@ -1034,6 +1036,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">helokfe</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">正则 列表处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">字符串替换</a>
               </li>
             
             <div class="clearfix"></div>

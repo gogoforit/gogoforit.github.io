@@ -185,19 +185,19 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Python/Unicode转中文" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python/正则表达式-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Python/Unicode转中文/">Unicode转中文</a>
+      <a class="article-title" href="/2017/08/18/Python/正则表达式-1/">正则表达式-1</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/Python/Unicode转中文/" class="archive-article-date">
+        <a href="/2017/08/18/Python/正则表达式-1/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -205,8 +205,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>先检查text是什么类型<br>如果type(text) is bytes，<br>那么text.decode(‘unicode_escape’)<br>如果type(text) is str，那么text.encode(‘latin-1’).decode(‘unicode_escape’)<br>（感谢这个知乎作者，终于解决了我的问题）</p>
-<p>作者：mailto1587<br>链接：<a href="https://www.zhihu.com/question/26921730/answer/49625649" target="_blank" rel="external">https://www.zhihu.com/question/26921730/answer/49625649</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
+        <p><strong>基本要领</strong><br>通常是一个前面一个匹配表达式，后面接一个长度判定表达式，例如<code>[0-9a-zA-Z\_]+</code>，即匹配一个任意长度的包含数字或字符串或下划线的字符串，即一个标准的Python变量。<br><strong>匹配知识</strong><br><code>\d</code>：匹配数字<br><code>\s</code>：匹配空格<br><code>\w</code>：匹配字母<br><code>.</code>   ： 匹配任意字符<br><code>^</code>：表示行开头，即以什么开头的行<br><code>$</code>：表示行结尾，即以什么结尾的行<br><code>^</code>：在括号内表示非<br><strong>长度知识</strong><br><code>*</code>：任意个字符，包括0个<br><code>+</code>：至少1字符<br><code>？</code>：0个或者1个字符<br><code>\d{3}</code>：匹配3个数字<br><code>\d{3,8}</code>：匹配3到8个数字<br><code>[0-9a-zA-Z]</code>：匹配一个包含数字或者字母的字符串<br><strong>一些表达式</strong><br><code>(.*?)</code>：非贪婪地匹配所有元素，按照懒惰匹配的方式，匹配尽可能短的元素</p>
 
       
 
@@ -230,7 +229,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Python/Unicode转中文/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/Python/正则表达式-1/">展开全文 >></a>
         </p>
       
 
@@ -940,7 +939,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
     </nav>
   
 
@@ -1028,6 +1027,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">helokfe</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">正则 列表处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">字符串替换</a>
               </li>
             
             <div class="clearfix"></div>

@@ -413,19 +413,19 @@
 
 
   
-    <article id="post-Python/正则表达式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python/爬虫登陆豆瓣" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Python/正则表达式/">正则表达式</a>
+      <a class="article-title" href="/2017/08/18/Python/爬虫登陆豆瓣/">爬虫登陆豆瓣</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/Python/正则表达式/" class="archive-article-date">
+        <a href="/2017/08/18/Python/爬虫登陆豆瓣/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -433,7 +433,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>a = ‘wefwef’<br>b = re.findall(‘fwef. * ? fwef’,a)//匹配fwef…fwef之间的东西,但输出包括xx xx<br>b = re.findall(‘xx(. * ?)xx’,a)//功能同上，但是输出不包括xx xx<br>b = re.findall(‘xx (. * ? )xx’,a,re.S) //可以匹配带有换行符的文段<br>b = re.sub(‘123(.  * ?)123’,’45645’,a)//把形为123…123的串替换为45645，并且不改变a串<br>b = re.findall(‘(\d+)’,a) //匹配纯数字，可以把所有数字匹配出来</p>
+        <p>豆瓣有那么一点恶心，爬虫想登上去不是很容易，登陆豆瓣，<strong>应该是看到的这个界面</strong><br><img src="http://upload-images.jianshu.io/upload_images/3841786-8ed591c304652dd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>但是这个页面是不能直接处理登陆的。。噢，对了，我是用的selenium登陆豆瓣的，也可以用cookies，而且好像cookies好像还更简单一点。。我是开始的时候被坑了，发现源码里面没有文章的东西（其实是我看漏了），以为是js动态加载的，就想着用selenium处理。。。绕了一大圈。。咳咳，还是说正事。。。<br><strong>然后我就换到这个页面登陆</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://www.douban.com/accounts/login?source=main</div></pre></td></tr></table></figure></p>
+<p><strong>这个就好处理多了</strong><br><strong>直接</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">username = drive.find_element_by_name(&apos;form_email&apos;)</div><div class="line">username.clear()</div><div class="line">username.send_keys(&apos;xxxxx&apos;)</div><div class="line">password = drive.find_element_by_name(&apos;form_password&apos;)</div><div class="line">password.clear()</div><div class="line">password.send_keys(&apos;xxxxxx&apos;)</div></pre></td></tr></table></figure></p>
+<p><strong>然后验证码的处理我用的手动输入。。不想弄麻烦了。。</strong><br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">a = input(&quot;输入验证码：&quot;)</div><div class="line">yanzheng = drive.find_element_by_name(&apos;captcha-solution&apos;)</div><div class="line">yanzheng.clear()</div><div class="line">yanzheng.send_keys(a)</div><div class="line">yanzheng.send_keys(Keys.RETURN)</div></pre></td></tr></table></figure></p>
+<p><strong>登陆上以后，你就可以直接打开其他的豆瓣页面了。</strong></p>
 
       
 
@@ -457,7 +460,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Python/正则表达式/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/Python/爬虫登陆豆瓣/">展开全文 >></a>
         </p>
       
 
@@ -563,19 +566,19 @@
 
 
   
-    <article id="post-Python/正则表达式-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python/正则表达式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Python/正则表达式-1/">正则表达式-1</a>
+      <a class="article-title" href="/2017/08/18/Python/正则表达式/">正则表达式</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/Python/正则表达式-1/" class="archive-article-date">
+        <a href="/2017/08/18/Python/正则表达式/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -583,7 +586,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>基本要领</strong><br>通常是一个前面一个匹配表达式，后面接一个长度判定表达式，例如<code>[0-9a-zA-Z\_]+</code>，即匹配一个任意长度的包含数字或字符串或下划线的字符串，即一个标准的Python变量。<br><strong>匹配知识</strong><br><code>\d</code>：匹配数字<br><code>\s</code>：匹配空格<br><code>\w</code>：匹配字母<br><code>.</code>   ： 匹配任意字符<br><code>^</code>：表示行开头，即以什么开头的行<br><code>$</code>：表示行结尾，即以什么结尾的行<br><code>^</code>：在括号内表示非<br><strong>长度知识</strong><br><code>*</code>：任意个字符，包括0个<br><code>+</code>：至少1字符<br><code>？</code>：0个或者1个字符<br><code>\d{3}</code>：匹配3个数字<br><code>\d{3,8}</code>：匹配3到8个数字<br><code>[0-9a-zA-Z]</code>：匹配一个包含数字或者字母的字符串<br><strong>一些表达式</strong><br><code>(.*?)</code>：非贪婪地匹配所有元素，按照懒惰匹配的方式，匹配尽可能短的元素</p>
+        <p>a = ‘wefwef’<br>b = re.findall(‘fwef. * ? fwef’,a)//匹配fwef…fwef之间的东西,但输出包括xx xx<br>b = re.findall(‘xx(. * ?)xx’,a)//功能同上，但是输出不包括xx xx<br>b = re.findall(‘xx (. * ? )xx’,a,re.S) //可以匹配带有换行符的文段<br>b = re.sub(‘123(.  * ?)123’,’45645’,a)//把形为123…123的串替换为45645，并且不改变a串<br>b = re.findall(‘(\d+)’,a) //匹配纯数字，可以把所有数字匹配出来</p>
 
       
 
@@ -607,7 +610,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Python/正则表达式-1/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/Python/正则表达式/">展开全文 >></a>
         </p>
       
 
@@ -861,19 +864,19 @@
 
 
   
-    <article id="post-Python/启动mongoDB和redis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python/Selenium遇到iframe的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Python/启动mongoDB和redis/">启动mongoDB和redis</a>
+      <a class="article-title" href="/2017/08/18/Python/Selenium遇到iframe的问题/">Selenium遇到iframe的问题</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/Python/启动mongoDB和redis/" class="archive-article-date">
+        <a href="/2017/08/18/Python/Selenium遇到iframe的问题/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -881,9 +884,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>(1)Robomongo得mongoDB运行起来以后，才可以连接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongod.exe --dbpath H:\mong\bin\data\db  #这个路径是在bin文件里面的</div></pre></td></tr></table></figure></p>
-<p>(2)启动redis<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-server.exe redis.windows.conf</div></pre></td></tr></table></figure></p>
-<p>出现一个盒子图标那种，就是启动成功了。如果失败了，可以参考一下我的另外一个解决方法。</p>
+        <p>如果使用F12检查元素的时候，发现有iframe这么个东西，或者是用xpath或者find怎么都无法定位元素的时候，那很有可能就是iframe这么个东西在作怪了！使用如下方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">driver.switch_to.frame(&apos;app_canvas_frame&apos;)   #app_canvas_frame是iframe的name</div></pre></td></tr></table></figure></p>
+<p>进入到这个框架以后，在去操作定位元素，应该就没有问题了。</p>
 
       
 
@@ -907,7 +909,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Python/启动mongoDB和redis/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/Python/Selenium遇到iframe的问题/">展开全文 >></a>
         </p>
       
 
@@ -939,7 +941,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
     </nav>
   
 
@@ -1027,6 +1029,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">helokfe</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">正则 列表处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">字符串替换</a>
               </li>
             
             <div class="clearfix"></div>
