@@ -191,6 +191,84 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-PythonPractice/0006-日记找词" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/PythonPractice/0006-日记找词/">0006-日记找词</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/PythonPractice/0006-日记找词/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:39.002Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">import re</div><div class="line"></div><div class="line"></div><div class="line">def get_words(text):</div><div class="line">    words = re.findall(&apos;(\w+)\s&apos;, text)</div><div class="line">    return words</div><div class="line"></div><div class="line"></div><div class="line">def get_counter(words):</div><div class="line">    words_set = set(words)</div><div class="line">    dic_word_num = &#123;&#125;</div><div class="line">    for word in words_set:</div><div class="line">        dic_word_num[word] = words.count(word)</div><div class="line">    print(max(dic_word_num.items(), key=lambda x:x[1]))</div><div class="line"></div><div class="line">with open(&apos;text.txt&apos;) as text:</div><div class="line">    text = text.read()</div><div class="line">    get_counter(get_words(text))</div></pre></td></tr></table></figure>
+<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p><strong>1)列表转集合，去重</strong><br><figure class="highlight plain"><figcaption><span>= set(my_list)```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">__2)max函数，第一个参数为一个可迭代对象，如果key没有指定，就是默认取最大，如果key参数有指定，就按指定规则来比较__</div><div class="line">__3)匿名函数，参数是x，返回结果是x[1]，就是value的值，一般用在max函数的key上__</div><div class="line">```lambda x: x[1]</div></pre></td></tr></table></figure></p>
+<p><strong>4)返回<code>python_code</code>文件夹里面的py文件的路径</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">[&apos;/home/kk/python_code/FlaskAuth/run.py&apos;, &apos;/home/kk/python_code/FlaskAuth/FlaskAuth.py&apos;, &apos;/home/kk/python_code/FlaskAuth/hello.py&apos;]</div></pre></td></tr></table></figure></p>
+<p><strong>5)返回列表中出现次数最多的元素</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from collections import Counter</div><div class="line">Counter(my_list).most_common(1)</div></pre></td></tr></table></figure></p>
+<p><strong>6)map使用</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">map(f, iterable)</div><div class="line"></div><div class="line">基本上等于：</div><div class="line"></div><div class="line">[f(x) for x in iterable]  # 列表推导式</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/PythonPractice/" class="article-tag-list-link color5">PythonPractice</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/PythonPractice/0006-日记找词/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Python/处理html-text转为html-content" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -238,156 +316,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/08/18/Python/处理html-text转为html-content/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/sklearn-ImportError--No-module-named-&#39;scipy&#39;,ImportError--cannot-impor" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Python/sklearn-ImportError--No-module-named-'scipy',ImportError--cannot-impor/">sklearn-ImportError--No-module-named-&#39;scipy&#39;,ImportError--cannot-impor</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Python/sklearn-ImportError--No-module-named-'scipy',ImportError--cannot-impor/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.982Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>直接走<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy</div></pre></td></tr></table></figure></p>
-<p>下载对应的包安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install 文件名字</div></pre></td></tr></table></figure></p>
-<p>安装numpy_mkl可以会有报错，把文件后缀whl改为zip，手动解压后，把numpy文件覆盖到原本的lib里面的文件，就可以了</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Python/sklearn-ImportError--No-module-named-'scipy',ImportError--cannot-impor/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/Python-OpenSSL-SSL-Error" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Python/Python-OpenSSL-SSL-Error/">Python-OpenSSL-SSL-Error</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Python/Python-OpenSSL-SSL-Error/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.982Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>先膜一发stackoverflow -_-。。。这种蛋疼的问题都能解决<br>解决方法如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">html = requests.post(url,headers = header,data=data,verify=True)   #verify = True 可以使证书验证，安全通过。 SSL</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Python/Python-OpenSSL-SSL-Error/">展开全文 >></a>
         </p>
       
 
@@ -468,6 +396,155 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/08/18/Python/启动redis出现Creating-Server-TCP-listening-socket---6379--bind--No-such-fi/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/AttributeError--module-&#39;fcntl&#39;-has-no-attribute-&#39;F_GETFD&#39;" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Python/AttributeError--module-'fcntl'-has-no-attribute-'F_GETFD'/">AttributeError--module-&#39;fcntl&#39;-has-no-attribute-&#39;F_GETFD&#39;</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Python/AttributeError--module-'fcntl'-has-no-attribute-'F_GETFD'/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.982Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Lib文件里把<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fcntl.py</div></pre></td></tr></table></figure></p>
+<p>改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fcntl_ex.py</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Python/AttributeError--module-'fcntl'-has-no-attribute-'F_GETFD'/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/Python-OpenSSL-SSL-Error" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Python/Python-OpenSSL-SSL-Error/">Python-OpenSSL-SSL-Error</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Python/Python-OpenSSL-SSL-Error/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.982Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>先膜一发stackoverflow -_-。。。这种蛋疼的问题都能解决<br>解决方法如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">html = requests.post(url,headers = header,data=data,verify=True)   #verify = True 可以使证书验证，安全通过。 SSL</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Python/Python-OpenSSL-SSL-Error/">展开全文 >></a>
         </p>
       
 
@@ -651,19 +728,19 @@
 
 
   
-    <article id="post-Python/AttributeError--module-&#39;fcntl&#39;-has-no-attribute-&#39;F_GETFD&#39;" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python/sklearn-ImportError--No-module-named-&#39;scipy&#39;,ImportError--cannot-impor" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Python/AttributeError--module-'fcntl'-has-no-attribute-'F_GETFD'/">AttributeError--module-&#39;fcntl&#39;-has-no-attribute-&#39;F_GETFD&#39;</a>
+      <a class="article-title" href="/2017/08/18/Python/sklearn-ImportError--No-module-named-'scipy',ImportError--cannot-impor/">sklearn-ImportError--No-module-named-&#39;scipy&#39;,ImportError--cannot-impor</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/Python/AttributeError--module-'fcntl'-has-no-attribute-'F_GETFD'/" class="archive-article-date">
+        <a href="/2017/08/18/Python/sklearn-ImportError--No-module-named-'scipy',ImportError--cannot-impor/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:38.982Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -671,8 +748,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Lib文件里把<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fcntl.py</div></pre></td></tr></table></figure></p>
-<p>改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fcntl_ex.py</div></pre></td></tr></table></figure></p>
+        <p>直接走<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy</div></pre></td></tr></table></figure></p>
+<p>下载对应的包安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install 文件名字</div></pre></td></tr></table></figure></p>
+<p>安装numpy_mkl可以会有报错，把文件后缀whl改为zip，手动解压后，把numpy文件覆盖到原本的lib里面的文件，就可以了</p>
 
       
 
@@ -696,7 +774,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Python/AttributeError--module-'fcntl'-has-no-attribute-'F_GETFD'/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/Python/sklearn-ImportError--No-module-named-'scipy',ImportError--cannot-impor/">展开全文 >></a>
         </p>
       
 
@@ -875,80 +953,6 @@
 
 
   
-    <article id="post-Python/抓取手机app，设置代理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Python/抓取手机app，设置代理/">抓取手机app，设置代理</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Python/抓取手机app，设置代理/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>代理的ip是自己开的wifi的ip，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cmd</div><div class="line">ipconfig</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Python/抓取手机app，设置代理/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1042,7 +1046,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
+                <a href="javascript:void(0)" class="js-tag color2">脚本语言学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1051,6 +1055,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">字符串替换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
             
             <div class="clearfix"></div>

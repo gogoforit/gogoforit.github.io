@@ -191,19 +191,19 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-树莓派/树莓派安装mongodb的奇怪问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-树莓派/给Mongodb加密" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/树莓派/树莓派安装mongodb的奇怪问题/">树莓派安装mongodb的奇怪问题</a>
+      <a class="article-title" href="/2017/08/18/树莓派/给Mongodb加密/">给Mongodb加密</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/树莓派/树莓派安装mongodb的奇怪问题/" class="archive-article-date">
+        <a href="/2017/08/18/树莓派/给Mongodb加密/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -211,9 +211,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>安装好三月那个镜像以后，先<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure></p>
-<p>不修改阿里的镜像直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install mongodb</div></pre></td></tr></table></figure></p>
-<p>这样好像就可以直接安装好。。。虽然我也不知道为啥可以这样。。。</p>
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mongo</div><div class="line">use admin</div><div class="line">db.addUser(&apos;pipi&apos;,&apos;123456&apos;,false)   or db.createUser(&apos;pipi&apos;,&apos;123456&apos;,false)</div><div class="line">sudo vim /etc/mongodb.conf</div><div class="line">把auth前的注释去掉</div><div class="line">sudo service mongodb restart</div></pre></td></tr></table></figure>
 
       
 
@@ -237,7 +235,157 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/树莓派/树莓派安装mongodb的奇怪问题/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/树莓派/给Mongodb加密/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-树莓派/树莓派无线终端上网模块" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/树莓派/树莓派无线终端上网模块/">树莓派无线终端上网模块</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/树莓派/树莓派无线终端上网模块/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>树莓派3G上网<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://blog.csdn.net/chiliaolm/article/details/51883366</div><div class="line">http://blog.csdn.net/rk2900/article/details/8667833</div></pre></td></tr></table></figure></p>
+<p>上网模块：华为e173，好像华为的上网模块只支持电信的。<br>4G/3G/2G上网卡，不推荐使用模块，需要配置环境，太麻烦。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/树莓派/" class="article-tag-list-link color4">树莓派</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/树莓派/树莓派无线终端上网模块/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-PythonPractice/0007-读出代码行书，注释以及空行" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/PythonPractice/0007-读出代码行书，注释以及空行/">0007-读出代码行书，注释以及空行</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/PythonPractice/0007-读出代码行书，注释以及空行/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">import glob</div><div class="line">import os</div><div class="line"></div><div class="line"></div><div class="line">def get_files():</div><div class="line">    file_full = &apos;&apos;.join([os.getcwd(), &apos;/code/*.py&apos;])</div><div class="line">    files = glob.glob(file_full)</div><div class="line">    return files</div><div class="line"></div><div class="line"></div><div class="line">def count_lines(files):</div><div class="line">    for file in files:</div><div class="line">        total_lines = 0</div><div class="line">        notes_lines = 0</div><div class="line">        blank_lines = 0</div><div class="line">        print(&quot;Filename is &#123;0&#125;&quot;.format(file.split(r&apos;/&apos;)[-1]))</div><div class="line">        with open(file) as lines:</div><div class="line">            for line in lines:</div><div class="line">                total_lines += 1</div><div class="line">                if line == &apos;\n&apos;:</div><div class="line">                    blank_lines += 1</div><div class="line">                elif line.startswith(&apos;#&apos;):</div><div class="line">                    notes_lines += 1</div><div class="line">        print_result(total_lines, notes_lines, blank_lines)</div><div class="line"></div><div class="line"></div><div class="line">def print_result(total_lines,</div><div class="line">                 notes_lines,</div><div class="line">                 blank_lines):</div><div class="line"></div><div class="line">    print(&quot;Total is &#123;0&#125;, Notes is &#123;1&#125;, Blank is &#123;2&#125;\n&quot;.format(total_lines,</div><div class="line">                                                              notes_lines,</div><div class="line">                                                              blank_lines))</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    files = get_files()</div><div class="line">    count_lines(files)</div></pre></td></tr></table></figure>
+<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p>按行读入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">lines = open(&apos;/home/1.txt&quot;)</div><div class="line">for line in lines:</div><div class="line">  print(line)</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/PythonPractice/" class="article-tag-list-link color5">PythonPractice</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/PythonPractice/0007-读出代码行书，注释以及空行/">展开全文 >></a>
         </p>
       
 
@@ -351,231 +499,6 @@
 
 
   
-    <article id="post-PythonPractice/0007-读出代码行书，注释以及空行" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/PythonPractice/0007-读出代码行书，注释以及空行/">0007-读出代码行书，注释以及空行</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/PythonPractice/0007-读出代码行书，注释以及空行/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">import glob</div><div class="line">import os</div><div class="line"></div><div class="line"></div><div class="line">def get_files():</div><div class="line">    file_full = &apos;&apos;.join([os.getcwd(), &apos;/code/*.py&apos;])</div><div class="line">    files = glob.glob(file_full)</div><div class="line">    return files</div><div class="line"></div><div class="line"></div><div class="line">def count_lines(files):</div><div class="line">    for file in files:</div><div class="line">        total_lines = 0</div><div class="line">        notes_lines = 0</div><div class="line">        blank_lines = 0</div><div class="line">        print(&quot;Filename is &#123;0&#125;&quot;.format(file.split(r&apos;/&apos;)[-1]))</div><div class="line">        with open(file) as lines:</div><div class="line">            for line in lines:</div><div class="line">                total_lines += 1</div><div class="line">                if line == &apos;\n&apos;:</div><div class="line">                    blank_lines += 1</div><div class="line">                elif line.startswith(&apos;#&apos;):</div><div class="line">                    notes_lines += 1</div><div class="line">        print_result(total_lines, notes_lines, blank_lines)</div><div class="line"></div><div class="line"></div><div class="line">def print_result(total_lines,</div><div class="line">                 notes_lines,</div><div class="line">                 blank_lines):</div><div class="line"></div><div class="line">    print(&quot;Total is &#123;0&#125;, Notes is &#123;1&#125;, Blank is &#123;2&#125;\n&quot;.format(total_lines,</div><div class="line">                                                              notes_lines,</div><div class="line">                                                              blank_lines))</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    files = get_files()</div><div class="line">    count_lines(files)</div></pre></td></tr></table></figure>
-<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p>按行读入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">lines = open(&apos;/home/1.txt&quot;)</div><div class="line">for line in lines:</div><div class="line">  print(line)</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/PythonPractice/" class="article-tag-list-link color5">PythonPractice</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/PythonPractice/0007-读出代码行书，注释以及空行/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-PythonPractice/0008-HTML提出出正文" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/PythonPractice/0008-HTML提出出正文/">0008-HTML提出出正文</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/PythonPractice/0008-HTML提出出正文/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:39.002Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line">import re</div><div class="line"></div><div class="line"></div><div class="line">def request_get(url):</div><div class="line">    response = requests.get(url)</div><div class="line">    response.encoding = &apos;gb2312&apos;   # 中文乱码处理</div><div class="line">    text = response.text</div><div class="line">    re_handle(text)</div><div class="line"></div><div class="line"></div><div class="line">def re_handle(text):</div><div class="line">    text = re.findall(r&apos;&lt;div id=&quot;twgg&quot; class=&quot;gg&quot;&gt;.*&lt;p&gt;\s+(.*?)&lt;/p&gt;&apos;, text, re.S)[0]  # 跨行 re.S</div><div class="line">    text = re.sub(&apos;&lt;.*?&gt;&apos;, &apos;&apos;, text)</div><div class="line">    text = re.sub(&apos;\s+&apos;, &apos;&apos;, text)</div><div class="line">    print_text(text)</div><div class="line"></div><div class="line"></div><div class="line">def print_text(text):</div><div class="line">    print(text)</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    url = &apos;http://www.jj59.com/jjart/412827.html&apos;</div><div class="line">    request_get(url)</div><div class="line">```  </div><div class="line">### 新知识</div><div class="line">__requests.get中文乱码，指定编码格式__</div></pre></td></tr></table></figure>
-<p>response = requests.get(url)<br>response.encoding = ‘gb2312’<br>text = response.text<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">__正则跨行匹配，要加`re.S`__</div></pre></td></tr></table></figure></p>
-<p>text = re.findall(r’<div id="twgg" class="gg">.<em><p>\s+(.</p></em>?)</div></p>‘, text, re.S)[0]  # 跨行 re.S<br>```<p></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/PythonPractice/" class="article-tag-list-link color5">PythonPractice</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/PythonPractice/0008-HTML提出出正文/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-PythonPractice/0004-统计英文单词" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/PythonPractice/0004-统计英文单词/">0004-统计英文单词</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/PythonPractice/0004-统计英文单词/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:39.002Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import re</div><div class="line"></div><div class="line"></div><div class="line">def re_handle(text):</div><div class="line">    words = re.findall(&apos;(\w+)\s*&apos;, text)</div><div class="line">    return words</div><div class="line"></div><div class="line"></div><div class="line">def get_number(text):</div><div class="line">    return len(re_handle(text))</div><div class="line"></div><div class="line">with open(&apos;text.txt&apos;)as text:</div><div class="line">    text = text.read()</div><div class="line">    print(get_number(text))</div></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/PythonPractice/" class="article-tag-list-link color5">PythonPractice</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/PythonPractice/0004-统计英文单词/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-PythonPractice/0009-HTML提出链接" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -622,81 +545,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/08/18/PythonPractice/0009-HTML提出链接/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-PythonPractice/0002-存入mysql数据库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/PythonPractice/0002-存入mysql数据库/">0002-存入mysql数据库</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/PythonPractice/0002-存入mysql数据库/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:39.002Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">import pymysql</div><div class="line">import string</div><div class="line">import random</div><div class="line"></div><div class="line">KEY_VALUE = 20</div><div class="line">KEY_NUMBER = 200</div><div class="line"></div><div class="line">conn = pymysql.connect(host=&apos;127.0.0.1&apos;, port=3306, user=&apos;root&apos;,</div><div class="line">                       passwd=&apos;passwd&apos;, db=&apos;python_practice&apos;)</div><div class="line"></div><div class="line">def all_str():</div><div class="line">    return string.ascii_letters + string.digits</div><div class="line"></div><div class="line"></div><div class="line">def insert_into_db(cur, data):   # 特别愚蠢的写法</div><div class="line">    sql_insert_into_table = &apos;insert into voucher(key_value) VALUE (%s)&apos;</div><div class="line">    cur.execute(sql_insert_into_table, data)</div><div class="line">    conn.commit()</div><div class="line"></div><div class="line"></div><div class="line">def query_data(cur):</div><div class="line">    sql_query_db = &apos;select * from voucher WHERE id BETWEEN  20 AND 30&apos;</div><div class="line">    cur.execute(sql_query_db)</div><div class="line">    for i in cur.fetchall():</div><div class="line">        print(i)</div><div class="line">    conn.commit()</div><div class="line"></div><div class="line"></div><div class="line">def insert_datas(cur, list):</div><div class="line">    sql_insert_datas = &apos;insert into voucher(key_value) VALUES (%s)&apos;</div><div class="line">    cur.executemany(sql_insert_datas, list)</div><div class="line">    conn.commit()</div><div class="line"></div><div class="line"></div><div class="line">def delete_data(cur):</div><div class="line">    sql_delete_data = &apos;delete from voucher WHERE id = 2&apos;</div><div class="line">    cur.execute(sql_delete_data)</div><div class="line">    conn.commit()</div><div class="line"></div><div class="line">with conn.cursor() as cur:</div><div class="line">    result = []</div><div class="line">    for i in range(200):</div><div class="line">        st = [random.choice(all_str()) for j in range(20)]</div><div class="line">        st = &apos;&apos;.join(st)</div><div class="line">        result.append(st)</div><div class="line">    insert_datas(cur, result)</div><div class="line">    query_data(cur)</div><div class="line">    delete_data(cur)</div></pre></td></tr></table></figure>
-<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p>多条插入时，用<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">自增的主键：```id INT(20) not null AUTO_INCREMENT,primary key (id)</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/PythonPractice/" class="article-tag-list-link color5">PythonPractice</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/PythonPractice/0002-存入mysql数据库/">展开全文 >></a>
         </p>
       
 
@@ -802,6 +650,155 @@
 
 
   
+    <article id="post-PythonPractice/0002-存入mysql数据库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/PythonPractice/0002-存入mysql数据库/">0002-存入mysql数据库</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/PythonPractice/0002-存入mysql数据库/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:39.002Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">import pymysql</div><div class="line">import string</div><div class="line">import random</div><div class="line"></div><div class="line">KEY_VALUE = 20</div><div class="line">KEY_NUMBER = 200</div><div class="line"></div><div class="line">conn = pymysql.connect(host=&apos;127.0.0.1&apos;, port=3306, user=&apos;root&apos;,</div><div class="line">                       passwd=&apos;passwd&apos;, db=&apos;python_practice&apos;)</div><div class="line"></div><div class="line">def all_str():</div><div class="line">    return string.ascii_letters + string.digits</div><div class="line"></div><div class="line"></div><div class="line">def insert_into_db(cur, data):   # 特别愚蠢的写法</div><div class="line">    sql_insert_into_table = &apos;insert into voucher(key_value) VALUE (%s)&apos;</div><div class="line">    cur.execute(sql_insert_into_table, data)</div><div class="line">    conn.commit()</div><div class="line"></div><div class="line"></div><div class="line">def query_data(cur):</div><div class="line">    sql_query_db = &apos;select * from voucher WHERE id BETWEEN  20 AND 30&apos;</div><div class="line">    cur.execute(sql_query_db)</div><div class="line">    for i in cur.fetchall():</div><div class="line">        print(i)</div><div class="line">    conn.commit()</div><div class="line"></div><div class="line"></div><div class="line">def insert_datas(cur, list):</div><div class="line">    sql_insert_datas = &apos;insert into voucher(key_value) VALUES (%s)&apos;</div><div class="line">    cur.executemany(sql_insert_datas, list)</div><div class="line">    conn.commit()</div><div class="line"></div><div class="line"></div><div class="line">def delete_data(cur):</div><div class="line">    sql_delete_data = &apos;delete from voucher WHERE id = 2&apos;</div><div class="line">    cur.execute(sql_delete_data)</div><div class="line">    conn.commit()</div><div class="line"></div><div class="line">with conn.cursor() as cur:</div><div class="line">    result = []</div><div class="line">    for i in range(200):</div><div class="line">        st = [random.choice(all_str()) for j in range(20)]</div><div class="line">        st = &apos;&apos;.join(st)</div><div class="line">        result.append(st)</div><div class="line">    insert_datas(cur, result)</div><div class="line">    query_data(cur)</div><div class="line">    delete_data(cur)</div></pre></td></tr></table></figure>
+<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p>多条插入时，用<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">自增的主键：```id INT(20) not null AUTO_INCREMENT,primary key (id)</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/PythonPractice/" class="article-tag-list-link color5">PythonPractice</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/PythonPractice/0002-存入mysql数据库/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-PythonPractice/0004-统计英文单词" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/PythonPractice/0004-统计英文单词/">0004-统计英文单词</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/PythonPractice/0004-统计英文单词/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:39.002Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import re</div><div class="line"></div><div class="line"></div><div class="line">def re_handle(text):</div><div class="line">    words = re.findall(&apos;(\w+)\s*&apos;, text)</div><div class="line">    return words</div><div class="line"></div><div class="line"></div><div class="line">def get_number(text):</div><div class="line">    return len(re_handle(text))</div><div class="line"></div><div class="line">with open(&apos;text.txt&apos;)as text:</div><div class="line">    text = text.read()</div><div class="line">    print(get_number(text))</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/PythonPractice/" class="article-tag-list-link color5">PythonPractice</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/PythonPractice/0004-统计英文单词/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-PythonPractice/0000-PIL库的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -876,19 +873,19 @@
 
 
   
-    <article id="post-PythonPractice/0006-日记找词" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-PythonPractice/0008-HTML提出出正文" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/PythonPractice/0006-日记找词/">0006-日记找词</a>
+      <a class="article-title" href="/2017/08/18/PythonPractice/0008-HTML提出出正文/">0008-HTML提出出正文</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/PythonPractice/0006-日记找词/" class="archive-article-date">
+        <a href="/2017/08/18/PythonPractice/0008-HTML提出出正文/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:39.002Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -896,11 +893,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">import re</div><div class="line"></div><div class="line"></div><div class="line">def get_words(text):</div><div class="line">    words = re.findall(&apos;(\w+)\s&apos;, text)</div><div class="line">    return words</div><div class="line"></div><div class="line"></div><div class="line">def get_counter(words):</div><div class="line">    words_set = set(words)</div><div class="line">    dic_word_num = &#123;&#125;</div><div class="line">    for word in words_set:</div><div class="line">        dic_word_num[word] = words.count(word)</div><div class="line">    print(max(dic_word_num.items(), key=lambda x:x[1]))</div><div class="line"></div><div class="line">with open(&apos;text.txt&apos;) as text:</div><div class="line">    text = text.read()</div><div class="line">    get_counter(get_words(text))</div></pre></td></tr></table></figure>
-<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p><strong>1)列表转集合，去重</strong><br><figure class="highlight plain"><figcaption><span>= set(my_list)```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">__2)max函数，第一个参数为一个可迭代对象，如果key没有指定，就是默认取最大，如果key参数有指定，就按指定规则来比较__</div><div class="line">__3)匿名函数，参数是x，返回结果是x[1]，就是value的值，一般用在max函数的key上__</div><div class="line">```lambda x: x[1]</div></pre></td></tr></table></figure></p>
-<p><strong>4)返回<code>python_code</code>文件夹里面的py文件的路径</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">[&apos;/home/kk/python_code/FlaskAuth/run.py&apos;, &apos;/home/kk/python_code/FlaskAuth/FlaskAuth.py&apos;, &apos;/home/kk/python_code/FlaskAuth/hello.py&apos;]</div></pre></td></tr></table></figure></p>
-<p><strong>5)返回列表中出现次数最多的元素</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from collections import Counter</div><div class="line">Counter(my_list).most_common(1)</div></pre></td></tr></table></figure></p>
-<p><strong>6)map使用</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">map(f, iterable)</div><div class="line"></div><div class="line">基本上等于：</div><div class="line"></div><div class="line">[f(x) for x in iterable]  # 列表推导式</div></pre></td></tr></table></figure></p>
+        <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line">import re</div><div class="line"></div><div class="line"></div><div class="line">def request_get(url):</div><div class="line">    response = requests.get(url)</div><div class="line">    response.encoding = &apos;gb2312&apos;   # 中文乱码处理</div><div class="line">    text = response.text</div><div class="line">    re_handle(text)</div><div class="line"></div><div class="line"></div><div class="line">def re_handle(text):</div><div class="line">    text = re.findall(r&apos;&lt;div id=&quot;twgg&quot; class=&quot;gg&quot;&gt;.*&lt;p&gt;\s+(.*?)&lt;/p&gt;&apos;, text, re.S)[0]  # 跨行 re.S</div><div class="line">    text = re.sub(&apos;&lt;.*?&gt;&apos;, &apos;&apos;, text)</div><div class="line">    text = re.sub(&apos;\s+&apos;, &apos;&apos;, text)</div><div class="line">    print_text(text)</div><div class="line"></div><div class="line"></div><div class="line">def print_text(text):</div><div class="line">    print(text)</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    url = &apos;http://www.jj59.com/jjart/412827.html&apos;</div><div class="line">    request_get(url)</div><div class="line">```  </div><div class="line">### 新知识</div><div class="line">__requests.get中文乱码，指定编码格式__</div></pre></td></tr></table></figure>
+<p>response = requests.get(url)<br>response.encoding = ‘gb2312’<br>text = response.text<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">__正则跨行匹配，要加`re.S`__</div></pre></td></tr></table></figure></p>
+<p>text = re.findall(r’<div id="twgg" class="gg">.<em><p>\s+(.</p></em>?)</div></p>‘, text, re.S)[0]  # 跨行 re.S<br>```<p></p>
 
       
 
@@ -924,7 +919,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/PythonPractice/0006-日记找词/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/PythonPractice/0008-HTML提出出正文/">展开全文 >></a>
         </p>
       
 
@@ -1047,7 +1042,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
+                <a href="javascript:void(0)" class="js-tag color2">脚本语言学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1056,6 +1051,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">字符串替换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
             
             <div class="clearfix"></div>

@@ -191,6 +191,82 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Flask/Ajax的跨域请求" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Flask/Ajax的跨域请求/">Ajax的跨域请求</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Flask/Ajax的跨域请求/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.942Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1）前端Ajax部分代码<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function changeClass()&#123;</div><div class="line">        $.ajax(&#123;</div><div class="line">            url: &apos;http://192.168.1.107:9000/main_page/front/data&apos;, //在这里提填写你的地址</div><div class="line">            async: false,</div><div class="line">            dataType: &apos;jsonp&apos;,</div><div class="line">			type:&apos;get&apos;,</div><div class="line">			jsonp:&quot;callback&quot;,     //回调jsonp的前面那个变量的名字</div><div class="line">			jsonpCallback:&quot;callback&quot;,</div><div class="line">            success: function (json_str) &#123;	</div><div class="line">				object_js = json_str;</div><div class="line">				//document.write(object_js);</div><div class="line">				showAllList();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>2）后端路由部分代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">@main_page_Blueprint.route(&apos;/front/data&apos;)</div><div class="line">def front_data():</div><div class="line">    Class = BaseClass(class_number)</div><div class="line">    list_sign_students = Class.list_sign_students</div><div class="line">    list_unsign_students = Class.list_unsign_students</div><div class="line">    dic_all_students = &#123;&#125;</div><div class="line">    for student in list_sign_students:</div><div class="line">        dic_all_students[student] = 1</div><div class="line">    for student in list_unsign_students:</div><div class="line">        dic_all_students[student] = 0</div><div class="line">    jsonp = &apos;callback&apos; + &apos;(&apos; + str(dic_all_students ) + &apos;)&apos;         #主要这里要返回有callback的字符串，不能返回json数据</div><div class="line">    return jsonp</div></pre></td></tr></table></figure></p>
+<p>3）附加链接，解释json和jsonp的区别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://kb.cnblogs.com/page/139725/</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Flask/" class="article-tag-list-link color1">Flask</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Flask/Ajax的跨域请求/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Flask/ImportError，包导入错误" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -236,6 +312,83 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/08/18/Flask/ImportError，包导入错误/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Flask/flask使用mongoengine来login" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Flask/flask使用mongoengine来login/">flask使用mongoengine来login</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Flask/flask使用mongoengine来login/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.942Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>出现这个错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">AttributeError: &apos;BaseQuerySet&apos; object has no attribute &apos;is_authenticated&apos;</div></pre></td></tr></table></figure></p>
+<p>因为我是这么写的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return User.objects(id = user_id)</div></pre></td></tr></table></figure></p>
+<p>这么是返回的一个查询的集合，修改如下即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return User.objects(id = user_id).first()</div></pre></td></tr></table></figure></p>
+<p>还有这里是<code>id = user_id</code>，不是<code>_id = user_id</code>，好像flask-login在这里会对查询id做特殊处理，结合flask-mongoengine。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Flask/" class="article-tag-list-link color1">Flask</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Flask/flask使用mongoengine来login/">展开全文 >></a>
         </p>
       
 
@@ -417,19 +570,19 @@
 
 
   
-    <article id="post-Flask/Flask与Ajax结合" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Flask/蓝图的静态文件调用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Flask/Flask与Ajax结合/">Flask与Ajax结合</a>
+      <a class="article-title" href="/2017/08/18/Flask/蓝图的静态文件调用/">蓝图的静态文件调用</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/Flask/Flask与Ajax结合/" class="archive-article-date">
+        <a href="/2017/08/18/Flask/蓝图的静态文件调用/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:38.942Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -437,10 +590,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>视图函数，处理出Json数据，即字典以后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return jsonify(my_dic)</div></pre></td></tr></table></figure></p>
-<p>这样，直接访问这个返回数据的路由，可以直接看到生成的Json数据，但是记得千万不要这样写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return jsonify(my_dic = my_dic)</div></pre></td></tr></table></figure></p>
-<p>这样就是一个json变量了，而不是一个json数据，特么的。。。我在这里卡了好久。。。<br>Ajax部分这么写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function check_stu()&#123;</div><div class="line">        $.ajax(&#123;</div><div class="line">            url: &apos;/main_page/data&apos;, //在这里提填写你的路由地址</div><div class="line">            async: true,</div><div class="line">            dataType: &apos;json&apos;,</div><div class="line">            success: function (json_obj) &#123;</div><div class="line">                object_js=json_obj;</div><div class="line">                showAllList();</div><div class="line">            &#125;  </div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">setInterval(&apos;check_stu()&apos;,2000);  //这里，一定要加括号</div></pre></td></tr></table></figure></p>
-<p>showAllList（）为要执行的js代码函数</p>
+        <p>首先要在蓝图的__init__.py文件加上静态文件的注册参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">static_folder=&apos;static&apos;</div></pre></td></tr></table></figure></p>
+<p>然后把所有的资源引用修改如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script src=&#123;&#123; url_for(&apos;ppt_barrage.static&apos;,filename=&apos;js/jquery-3.1.1.min.js&apos;) &#125;&#125;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
 
       
 
@@ -464,313 +615,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Flask/Flask与Ajax结合/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Flask/蓝图的装饰器的运用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Flask/蓝图的装饰器的运用/">蓝图的装饰器的运用</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Flask/蓝图的装饰器的运用/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.942Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>views从<strong>init</strong>里面调用的时候，头部引用应该这么写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">from app.main_page import main_page as main_page_Blueprint</div></pre></td></tr></table></figure></p>
-<p>不能直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">from . import main_page</div></pre></td></tr></table></figure></p>
-<p>如果这样，好像会和包名冲突，具体原因还没查，反正就是这样容易出错。。<br>然后后面的装饰器都应该写为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@main_page_Blueprint.route(&apos;/&apos;)</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Flask/" class="article-tag-list-link color1">Flask</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Flask/蓝图的装饰器的运用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Flask/Ajax的跨域请求" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Flask/Ajax的跨域请求/">Ajax的跨域请求</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Flask/Ajax的跨域请求/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.942Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1）前端Ajax部分代码<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function changeClass()&#123;</div><div class="line">        $.ajax(&#123;</div><div class="line">            url: &apos;http://192.168.1.107:9000/main_page/front/data&apos;, //在这里提填写你的地址</div><div class="line">            async: false,</div><div class="line">            dataType: &apos;jsonp&apos;,</div><div class="line">			type:&apos;get&apos;,</div><div class="line">			jsonp:&quot;callback&quot;,     //回调jsonp的前面那个变量的名字</div><div class="line">			jsonpCallback:&quot;callback&quot;,</div><div class="line">            success: function (json_str) &#123;	</div><div class="line">				object_js = json_str;</div><div class="line">				//document.write(object_js);</div><div class="line">				showAllList();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<p>2）后端路由部分代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">@main_page_Blueprint.route(&apos;/front/data&apos;)</div><div class="line">def front_data():</div><div class="line">    Class = BaseClass(class_number)</div><div class="line">    list_sign_students = Class.list_sign_students</div><div class="line">    list_unsign_students = Class.list_unsign_students</div><div class="line">    dic_all_students = &#123;&#125;</div><div class="line">    for student in list_sign_students:</div><div class="line">        dic_all_students[student] = 1</div><div class="line">    for student in list_unsign_students:</div><div class="line">        dic_all_students[student] = 0</div><div class="line">    jsonp = &apos;callback&apos; + &apos;(&apos; + str(dic_all_students ) + &apos;)&apos;         #主要这里要返回有callback的字符串，不能返回json数据</div><div class="line">    return jsonp</div></pre></td></tr></table></figure></p>
-<p>3）附加链接，解释json和jsonp的区别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://kb.cnblogs.com/page/139725/</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Flask/" class="article-tag-list-link color1">Flask</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Flask/Ajax的跨域请求/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Bash/Bash入门，基础知识" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Bash/Bash入门，基础知识/">Bash入门，基础知识</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Bash/Bash入门，基础知识/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.942Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1）新建一个文件，test.sh，编辑内容如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#! /bin/bash</div><div class="line">echo &quot;hello&quot;</div></pre></td></tr></table></figure></p>
-<p>#! 约定记号，后面的跟的是解释器的位置，即使用哪种解释器。<br>echo 为在控制台输出。<br>2）运行脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/bin/sh test.sh</div></pre></td></tr></table></figure></p>
-<p>3）变量定义时，变量与值之间不能有<strong>空格</strong>，“ ”。有空格会有，not found错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">your_name=’kk&apos;</div></pre></td></tr></table></figure></p>
-<p>4）单引号，双引号的区别<br>他们的区别在于，单引号将剥夺其中的所有字符的特殊含义，而双引号中的’$’（参数替换）和’`’（命令替换）是例外。<br>5）单引号里面的单引号不能转义，双引号里面的双引号可以转义。<br>6）字符串拼接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">name=&apos;xiao&apos;</div><div class="line">hisname=&apos;$xiao wang&apos;</div><div class="line">echo hisname</div></pre></td></tr></table></figure></p>
-<p>7）取字符串长度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">name=&apos;greet&apos;</div><div class="line">echo $&#123;#name&#125;   #输出即为4，注意，一定要有两个大括号，没有括号有错误</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Bash/" class="article-tag-list-link color5">Bash</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Bash/Bash入门，基础知识/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Docker/Docker容器无法访问网站，但是ping-ip可以ping通的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Docker/Docker容器无法访问网站，但是ping-ip可以ping通的问题/">Docker容器无法访问网站，但是ping-ip可以ping通的问题</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Docker/Docker容器无法访问网站，但是ping-ip可以ping通的问题/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.942Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>应该是dns解析出了问题，修改主机的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim /etc/default/docker</div></pre></td></tr></table></figure></p>
-<p>去掉<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker_OPTS...</div></pre></td></tr></table></figure></p>
-<p>前的#号，然后把8.8.8.8修改为192.168.1.1，重启docker，如果重启之后，进入容器dns没有发生改变的话，参见我的另外一篇Docker文章。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Docker/" class="article-tag-list-link color2">Docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Docker/Docker容器无法访问网站，但是ping-ip可以ping通的问题/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/Flask/蓝图的静态文件调用/">展开全文 >></a>
         </p>
       
 
@@ -849,6 +694,159 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/08/18/Docker/Docker中无法正确调用-etc-default-docker文件的问题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Flask/Flask与Ajax结合" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Flask/Flask与Ajax结合/">Flask与Ajax结合</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Flask/Flask与Ajax结合/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.942Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>视图函数，处理出Json数据，即字典以后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return jsonify(my_dic)</div></pre></td></tr></table></figure></p>
+<p>这样，直接访问这个返回数据的路由，可以直接看到生成的Json数据，但是记得千万不要这样写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return jsonify(my_dic = my_dic)</div></pre></td></tr></table></figure></p>
+<p>这样就是一个json变量了，而不是一个json数据，特么的。。。我在这里卡了好久。。。<br>Ajax部分这么写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function check_stu()&#123;</div><div class="line">        $.ajax(&#123;</div><div class="line">            url: &apos;/main_page/data&apos;, //在这里提填写你的路由地址</div><div class="line">            async: true,</div><div class="line">            dataType: &apos;json&apos;,</div><div class="line">            success: function (json_obj) &#123;</div><div class="line">                object_js=json_obj;</div><div class="line">                showAllList();</div><div class="line">            &#125;  </div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">setInterval(&apos;check_stu()&apos;,2000);  //这里，一定要加括号</div></pre></td></tr></table></figure></p>
+<p>showAllList（）为要执行的js代码函数</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Flask/" class="article-tag-list-link color1">Flask</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Flask/Flask与Ajax结合/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Docker/Docker容器无法访问网站，但是ping-ip可以ping通的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Docker/Docker容器无法访问网站，但是ping-ip可以ping通的问题/">Docker容器无法访问网站，但是ping-ip可以ping通的问题</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Docker/Docker容器无法访问网站，但是ping-ip可以ping通的问题/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.942Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>应该是dns解析出了问题，修改主机的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim /etc/default/docker</div></pre></td></tr></table></figure></p>
+<p>去掉<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker_OPTS...</div></pre></td></tr></table></figure></p>
+<p>前的#号，然后把8.8.8.8修改为192.168.1.1，重启docker，如果重启之后，进入容器dns没有发生改变的话，参见我的另外一篇Docker文章。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Docker/" class="article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Docker/Docker容器无法访问网站，但是ping-ip可以ping通的问题/">展开全文 >></a>
         </p>
       
 
@@ -1049,7 +1047,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
+                <a href="javascript:void(0)" class="js-tag color2">脚本语言学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1058,6 +1056,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">字符串替换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
             
             <div class="clearfix"></div>

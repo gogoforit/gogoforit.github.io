@@ -191,6 +191,107 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Bash/Bash基础知识" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/19/Bash/Bash基础知识/">Bash入门，基础知识</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/19/Bash/Bash基础知识/" class="archive-article-date">
+  	<time datetime="2017-08-19T15:23:39.980Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Bash示例和书写流程"><a href="#Bash示例和书写流程" class="headerlink" title="Bash示例和书写流程"></a>Bash示例和书写流程</h3><p>1.新建文件test.sh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ touch test.sh</div></pre></td></tr></table></figure></p>
+<p>2.授予权限test.sh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ chmod +x test.sh</div></pre></td></tr></table></figure></p>
+<p>3.编写内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ echo &quot;hello world!&quot;</div></pre></td></tr></table></figure></p>
+<p>4.执行test.sh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ bash test.sh</div></pre></td></tr></table></figure></p>
+<h3 id="Bash基础语句"><a href="#Bash基础语句" class="headerlink" title="Bash基础语句"></a>Bash基础语句</h3><h4 id="1-条件判断"><a href="#1-条件判断" class="headerlink" title="1.条件判断"></a>1.条件判断</h4><p>1.1 test语句和[]大多数情况下可以等同<br><br>例如，判定test.sh是不是一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ test -f test.sh</div></pre></td></tr></table></figure></p>
+<p>输出结果0表示成功，1表示失败……[这个还真是尴尬]<br><br>1.2 []条件判断，<strong>注意左右括弧和表达式之间都有空格！</strong><br>例如，判断test.sh是否是一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ [ -f test.sh ]</div></pre></td></tr></table></figure></p>
+<p>判断var是否是<strong>字符串</strong>“eee”，注意<code>=</code>只能用于判定字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ [ &quot;$var&quot; = &quot;eee&quot; ]</div></pre></td></tr></table></figure></p>
+<p>判定var是否是数字12，<code>-eq</code>也是只能用于判定数字，而不能判定字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ [ &quot;$var&quot; -eq &quot;12&quot;]</div></pre></td></tr></table></figure></p>
+<p>1.3逻辑表达式<br>判定<code>123.txt</code>是不是可读写的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[ -r 123.txt -a -w 123.txt ]</div></pre></td></tr></table></figure></p>
+<p>等价于<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[ -r 123.txt ] &amp;&amp; [ -w 123.txt ]</div></pre></td></tr></table></figure></p>
+<h4 id="if-then-else语句"><a href="#if-then-else语句" class="headerlink" title="if then else语句"></a>if then else语句</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">if [ &quot;$a&quot; -lt &apos;12&apos; ]</div><div class="line">then</div><div class="line">    echo &quot;no&quot;</div><div class="line">elif [ &quot;$a&quot; -eq &apos;12&apos;]</div><div class="line">    echo &quot;yes&quot;</div><div class="line">else</div><div class="line">    echo &quot;yes no&quot;</div><div class="line">fi</div></pre></td></tr></table></figure>
+<h4 id="for循环语句"><a href="#for循环语句" class="headerlink" title="for循环语句"></a>for循环语句</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">cur_dir=`ls`</div><div class="line">for i in $cur_dir</div><div class="line">do</div><div class="line">    if [ -f $i ]</div><div class="line">    then</div><div class="line">        echo &quot;$i is a file&quot;</div><div class="line">    fi</div><div class="line">done</div></pre></td></tr></table></figure>
+<h4 id="while循环语句"><a href="#while循环语句" class="headerlink" title="while循环语句"></a>while循环语句</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">i=0</div><div class="line">while [ $i -lt &apos;5&apos;]</div><div class="line">do</div><div class="line">    echo &quot;$i&quot;</div><div class="line">    ((i++))</div><div class="line">done</div></pre></td></tr></table></figure>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function fun()&#123;</div><div class="line">  local i=0</div><div class="line">  local total=$#  # 传入参数总数</div><div class="line">  echo “total:$total”</div><div class="line">  for var in $@   # 传入的所有参数</div><div class="line">  do</div><div class="line">      echo &quot;$var&quot;</div><div class="line">  done</div><div class="line">&#125;</div><div class="line"></div><div class="line">fun a b c  # 这样直接传递参数</div><div class="line"></div><div class="line">result:</div><div class="line">total=3</div><div class="line">a</div><div class="line">b</div><div class="line">c</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$# 获取传入参数的总数</div><div class="line">$@ 所有的传入参数，一个数组</div><div class="line">$? 获取上一个命令的输出结果</div></pre></td></tr></table></figure>
+<h3 id="数值运算"><a href="#数值运算" class="headerlink" title="数值运算"></a>数值运算</h3><p>就直接用<code>(())</code>做运算好了，这样直接好记<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">val=$((4*(4+5)))</div></pre></td></tr></table></figure></p>
+<h3 id="字符串运算"><a href="#字符串运算" class="headerlink" title="字符串运算"></a>字符串运算</h3><h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p><strong>这里我只挑选了我觉得重要的Bash知识写出来，有一部分知识没有记的必要，需要的时候直接去查就好了</strong><br><br><strong>原文网址如下，写得非常好</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.cnblogs.com/skywang12345/archive/2013/05/30/3106570.html</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">脚本语言学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Bash/" class="article-tag-list-link color5">Bash</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/19/Bash/Bash基础知识/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-500Lines/整体的框架设计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -659,19 +760,19 @@
 
 
   
-    <article id="post-树莓派/树莓派无线终端上网模块" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-树莓派/树莓派安装mongodb的奇怪问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/树莓派/树莓派无线终端上网模块/">树莓派无线终端上网模块</a>
+      <a class="article-title" href="/2017/08/18/树莓派/树莓派安装mongodb的奇怪问题/">树莓派安装mongodb的奇怪问题</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/树莓派/树莓派无线终端上网模块/" class="archive-article-date">
+        <a href="/2017/08/18/树莓派/树莓派安装mongodb的奇怪问题/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -679,8 +780,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>树莓派3G上网<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://blog.csdn.net/chiliaolm/article/details/51883366</div><div class="line">http://blog.csdn.net/rk2900/article/details/8667833</div></pre></td></tr></table></figure></p>
-<p>上网模块：华为e173，好像华为的上网模块只支持电信的。<br>4G/3G/2G上网卡，不推荐使用模块，需要配置环境，太麻烦。</p>
+        <p>安装好三月那个镜像以后，先<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure></p>
+<p>不修改阿里的镜像直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install mongodb</div></pre></td></tr></table></figure></p>
+<p>这样好像就可以直接安装好。。。虽然我也不知道为啥可以这样。。。</p>
 
       
 
@@ -704,81 +806,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/树莓派/树莓派无线终端上网模块/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-树莓派/树莓派dd，烧录新卡[转载]" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/树莓派/树莓派dd，烧录新卡[转载]/">树莓派dd，烧录新卡[转载]</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/树莓派/树莓派dd，烧录新卡[转载]/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>如何把现在的系统转移到新的存储卡？<br>把新买来的32G存储卡插入读卡器，然后接到树莓派上，如果没有异常树莓派会自动挂载磁盘，那么我们就需要先卸载掉磁盘。用df命令查看挂载的位置，然后用umount命令卸载掉【具体方法如：umount /media/disk】。<br>接着，就是把现在的系统完整的复制到新卡上。由于树莓派本身就是Linux系统，所以我们可以参考苹果电脑烧写镜像的教程【毕竟mac系统也是基于Linux的……】，用<br>dd bs=4m if=2013-02-09-wheezy-raspbian.img of=/dev/rdisk1<br>命令把镜像写入磁盘。而在这里我们就不需要镜像了，直接把正在使用的存储卡dd过去。<br>所以我们用的命令是这样的：<br>dd bs=4m if=/dev/mmcblk0 of=/dev/sda<br>mmcblk0就是树莓派上的存储卡【正在使用的】<br>sda就是插入的USB存储设备【可能会随着接入的设备多少而改变，如可能为sdb，sdc等，自己根据情况去判断是哪一个】<br>然后耐心的等待写入完成就可以了。<br>用命令init 0 或者其他命令关机【我习惯用init 0，简单方便容易记……】，然后把树莓派断电，取出旧的TF卡，插入新的TF卡，上电开机。之后你会发现树莓派上的配置还是原来的样子，磁盘大小也没有改变。那么为了能使用整个完整的存储卡，我们还需要像刚安装好镜像那样用raspi-config的第一个功能来扩展整个磁盘。这样重启后就可以使用整个32G的磁盘了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/树莓派/" class="article-tag-list-link color4">树莓派</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/树莓派/树莓派dd，烧录新卡[转载]/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/树莓派/树莓派安装mongodb的奇怪问题/">展开全文 >></a>
         </p>
       
 
@@ -883,19 +911,19 @@
 
 
   
-    <article id="post-树莓派/树莓派-ssh-host错误" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-树莓派/ubuntu-常见错误--Could-not-get-lock--var-lib-dpkg-lock-" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/树莓派/树莓派-ssh-host错误/">树莓派-ssh-host错误</a>
+      <a class="article-title" href="/2017/08/18/树莓派/ubuntu-常见错误--Could-not-get-lock--var-lib-dpkg-lock-/">ubuntu-常见错误--Could-not-get-lock--var-lib-dpkg-lock-</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/树莓派/树莓派-ssh-host错误/" class="archive-article-date">
+        <a href="/2017/08/18/树莓派/ubuntu-常见错误--Could-not-get-lock--var-lib-dpkg-lock-/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -903,7 +931,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>本机输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -R 192.168.1.101 #ip地址，由树莓派被分配的ip决定</div></pre></td></tr></table></figure></p>
+        <p>出现这个问题可能是有另外一个程序正在运行，导致资源被锁不可用。而导致资源被锁的原因可能是上次运行安装或更新时没有正常完成，进而出现此状况，解决的办法其实很简单：<br>在终端中敲入以下两句<br>sudo rm /var/cache/apt/archives/lock<br>sudo rm /var/lib/dpkg/lock</p>
 
       
 
@@ -927,7 +955,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/树莓派/树莓派-ssh-host错误/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/树莓派/ubuntu-常见错误--Could-not-get-lock--var-lib-dpkg-lock-/">展开全文 >></a>
         </p>
       
 
@@ -957,19 +985,19 @@
 
 
   
-    <article id="post-树莓派/查找命令和MongoDB远程连接" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-树莓派/安装captiveportal错误" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/树莓派/查找命令和MongoDB远程连接/">查找命令和MongoDB远程连接</a>
+      <a class="article-title" href="/2017/08/18/树莓派/安装captiveportal错误/">安装captiveportal错误</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/树莓派/查找命令和MongoDB远程连接/" class="archive-article-date">
+        <a href="/2017/08/18/树莓派/安装captiveportal错误/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -977,12 +1005,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>搜索<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.cnblogs.com/diyingyun/archive/2013/01/15/2862061.html</div></pre></td></tr></table></figure></p>
-<p>MongoDB，主要就是修改端口的为0.0.0.0<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.cnblogs.com/duhuo/p/5750595.html</div></pre></td></tr></table></figure></p>
-<p>有时连接可能会出错，因为我的树莓派没有设置固定ip，每次都是分配的动态ip，记得换一下Robomongo里面的连接ip就好了。<br>还有导出的时候在Linux下不是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">--type=csv</div></pre></td></tr></table></figure></p>
-<p>而是这样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">--csv</div></pre></td></tr></table></figure></p>
-<p>Linux默认导出是json，只需要修改一下就可以了</p>
-
+        
       
 
       
@@ -1005,7 +1028,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/树莓派/查找命令和MongoDB远程连接/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/树莓派/安装captiveportal错误/">展开全文 >></a>
         </p>
       
 
@@ -1128,7 +1151,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
+                <a href="javascript:void(0)" class="js-tag color2">脚本语言学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1137,6 +1160,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">字符串替换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
             
             <div class="clearfix"></div>

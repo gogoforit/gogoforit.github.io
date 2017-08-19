@@ -3,6 +3,43 @@
   
     
     <entry>
+      <title><![CDATA[Bash入门，基础知识]]></title>
+      <url>/2017/08/19/Bash/Bash%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
+      <content type="html"><![CDATA[<h3 id="Bash示例和书写流程"><a href="#Bash示例和书写流程" class="headerlink" title="Bash示例和书写流程"></a>Bash示例和书写流程</h3><p>1.新建文件test.sh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ touch test.sh</div></pre></td></tr></table></figure></p>
+<p>2.授予权限test.sh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ chmod +x test.sh</div></pre></td></tr></table></figure></p>
+<p>3.编写内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ echo &quot;hello world!&quot;</div></pre></td></tr></table></figure></p>
+<p>4.执行test.sh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ bash test.sh</div></pre></td></tr></table></figure></p>
+<h3 id="Bash基础语句"><a href="#Bash基础语句" class="headerlink" title="Bash基础语句"></a>Bash基础语句</h3><h4 id="1-条件判断"><a href="#1-条件判断" class="headerlink" title="1.条件判断"></a>1.条件判断</h4><p>1.1 test语句和[]大多数情况下可以等同<br><br>例如，判定test.sh是不是一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ test -f test.sh</div></pre></td></tr></table></figure></p>
+<p>输出结果0表示成功，1表示失败……[这个还真是尴尬]<br><br>1.2 []条件判断，<strong>注意左右括弧和表达式之间都有空格！</strong><br>例如，判断test.sh是否是一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ [ -f test.sh ]</div></pre></td></tr></table></figure></p>
+<p>判断var是否是<strong>字符串</strong>“eee”，注意<code>=</code>只能用于判定字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ [ &quot;$var&quot; = &quot;eee&quot; ]</div></pre></td></tr></table></figure></p>
+<p>判定var是否是数字12，<code>-eq</code>也是只能用于判定数字，而不能判定字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ [ &quot;$var&quot; -eq &quot;12&quot;]</div></pre></td></tr></table></figure></p>
+<p>1.3逻辑表达式<br>判定<code>123.txt</code>是不是可读写的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[ -r 123.txt -a -w 123.txt ]</div></pre></td></tr></table></figure></p>
+<p>等价于<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[ -r 123.txt ] &amp;&amp; [ -w 123.txt ]</div></pre></td></tr></table></figure></p>
+<h4 id="if-then-else语句"><a href="#if-then-else语句" class="headerlink" title="if then else语句"></a>if then else语句</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">if [ &quot;$a&quot; -lt &apos;12&apos; ]</div><div class="line">then</div><div class="line">    echo &quot;no&quot;</div><div class="line">elif [ &quot;$a&quot; -eq &apos;12&apos;]</div><div class="line">    echo &quot;yes&quot;</div><div class="line">else</div><div class="line">    echo &quot;yes no&quot;</div><div class="line">fi</div></pre></td></tr></table></figure>
+<h4 id="for循环语句"><a href="#for循环语句" class="headerlink" title="for循环语句"></a>for循环语句</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">cur_dir=`ls`</div><div class="line">for i in $cur_dir</div><div class="line">do</div><div class="line">    if [ -f $i ]</div><div class="line">    then</div><div class="line">        echo &quot;$i is a file&quot;</div><div class="line">    fi</div><div class="line">done</div></pre></td></tr></table></figure>
+<h4 id="while循环语句"><a href="#while循环语句" class="headerlink" title="while循环语句"></a>while循环语句</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">i=0</div><div class="line">while [ $i -lt &apos;5&apos;]</div><div class="line">do</div><div class="line">    echo &quot;$i&quot;</div><div class="line">    ((i++))</div><div class="line">done</div></pre></td></tr></table></figure>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function fun()&#123;</div><div class="line">  local i=0</div><div class="line">  local total=$#  # 传入参数总数</div><div class="line">  echo “total:$total”</div><div class="line">  for var in $@   # 传入的所有参数</div><div class="line">  do</div><div class="line">      echo &quot;$var&quot;</div><div class="line">  done</div><div class="line">&#125;</div><div class="line"></div><div class="line">fun a b c  # 这样直接传递参数</div><div class="line"></div><div class="line">result:</div><div class="line">total=3</div><div class="line">a</div><div class="line">b</div><div class="line">c</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$# 获取传入参数的总数</div><div class="line">$@ 所有的传入参数，一个数组</div><div class="line">$? 获取上一个命令的输出结果</div></pre></td></tr></table></figure>
+<h3 id="数值运算"><a href="#数值运算" class="headerlink" title="数值运算"></a>数值运算</h3><p>就直接用<code>(())</code>做运算好了，这样直接好记<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">val=$((4*(4+5)))</div></pre></td></tr></table></figure></p>
+<h3 id="字符串运算"><a href="#字符串运算" class="headerlink" title="字符串运算"></a>字符串运算</h3><h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p><strong>这里我只挑选了我觉得重要的Bash知识写出来，有一部分知识没有记的必要，需要的时候直接去查就好了</strong><br><br><strong>原文网址如下，写得非常好</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.cnblogs.com/skywang12345/archive/2013/05/30/3106570.html</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Bash </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 脚本语言学习 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[web-server 整体的框架设计]]></title>
       <url>/2017/08/19/500Lines/%E6%95%B4%E4%BD%93%E7%9A%84%E6%A1%86%E6%9E%B6%E8%AE%BE%E8%AE%A1/</url>
       <content type="html"><![CDATA[<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><h4 id="1-主体架构的精简性"><a href="#1-主体架构的精简性" class="headerlink" title="1.主体架构的精简性"></a>1.主体架构的精简性</h4><p>主体架构越精简越好，主体就只处理最普通最简单的逻辑，例如RequestHandler类中的，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">class RequestHandler(BaseHTTPRequestHandler):</div><div class="line"></div><div class="line">    Cases = [case_no_file,</div><div class="line">             case_run_py,</div><div class="line">             case_existing_file,</div><div class="line">             case_directory_index_file,</div><div class="line">             case_directory_no_index_file,</div><div class="line">             case_always_fail]</div><div class="line"></div><div class="line">    def do_GET(self):</div><div class="line">        try:</div><div class="line">            self.full_path = &apos;&apos;.join([os.getcwd(), self.path])</div><div class="line">            for case in self.Cases:</div><div class="line">                handler = case()</div><div class="line">                if handler.test(self):</div><div class="line">                    handler.act(self)</div><div class="line">                    break</div><div class="line">        except Exception as msg:</div><div class="line">            self.handle_error(msg)</div><div class="line"></div><div class="line">    Error_Page = &quot;&quot;&quot;\</div><div class="line">            &lt;html&gt;</div><div class="line">            &lt;body&gt;</div><div class="line">            &lt;h1&gt;Error accessing &#123;path&#125;&lt;/h1&gt;</div><div class="line">            &lt;p&gt;&#123;msg&#125;&lt;/p&gt;</div><div class="line">            &lt;/body&gt;</div><div class="line">            &lt;/html&gt;</div><div class="line">            &quot;&quot;&quot;</div><div class="line"></div><div class="line">    def handle_error(self, msg):</div><div class="line">        content = self.Error_Page.format(path=self.path, msg=msg)</div><div class="line">        self.send_content(content, 404)</div><div class="line"></div><div class="line">    def send_content(self, content, status=200):</div><div class="line">        self.send_response(status)</div><div class="line">        self.send_header(&apos;Content-Type&apos;, &apos;text/html&apos;)</div><div class="line">        self.send_header(&apos;Content-Length&apos;, str(len(content)))</div><div class="line">        self.end_headers()</div><div class="line">        if type(content) == str:</div><div class="line">            self.wfile.write(content.encode(&apos;utf-8&apos;))  # 字符串转字节</div><div class="line">        else:</div><div class="line">            self.wfile.write(content)</div></pre></td></tr></table></figure></p>
@@ -151,25 +188,11 @@
     </entry>
     
     <entry>
-      <title><![CDATA[树莓派无线终端上网模块]]></title>
-      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%97%A0%E7%BA%BF%E7%BB%88%E7%AB%AF%E4%B8%8A%E7%BD%91%E6%A8%A1%E5%9D%97/</url>
-      <content type="html"><![CDATA[<p>树莓派3G上网<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://blog.csdn.net/chiliaolm/article/details/51883366</div><div class="line">http://blog.csdn.net/rk2900/article/details/8667833</div></pre></td></tr></table></figure></p>
-<p>上网模块：华为e173，好像华为的上网模块只支持电信的。<br>4G/3G/2G上网卡，不推荐使用模块，需要配置环境，太麻烦。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> 树莓派 </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[树莓派dd，烧录新卡[转载]]]></title>
-      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%A0%91%E8%8E%93%E6%B4%BEdd%EF%BC%8C%E7%83%A7%E5%BD%95%E6%96%B0%E5%8D%A1%5B%E8%BD%AC%E8%BD%BD%5D/</url>
-      <content type="html"><![CDATA[<p>如何把现在的系统转移到新的存储卡？<br>把新买来的32G存储卡插入读卡器，然后接到树莓派上，如果没有异常树莓派会自动挂载磁盘，那么我们就需要先卸载掉磁盘。用df命令查看挂载的位置，然后用umount命令卸载掉【具体方法如：umount /media/disk】。<br>接着，就是把现在的系统完整的复制到新卡上。由于树莓派本身就是Linux系统，所以我们可以参考苹果电脑烧写镜像的教程【毕竟mac系统也是基于Linux的……】，用<br>dd bs=4m if=2013-02-09-wheezy-raspbian.img of=/dev/rdisk1<br>命令把镜像写入磁盘。而在这里我们就不需要镜像了，直接把正在使用的存储卡dd过去。<br>所以我们用的命令是这样的：<br>dd bs=4m if=/dev/mmcblk0 of=/dev/sda<br>mmcblk0就是树莓派上的存储卡【正在使用的】<br>sda就是插入的USB存储设备【可能会随着接入的设备多少而改变，如可能为sdb，sdc等，自己根据情况去判断是哪一个】<br>然后耐心的等待写入完成就可以了。<br>用命令init 0 或者其他命令关机【我习惯用init 0，简单方便容易记……】，然后把树莓派断电，取出旧的TF卡，插入新的TF卡，上电开机。之后你会发现树莓派上的配置还是原来的样子，磁盘大小也没有改变。那么为了能使用整个完整的存储卡，我们还需要像刚安装好镜像那样用raspi-config的第一个功能来扩展整个磁盘。这样重启后就可以使用整个32G的磁盘了。</p>
+      <title><![CDATA[树莓派安装mongodb的奇怪问题]]></title>
+      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AE%89%E8%A3%85mongodb%E7%9A%84%E5%A5%87%E6%80%AA%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<p>安装好三月那个镜像以后，先<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure></p>
+<p>不修改阿里的镜像直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install mongodb</div></pre></td></tr></table></figure></p>
+<p>这样好像就可以直接安装好。。。虽然我也不知道为啥可以这样。。。</p>
 ]]></content>
       
         <categories>
@@ -198,9 +221,38 @@
     </entry>
     
     <entry>
-      <title><![CDATA[树莓派-ssh-host错误]]></title>
-      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%A0%91%E8%8E%93%E6%B4%BE-ssh-host%E9%94%99%E8%AF%AF/</url>
-      <content type="html"><![CDATA[<p>本机输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -R 192.168.1.101 #ip地址，由树莓派被分配的ip决定</div></pre></td></tr></table></figure></p>
+      <title><![CDATA[ubuntu-常见错误--Could-not-get-lock--var-lib-dpkg-lock-]]></title>
+      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/ubuntu-%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF--Could-not-get-lock--var-lib-dpkg-lock-/</url>
+      <content type="html"><![CDATA[<p>出现这个问题可能是有另外一个程序正在运行，导致资源被锁不可用。而导致资源被锁的原因可能是上次运行安装或更新时没有正常完成，进而出现此状况，解决的办法其实很简单：<br>在终端中敲入以下两句<br>sudo rm /var/cache/apt/archives/lock<br>sudo rm /var/lib/dpkg/lock</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 树莓派 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[安装captiveportal错误]]></title>
+      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E5%AE%89%E8%A3%85captiveportal%E9%94%99%E8%AF%AF/</url>
+      <content type="html"></content>
+      
+        <categories>
+            
+            <category> 树莓派 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[树莓派dd，烧录新卡[转载]]]></title>
+      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%A0%91%E8%8E%93%E6%B4%BEdd%EF%BC%8C%E7%83%A7%E5%BD%95%E6%96%B0%E5%8D%A1%5B%E8%BD%AC%E8%BD%BD%5D/</url>
+      <content type="html"><![CDATA[<p>如何把现在的系统转移到新的存储卡？<br>把新买来的32G存储卡插入读卡器，然后接到树莓派上，如果没有异常树莓派会自动挂载磁盘，那么我们就需要先卸载掉磁盘。用df命令查看挂载的位置，然后用umount命令卸载掉【具体方法如：umount /media/disk】。<br>接着，就是把现在的系统完整的复制到新卡上。由于树莓派本身就是Linux系统，所以我们可以参考苹果电脑烧写镜像的教程【毕竟mac系统也是基于Linux的……】，用<br>dd bs=4m if=2013-02-09-wheezy-raspbian.img of=/dev/rdisk1<br>命令把镜像写入磁盘。而在这里我们就不需要镜像了，直接把正在使用的存储卡dd过去。<br>所以我们用的命令是这样的：<br>dd bs=4m if=/dev/mmcblk0 of=/dev/sda<br>mmcblk0就是树莓派上的存储卡【正在使用的】<br>sda就是插入的USB存储设备【可能会随着接入的设备多少而改变，如可能为sdb，sdc等，自己根据情况去判断是哪一个】<br>然后耐心的等待写入完成就可以了。<br>用命令init 0 或者其他命令关机【我习惯用init 0，简单方便容易记……】，然后把树莓派断电，取出旧的TF卡，插入新的TF卡，上电开机。之后你会发现树莓派上的配置还是原来的样子，磁盘大小也没有改变。那么为了能使用整个完整的存储卡，我们还需要像刚安装好镜像那样用raspi-config的第一个功能来扩展整个磁盘。这样重启后就可以使用整个32G的磁盘了。</p>
 ]]></content>
       
         <categories>
@@ -220,6 +272,21 @@
 <p>有时连接可能会出错，因为我的树莓派没有设置固定ip，每次都是分配的动态ip，记得换一下Robomongo里面的连接ip就好了。<br>还有导出的时候在Linux下不是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">--type=csv</div></pre></td></tr></table></figure></p>
 <p>而是这样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">--csv</div></pre></td></tr></table></figure></p>
 <p>Linux默认导出是json，只需要修改一下就可以了</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 树莓派 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[树莓派-ssh-host错误]]></title>
+      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%A0%91%E8%8E%93%E6%B4%BE-ssh-host%E9%94%99%E8%AF%AF/</url>
+      <content type="html"><![CDATA[<p>本机输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -R 192.168.1.101 #ip地址，由树莓派被分配的ip决定</div></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>
@@ -265,35 +332,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[更换阿里的源]]></title>
-      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9B%B4%E6%8D%A2%E9%98%BF%E9%87%8C%E7%9A%84%E6%BA%90/</url>
-      <content type="html"><![CDATA[<p>具体指导如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.shumeipaiba.com/wanpai/jiaocheng/16.html</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> 树莓派 </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[安装captiveportal错误]]></title>
-      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E5%AE%89%E8%A3%85captiveportal%E9%94%99%E8%AF%AF/</url>
-      <content type="html"></content>
-      
-        <categories>
-            
-            <category> 树莓派 </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[安装MongoDB]]></title>
       <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E5%AE%89%E8%A3%85MongoDB/</url>
       <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install MongoDB</div></pre></td></tr></table></figure>
@@ -309,9 +347,9 @@
     </entry>
     
     <entry>
-      <title><![CDATA[vim下复制]]></title>
-      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/vim%E4%B8%8B%E5%A4%8D%E5%88%B6/</url>
-      <content type="html"><![CDATA[<p>首先，可以在命令模式下输入v进入自由选取模式，选择需要剪切的文字后，按下d就可以进行剪切了。<br>其他命令模式下剪切命令：<br>dd：剪切当前行<br>ndd：n表示大于1的数字，剪切n行<br>dw：从光标处剪切至一个单子/单词的末尾，包括空格<br>de：从光标处剪切至一个单子/单词的末尾，不包括空格<br>d$：从当前光标剪切到行末<br>d0：从当前光标位置（不包括光标位置）剪切之行首<br>d3l：从光标位置（包括光标位置）向右剪切3个字符<br>d5G：将当前行（包括当前行）至第5行（不包括它）剪切<br>d3B：从当前光标位置（不包括光标位置）反向剪切3个单词<br>dH：剪切从当前行至所显示屏幕顶行的全部行<br>dM：剪切从当前行至命令M所指定行的全部行<br>dL：剪切从当前行至所显示屏幕底的全部行</p>
+      <title><![CDATA[更换阿里的源]]></title>
+      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%9B%B4%E6%8D%A2%E9%98%BF%E9%87%8C%E7%9A%84%E6%BA%90/</url>
+      <content type="html"><![CDATA[<p>具体指导如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.shumeipaiba.com/wanpai/jiaocheng/16.html</div></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>
@@ -324,9 +362,9 @@
     </entry>
     
     <entry>
-      <title><![CDATA[ubuntu-常见错误--Could-not-get-lock--var-lib-dpkg-lock-]]></title>
-      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/ubuntu-%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF--Could-not-get-lock--var-lib-dpkg-lock-/</url>
-      <content type="html"><![CDATA[<p>出现这个问题可能是有另外一个程序正在运行，导致资源被锁不可用。而导致资源被锁的原因可能是上次运行安装或更新时没有正常完成，进而出现此状况，解决的办法其实很简单：<br>在终端中敲入以下两句<br>sudo rm /var/cache/apt/archives/lock<br>sudo rm /var/lib/dpkg/lock</p>
+      <title><![CDATA[vim下复制]]></title>
+      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/vim%E4%B8%8B%E5%A4%8D%E5%88%B6/</url>
+      <content type="html"><![CDATA[<p>首先，可以在命令模式下输入v进入自由选取模式，选择需要剪切的文字后，按下d就可以进行剪切了。<br>其他命令模式下剪切命令：<br>dd：剪切当前行<br>ndd：n表示大于1的数字，剪切n行<br>dw：从光标处剪切至一个单子/单词的末尾，包括空格<br>de：从光标处剪切至一个单子/单词的末尾，不包括空格<br>d$：从当前光标剪切到行末<br>d0：从当前光标位置（不包括光标位置）剪切之行首<br>d3l：从光标位置（包括光标位置）向右剪切3个字符<br>d5G：将当前行（包括当前行）至第5行（不包括它）剪切<br>d3B：从当前光标位置（不包括光标位置）反向剪切3个单词<br>dH：剪切从当前行至所显示屏幕顶行的全部行<br>dM：剪切从当前行至命令M所指定行的全部行<br>dL：剪切从当前行至所显示屏幕底的全部行</p>
 ]]></content>
       
         <categories>
@@ -410,16 +448,31 @@
     </entry>
     
     <entry>
-      <title><![CDATA[树莓派安装mongodb的奇怪问题]]></title>
-      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AE%89%E8%A3%85mongodb%E7%9A%84%E5%A5%87%E6%80%AA%E9%97%AE%E9%A2%98/</url>
-      <content type="html"><![CDATA[<p>安装好三月那个镜像以后，先<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure></p>
-<p>不修改阿里的镜像直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install mongodb</div></pre></td></tr></table></figure></p>
-<p>这样好像就可以直接安装好。。。虽然我也不知道为啥可以这样。。。</p>
+      <title><![CDATA[树莓派无线终端上网模块]]></title>
+      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%97%A0%E7%BA%BF%E7%BB%88%E7%AB%AF%E4%B8%8A%E7%BD%91%E6%A8%A1%E5%9D%97/</url>
+      <content type="html"><![CDATA[<p>树莓派3G上网<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://blog.csdn.net/chiliaolm/article/details/51883366</div><div class="line">http://blog.csdn.net/rk2900/article/details/8667833</div></pre></td></tr></table></figure></p>
+<p>上网模块：华为e173，好像华为的上网模块只支持电信的。<br>4G/3G/2G上网卡，不推荐使用模块，需要配置环境，太麻烦。</p>
 ]]></content>
       
         <categories>
             
             <category> 树莓派 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[0007-读出代码行书，注释以及空行]]></title>
+      <url>/2017/08/18/PythonPractice/0007-%E8%AF%BB%E5%87%BA%E4%BB%A3%E7%A0%81%E8%A1%8C%E4%B9%A6%EF%BC%8C%E6%B3%A8%E9%87%8A%E4%BB%A5%E5%8F%8A%E7%A9%BA%E8%A1%8C/</url>
+      <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">import glob</div><div class="line">import os</div><div class="line"></div><div class="line"></div><div class="line">def get_files():</div><div class="line">    file_full = &apos;&apos;.join([os.getcwd(), &apos;/code/*.py&apos;])</div><div class="line">    files = glob.glob(file_full)</div><div class="line">    return files</div><div class="line"></div><div class="line"></div><div class="line">def count_lines(files):</div><div class="line">    for file in files:</div><div class="line">        total_lines = 0</div><div class="line">        notes_lines = 0</div><div class="line">        blank_lines = 0</div><div class="line">        print(&quot;Filename is &#123;0&#125;&quot;.format(file.split(r&apos;/&apos;)[-1]))</div><div class="line">        with open(file) as lines:</div><div class="line">            for line in lines:</div><div class="line">                total_lines += 1</div><div class="line">                if line == &apos;\n&apos;:</div><div class="line">                    blank_lines += 1</div><div class="line">                elif line.startswith(&apos;#&apos;):</div><div class="line">                    notes_lines += 1</div><div class="line">        print_result(total_lines, notes_lines, blank_lines)</div><div class="line"></div><div class="line"></div><div class="line">def print_result(total_lines,</div><div class="line">                 notes_lines,</div><div class="line">                 blank_lines):</div><div class="line"></div><div class="line">    print(&quot;Total is &#123;0&#125;, Notes is &#123;1&#125;, Blank is &#123;2&#125;\n&quot;.format(total_lines,</div><div class="line">                                                              notes_lines,</div><div class="line">                                                              blank_lines))</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    files = get_files()</div><div class="line">    count_lines(files)</div></pre></td></tr></table></figure>
+<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p>按行读入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">lines = open(&apos;/home/1.txt&quot;)</div><div class="line">for line in lines:</div><div class="line">  print(line)</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> PythonPractice </category>
             
         </categories>
         
@@ -452,74 +505,10 @@
     </entry>
     
     <entry>
-      <title><![CDATA[0007-读出代码行书，注释以及空行]]></title>
-      <url>/2017/08/18/PythonPractice/0007-%E8%AF%BB%E5%87%BA%E4%BB%A3%E7%A0%81%E8%A1%8C%E4%B9%A6%EF%BC%8C%E6%B3%A8%E9%87%8A%E4%BB%A5%E5%8F%8A%E7%A9%BA%E8%A1%8C/</url>
-      <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">import glob</div><div class="line">import os</div><div class="line"></div><div class="line"></div><div class="line">def get_files():</div><div class="line">    file_full = &apos;&apos;.join([os.getcwd(), &apos;/code/*.py&apos;])</div><div class="line">    files = glob.glob(file_full)</div><div class="line">    return files</div><div class="line"></div><div class="line"></div><div class="line">def count_lines(files):</div><div class="line">    for file in files:</div><div class="line">        total_lines = 0</div><div class="line">        notes_lines = 0</div><div class="line">        blank_lines = 0</div><div class="line">        print(&quot;Filename is &#123;0&#125;&quot;.format(file.split(r&apos;/&apos;)[-1]))</div><div class="line">        with open(file) as lines:</div><div class="line">            for line in lines:</div><div class="line">                total_lines += 1</div><div class="line">                if line == &apos;\n&apos;:</div><div class="line">                    blank_lines += 1</div><div class="line">                elif line.startswith(&apos;#&apos;):</div><div class="line">                    notes_lines += 1</div><div class="line">        print_result(total_lines, notes_lines, blank_lines)</div><div class="line"></div><div class="line"></div><div class="line">def print_result(total_lines,</div><div class="line">                 notes_lines,</div><div class="line">                 blank_lines):</div><div class="line"></div><div class="line">    print(&quot;Total is &#123;0&#125;, Notes is &#123;1&#125;, Blank is &#123;2&#125;\n&quot;.format(total_lines,</div><div class="line">                                                              notes_lines,</div><div class="line">                                                              blank_lines))</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    files = get_files()</div><div class="line">    count_lines(files)</div></pre></td></tr></table></figure>
-<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p>按行读入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">lines = open(&apos;/home/1.txt&quot;)</div><div class="line">for line in lines:</div><div class="line">  print(line)</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> PythonPractice </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[0008-HTML提出出正文]]></title>
-      <url>/2017/08/18/PythonPractice/0008-HTML%E6%8F%90%E5%87%BA%E5%87%BA%E6%AD%A3%E6%96%87/</url>
-      <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line">import re</div><div class="line"></div><div class="line"></div><div class="line">def request_get(url):</div><div class="line">    response = requests.get(url)</div><div class="line">    response.encoding = &apos;gb2312&apos;   # 中文乱码处理</div><div class="line">    text = response.text</div><div class="line">    re_handle(text)</div><div class="line"></div><div class="line"></div><div class="line">def re_handle(text):</div><div class="line">    text = re.findall(r&apos;&lt;div id=&quot;twgg&quot; class=&quot;gg&quot;&gt;.*&lt;p&gt;\s+(.*?)&lt;/p&gt;&apos;, text, re.S)[0]  # 跨行 re.S</div><div class="line">    text = re.sub(&apos;&lt;.*?&gt;&apos;, &apos;&apos;, text)</div><div class="line">    text = re.sub(&apos;\s+&apos;, &apos;&apos;, text)</div><div class="line">    print_text(text)</div><div class="line"></div><div class="line"></div><div class="line">def print_text(text):</div><div class="line">    print(text)</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    url = &apos;http://www.jj59.com/jjart/412827.html&apos;</div><div class="line">    request_get(url)</div><div class="line">```  </div><div class="line">### 新知识</div><div class="line">__requests.get中文乱码，指定编码格式__</div></pre></td></tr></table></figure>
-<p>response = requests.get(url)<br>response.encoding = ‘gb2312’<br>text = response.text<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">__正则跨行匹配，要加`re.S`__</div></pre></td></tr></table></figure></p>
-<p>text = re.findall(r’<div id="twgg" class="gg">.<em><p>\s+(.</p></em>?)</div></p>‘, text, re.S)[0]  # 跨行 re.S<br>```<p></p>
-]]></content>
-      
-        <categories>
-            
-            <category> PythonPractice </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[0004-统计英文单词]]></title>
-      <url>/2017/08/18/PythonPractice/0004-%E7%BB%9F%E8%AE%A1%E8%8B%B1%E6%96%87%E5%8D%95%E8%AF%8D/</url>
-      <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import re</div><div class="line"></div><div class="line"></div><div class="line">def re_handle(text):</div><div class="line">    words = re.findall(&apos;(\w+)\s*&apos;, text)</div><div class="line">    return words</div><div class="line"></div><div class="line"></div><div class="line">def get_number(text):</div><div class="line">    return len(re_handle(text))</div><div class="line"></div><div class="line">with open(&apos;text.txt&apos;)as text:</div><div class="line">    text = text.read()</div><div class="line">    print(get_number(text))</div></pre></td></tr></table></figure>
-]]></content>
-      
-        <categories>
-            
-            <category> PythonPractice </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[0009-HTML提出链接]]></title>
       <url>/2017/08/18/PythonPractice/0009-HTML%E6%8F%90%E5%87%BA%E9%93%BE%E6%8E%A5/</url>
       <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">import re</div><div class="line">import requests</div><div class="line"></div><div class="line"></div><div class="line">def request_get(url):</div><div class="line">    response = requests.get(url)</div><div class="line">    response.encoding = &apos;gb2312&apos;   # 中文乱码处理</div><div class="line">    text = response.text</div><div class="line">    re_handle(text)</div><div class="line"></div><div class="line"></div><div class="line">def re_handle(text):</div><div class="line">    text = re.findall(&apos;([a-zA-z]+:\/\/[a-zA-Z0-9]+.+?)[\&quot;|\&apos;]&apos;, text, re.S)  # 跨行 re.S</div><div class="line">    print_text(text)</div><div class="line"></div><div class="line"></div><div class="line">def print_text(text):</div><div class="line">    print(text)</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    url = &apos;http://www.jj59.com/jjart/412827.html&apos;</div><div class="line">    request_get(url)</div></pre></td></tr></table></figure>
 <h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p>正则表达式括号使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">() 是为了提取匹配的字符串。表达式中有几个()就有几个相应的匹配字符串。</div><div class="line"></div><div class="line">(\s*)表示连续空格的字符串。</div><div class="line"></div><div class="line">[]是定义匹配的字符范围。比如 [a-zA-Z0-9] 表示相应位置的字符要匹配英文字符和数字。[\s*]表示空格或者*号。</div><div class="line"></div><div class="line">&#123;&#125;一般用来表示匹配的长度，比如 \s&#123;3&#125; 表示匹配三个空格，\s[1,3]表示匹配一到三个空格。</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> PythonPractice </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[0002-存入mysql数据库]]></title>
-      <url>/2017/08/18/PythonPractice/0002-%E5%AD%98%E5%85%A5mysql%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
-      <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">import pymysql</div><div class="line">import string</div><div class="line">import random</div><div class="line"></div><div class="line">KEY_VALUE = 20</div><div class="line">KEY_NUMBER = 200</div><div class="line"></div><div class="line">conn = pymysql.connect(host=&apos;127.0.0.1&apos;, port=3306, user=&apos;root&apos;,</div><div class="line">                       passwd=&apos;passwd&apos;, db=&apos;python_practice&apos;)</div><div class="line"></div><div class="line">def all_str():</div><div class="line">    return string.ascii_letters + string.digits</div><div class="line"></div><div class="line"></div><div class="line">def insert_into_db(cur, data):   # 特别愚蠢的写法</div><div class="line">    sql_insert_into_table = &apos;insert into voucher(key_value) VALUE (%s)&apos;</div><div class="line">    cur.execute(sql_insert_into_table, data)</div><div class="line">    conn.commit()</div><div class="line"></div><div class="line"></div><div class="line">def query_data(cur):</div><div class="line">    sql_query_db = &apos;select * from voucher WHERE id BETWEEN  20 AND 30&apos;</div><div class="line">    cur.execute(sql_query_db)</div><div class="line">    for i in cur.fetchall():</div><div class="line">        print(i)</div><div class="line">    conn.commit()</div><div class="line"></div><div class="line"></div><div class="line">def insert_datas(cur, list):</div><div class="line">    sql_insert_datas = &apos;insert into voucher(key_value) VALUES (%s)&apos;</div><div class="line">    cur.executemany(sql_insert_datas, list)</div><div class="line">    conn.commit()</div><div class="line"></div><div class="line"></div><div class="line">def delete_data(cur):</div><div class="line">    sql_delete_data = &apos;delete from voucher WHERE id = 2&apos;</div><div class="line">    cur.execute(sql_delete_data)</div><div class="line">    conn.commit()</div><div class="line"></div><div class="line">with conn.cursor() as cur:</div><div class="line">    result = []</div><div class="line">    for i in range(200):</div><div class="line">        st = [random.choice(all_str()) for j in range(20)]</div><div class="line">        st = &apos;&apos;.join(st)</div><div class="line">        result.append(st)</div><div class="line">    insert_datas(cur, result)</div><div class="line">    query_data(cur)</div><div class="line">    delete_data(cur)</div></pre></td></tr></table></figure>
-<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p>多条插入时，用<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">自增的主键：```id INT(20) not null AUTO_INCREMENT,primary key (id)</div></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>
@@ -549,9 +538,57 @@
     </entry>
     
     <entry>
+      <title><![CDATA[0002-存入mysql数据库]]></title>
+      <url>/2017/08/18/PythonPractice/0002-%E5%AD%98%E5%85%A5mysql%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
+      <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">import pymysql</div><div class="line">import string</div><div class="line">import random</div><div class="line"></div><div class="line">KEY_VALUE = 20</div><div class="line">KEY_NUMBER = 200</div><div class="line"></div><div class="line">conn = pymysql.connect(host=&apos;127.0.0.1&apos;, port=3306, user=&apos;root&apos;,</div><div class="line">                       passwd=&apos;passwd&apos;, db=&apos;python_practice&apos;)</div><div class="line"></div><div class="line">def all_str():</div><div class="line">    return string.ascii_letters + string.digits</div><div class="line"></div><div class="line"></div><div class="line">def insert_into_db(cur, data):   # 特别愚蠢的写法</div><div class="line">    sql_insert_into_table = &apos;insert into voucher(key_value) VALUE (%s)&apos;</div><div class="line">    cur.execute(sql_insert_into_table, data)</div><div class="line">    conn.commit()</div><div class="line"></div><div class="line"></div><div class="line">def query_data(cur):</div><div class="line">    sql_query_db = &apos;select * from voucher WHERE id BETWEEN  20 AND 30&apos;</div><div class="line">    cur.execute(sql_query_db)</div><div class="line">    for i in cur.fetchall():</div><div class="line">        print(i)</div><div class="line">    conn.commit()</div><div class="line"></div><div class="line"></div><div class="line">def insert_datas(cur, list):</div><div class="line">    sql_insert_datas = &apos;insert into voucher(key_value) VALUES (%s)&apos;</div><div class="line">    cur.executemany(sql_insert_datas, list)</div><div class="line">    conn.commit()</div><div class="line"></div><div class="line"></div><div class="line">def delete_data(cur):</div><div class="line">    sql_delete_data = &apos;delete from voucher WHERE id = 2&apos;</div><div class="line">    cur.execute(sql_delete_data)</div><div class="line">    conn.commit()</div><div class="line"></div><div class="line">with conn.cursor() as cur:</div><div class="line">    result = []</div><div class="line">    for i in range(200):</div><div class="line">        st = [random.choice(all_str()) for j in range(20)]</div><div class="line">        st = &apos;&apos;.join(st)</div><div class="line">        result.append(st)</div><div class="line">    insert_datas(cur, result)</div><div class="line">    query_data(cur)</div><div class="line">    delete_data(cur)</div></pre></td></tr></table></figure>
+<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p>多条插入时，用<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">自增的主键：```id INT(20) not null AUTO_INCREMENT,primary key (id)</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> PythonPractice </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[0004-统计英文单词]]></title>
+      <url>/2017/08/18/PythonPractice/0004-%E7%BB%9F%E8%AE%A1%E8%8B%B1%E6%96%87%E5%8D%95%E8%AF%8D/</url>
+      <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import re</div><div class="line"></div><div class="line"></div><div class="line">def re_handle(text):</div><div class="line">    words = re.findall(&apos;(\w+)\s*&apos;, text)</div><div class="line">    return words</div><div class="line"></div><div class="line"></div><div class="line">def get_number(text):</div><div class="line">    return len(re_handle(text))</div><div class="line"></div><div class="line">with open(&apos;text.txt&apos;)as text:</div><div class="line">    text = text.read()</div><div class="line">    print(get_number(text))</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> PythonPractice </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[0000-PIL库的使用]]></title>
       <url>/2017/08/18/PythonPractice/0000-PIL%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
       <content type="html"><![CDATA[<p><strong>(1)PIL库作为Python处理图像的库</strong><br><strong>(2)代码</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from PIL import Image, ImageFont, ImageDraw, ImageColor</div><div class="line"></div><div class="line">im = Image.open(&apos;/home/kk/1.jpeg&apos;)  # 打开一个图片，并放入im中</div><div class="line">font = ImageFont.truetype(&apos;/usr/share/fonts/truetype/fonts-japanese-gothic.ttf&apos;, 100) # 选择字体</div><div class="line">draw = ImageDraw.Draw(im)    # 向指定图片上写入东西</div><div class="line">color = ImageColor.colormap.get(&apos;red&apos;)  # 写入的颜色</div><div class="line">w, h = im.size  # 获取背景画的尺寸</div><div class="line">draw.text((0, 0), &apos;中国人&apos;, font=font, fill=color)    # 像素坐标， 写入内容， 写入字体， 字体颜色</div><div class="line">im.save(&apos;/home/kk/2.jpg&apos;, &apos;jpeg&apos;)</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> PythonPractice </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[0008-HTML提出出正文]]></title>
+      <url>/2017/08/18/PythonPractice/0008-HTML%E6%8F%90%E5%87%BA%E5%87%BA%E6%AD%A3%E6%96%87/</url>
+      <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line">import re</div><div class="line"></div><div class="line"></div><div class="line">def request_get(url):</div><div class="line">    response = requests.get(url)</div><div class="line">    response.encoding = &apos;gb2312&apos;   # 中文乱码处理</div><div class="line">    text = response.text</div><div class="line">    re_handle(text)</div><div class="line"></div><div class="line"></div><div class="line">def re_handle(text):</div><div class="line">    text = re.findall(r&apos;&lt;div id=&quot;twgg&quot; class=&quot;gg&quot;&gt;.*&lt;p&gt;\s+(.*?)&lt;/p&gt;&apos;, text, re.S)[0]  # 跨行 re.S</div><div class="line">    text = re.sub(&apos;&lt;.*?&gt;&apos;, &apos;&apos;, text)</div><div class="line">    text = re.sub(&apos;\s+&apos;, &apos;&apos;, text)</div><div class="line">    print_text(text)</div><div class="line"></div><div class="line"></div><div class="line">def print_text(text):</div><div class="line">    print(text)</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    url = &apos;http://www.jj59.com/jjart/412827.html&apos;</div><div class="line">    request_get(url)</div><div class="line">```  </div><div class="line">### 新知识</div><div class="line">__requests.get中文乱码，指定编码格式__</div></pre></td></tr></table></figure>
+<p>response = requests.get(url)<br>response.encoding = ‘gb2312’<br>text = response.text<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">__正则跨行匹配，要加`re.S`__</div></pre></td></tr></table></figure></p>
+<p>text = re.findall(r’<div id="twgg" class="gg">.<em><p>\s+(.</p></em>?)</div></p>‘, text, re.S)[0]  # 跨行 re.S<br>```<p></p>
 ]]></content>
       
         <categories>
@@ -600,11 +637,31 @@
     </entry>
     
     <entry>
-      <title><![CDATA[sklearn-ImportError--No-module-named-'scipy',ImportError--cannot-impor]]></title>
-      <url>/2017/08/18/Python/sklearn-ImportError--No-module-named-'scipy',ImportError--cannot-impor/</url>
-      <content type="html"><![CDATA[<p>直接走<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy</div></pre></td></tr></table></figure></p>
-<p>下载对应的包安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install 文件名字</div></pre></td></tr></table></figure></p>
-<p>安装numpy_mkl可以会有报错，把文件后缀whl改为zip，手动解压后，把numpy文件覆盖到原本的lib里面的文件，就可以了</p>
+      <title><![CDATA[启动redis出现Creating-Server-TCP-listening-socket---6379--bind--No-such-fi]]></title>
+      <url>/2017/08/18/Python/%E5%90%AF%E5%8A%A8redis%E5%87%BA%E7%8E%B0Creating-Server-TCP-listening-socket---6379--bind--No-such-fi/</url>
+      <content type="html"><![CDATA[<p>如下方法可以解决，我也是看了一个CSDN一个大佬的方法。<br>命令行输入：</p>
+<ol>
+<li>redis-cli.exe</li>
+<li>shutdown</li>
+<li>exit</li>
+<li>redis-server.exe redis.windows.conf</li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[AttributeError--module-'fcntl'-has-no-attribute-'F_GETFD']]></title>
+      <url>/2017/08/18/Python/AttributeError--module-'fcntl'-has-no-attribute-'F_GETFD'/</url>
+      <content type="html"><![CDATA[<p>Lib文件里把<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fcntl.py</div></pre></td></tr></table></figure></p>
+<p>改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fcntl_ex.py</div></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>
@@ -620,27 +677,6 @@
       <title><![CDATA[Python-OpenSSL-SSL-Error]]></title>
       <url>/2017/08/18/Python/Python-OpenSSL-SSL-Error/</url>
       <content type="html"><![CDATA[<p>先膜一发stackoverflow -_-。。。这种蛋疼的问题都能解决<br>解决方法如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">html = requests.post(url,headers = header,data=data,verify=True)   #verify = True 可以使证书验证，安全通过。 SSL</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[启动redis出现Creating-Server-TCP-listening-socket---6379--bind--No-such-fi]]></title>
-      <url>/2017/08/18/Python/%E5%90%AF%E5%8A%A8redis%E5%87%BA%E7%8E%B0Creating-Server-TCP-listening-socket---6379--bind--No-such-fi/</url>
-      <content type="html"><![CDATA[<p>如下方法可以解决，我也是看了一个CSDN一个大佬的方法。<br>命令行输入：</p>
-<ol>
-<li>redis-cli.exe</li>
-<li>shutdown</li>
-<li>exit</li>
-<li>redis-server.exe redis.windows.conf</li>
-</ol>
 ]]></content>
       
         <categories>
@@ -689,10 +725,11 @@
     </entry>
     
     <entry>
-      <title><![CDATA[AttributeError--module-'fcntl'-has-no-attribute-'F_GETFD']]></title>
-      <url>/2017/08/18/Python/AttributeError--module-'fcntl'-has-no-attribute-'F_GETFD'/</url>
-      <content type="html"><![CDATA[<p>Lib文件里把<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fcntl.py</div></pre></td></tr></table></figure></p>
-<p>改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fcntl_ex.py</div></pre></td></tr></table></figure></p>
+      <title><![CDATA[sklearn-ImportError--No-module-named-'scipy',ImportError--cannot-impor]]></title>
+      <url>/2017/08/18/Python/sklearn-ImportError--No-module-named-'scipy',ImportError--cannot-impor/</url>
+      <content type="html"><![CDATA[<p>直接走<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy</div></pre></td></tr></table></figure></p>
+<p>下载对应的包安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install 文件名字</div></pre></td></tr></table></figure></p>
+<p>安装numpy_mkl可以会有报错，把文件后缀whl改为zip，手动解压后，把numpy文件覆盖到原本的lib里面的文件，就可以了</p>
 ]]></content>
       
         <categories>
@@ -736,9 +773,192 @@
     </entry>
     
     <entry>
+      <title><![CDATA[写的第一个淘宝信息爬虫总结]]></title>
+      <url>/2017/08/18/Python/%E5%86%99%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%B7%98%E5%AE%9D%E4%BF%A1%E6%81%AF%E7%88%AC%E8%99%AB%E6%80%BB%E7%BB%93/</url>
+      <content type="html"><![CDATA[<p>###1.用的selenium 来处理js<br>driver = webdriver.Chrome(r’H:\python\chromedrive\chromedriver.exe’) #应该更改为相对路径<br>driver.get(url)element=driver.find_elements_by_xpath(‘//*[starts-with(@class,”item J_MouserOnverReq  “)]’) #先抓大再抓小</p>
+<p>#####此处注意chrome的版本要和chromedrive的版本相匹配不然会报错。</p>
+<p>###2.打开csv文件<br>csvfile = open(‘taobao.csv’,’w’)<br>writer = csv.writer(csvfile)<br>…<br>writer.writerow(…)  #此处的变量应该是一个字典</p>
+<p>#####字典<br>dicc = {‘产地’:’’, ‘店铺名称’:’’, ‘商品网址’:’’, ‘销售数量’:’’, ‘价格’:’’, ‘商品名字’:’’}<br>dicc.keys()获取字典的键值，dicc.value()获取字典的值</p>
+<p>###3.element的信息处理<br>shopname = element[i].find_element_by_class_name(‘shop’)<br>这个还是比较好处理的，class,tags,id什么的同理用这个方法。<br>主要是属性,href之类的，我弄了很久。。半路出家python。。没有系统学过web之类的知识。。</p>
+<p>#####itemname = driver.find_elements_by_xpath(‘//div[@class=”row row-2 title”]/a’)[i]  # 产品名字</p>
+<p>#####itemurl = itemname.get_attribute(‘href’)#网址<br>我先用的xpath抓到class，然后再获取这个class的属性，用get_attribute</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[使用多线程]]></title>
+      <url>/2017/08/18/Python/%E4%BD%BF%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
+      <content type="html"><![CDATA[<p>x = threading.Thread(target=solve,args=(urll,))  //solve的参数是有后面的args里面的urll传递的，solve为一个函数<br>x.start()<br>[threadGet(urll) for urll in list]</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[一个json格式检验的网站]]></title>
+      <url>/2017/08/18/Python/%E4%B8%80%E4%B8%AAjson%E6%A0%BC%E5%BC%8F%E6%A3%80%E9%AA%8C%E7%9A%84%E7%BD%91%E7%AB%99/</url>
+      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://jsonformatter.curiousconcept.com/</div></pre></td></tr></table></figure>
+<p>可能需要自备梯子</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[贴吧ABC]]></title>
+      <url>/2017/08/18/Python/%E8%B4%B4%E5%90%A7ABC/</url>
+      <content type="html"><![CDATA[<p>类的定义和使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class someinfo:</div><div class="line"></div><div class="line">    def __init__(self,mytime,content,name):</div><div class="line">        self.mytime = time</div><div class="line">        self.content = content</div><div class="line">        self.name = name</div></pre></td></tr></table></figure></p>
+<p>列表对类的某个属性进行排序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dic.sort(key=lambda x:x.mytime)</div></pre></td></tr></table></figure></p>
+<p>字典是否存在这个键值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">myinfo.get(huifu_id)!=None</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[使用Scrapy爬取的基本]]></title>
+      <url>/2017/08/18/Python/%E4%BD%BF%E7%94%A8Scrapy%E7%88%AC%E5%8F%96%E7%9A%84%E5%9F%BA%E6%9C%AC/</url>
+      <content type="html"><![CDATA[<p>（1）创建工程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scrapy startproject name #name为你想创建的工程名字，名字不可与第三方库名冲突</div></pre></td></tr></table></figure></p>
+<p>（2）创建爬虫<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd name</div><div class="line">scrapy genspider example example.com #scrapy genspider 爬虫名 爬虫网址</div></pre></td></tr></table></figure></p>
+<p>（3）修改pass<br>进入example.py 文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">将pass修改为  print(response.body.decode())</div></pre></td></tr></table></figure></p>
+<p>在终端里执行，直接执行py文件没有作用….<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scrapy crawl example</div></pre></td></tr></table></figure></p>
+<p>有东西输出，但是还是看不见网页的源代码，打开setting.py发现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># Obey robots.txt rulesROBOTSTXT_OBEY = True</div></pre></td></tr></table></figure></p>
+<p>将其修改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># Obey robots.txt rulesROBOTSTXT_OBEY = False</div></pre></td></tr></table></figure></p>
+<p>然后就可以发现源代码被打印出来了<br>（4）在pycharm里面运行<br>在工程的根目录里面新建一个，main.py文件，输入如下代码就可以了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from scrapy import cmdline   </div><div class="line">cmdline.execute(&quot;scrapy crawl example&quot;.split())</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Redis配合爬虫的一些要领]]></title>
+      <url>/2017/08/18/Python/Redis%E9%85%8D%E5%90%88%E7%88%AC%E8%99%AB%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E9%A2%86/</url>
+      <content type="html"><![CDATA[<p>（1）首先爬虫运行以后，要先在Redis给出一个初始的地址，就叫种子吧。但是你这之前得先把Redis启动起来才行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lpush x:x 网址   # 这个网址一定是http开头的</div></pre></td></tr></table></figure></p>
+<p>（2）如果卡住了。。。虽然我也不知道为啥会卡住。。但是这么可以解决这个问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">flushall  #把数据库里面的数据先清除了，然后再lpush一次，应该就可以了</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[用xpath下载图片]]></title>
+      <url>/2017/08/18/Python/%E7%94%A8xpath%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87/</url>
+      <content type="html"><![CDATA[<p>picc = selction.xpath(‘//*[@id=”post_content_98516860569”]/img’)<br>i = 1<br>for each in picc:<br>    z = each.get(‘src’)  //转换为网址形式<br>    pic = requests.get(z)<br>    fp = open(‘直播 19岁 背包冒险 西藏 尼泊尔 印度的故事\‘+str(i)+’.jpg’,’wb’)<br>    fp.write(pic.content)  //这样可以下载图片<br>    fp.close()<br>    i+=1</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[正则表达式]]></title>
+      <url>/2017/08/18/Python/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+      <content type="html"><![CDATA[<p>a = ‘wefwef’<br>b = re.findall(‘fwef. * ? fwef’,a)//匹配fwef…fwef之间的东西,但输出包括xx xx<br>b = re.findall(‘xx(. * ?)xx’,a)//功能同上，但是输出不包括xx xx<br>b = re.findall(‘xx (. * ? )xx’,a,re.S) //可以匹配带有换行符的文段<br>b = re.sub(‘123(.  * ?)123’,’45645’,a)//把形为123…123的串替换为45645，并且不改变a串<br>b = re.findall(‘(\d+)’,a) //匹配纯数字，可以把所有数字匹配出来</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[暂停爬虫]]></title>
+      <url>/2017/08/18/Python/%E6%9A%82%E5%81%9C%E7%88%AC%E8%99%AB/</url>
+      <content type="html"><![CDATA[<p>打开MongoDB和Redis都是必须的，主要是开始的时候的代码换一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scrapy crawl somespider -s JOBDIR=crawls/somespider-1</div></pre></td></tr></table></figure></p>
+<p>继续开始的代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scrapy crawl somespider -s JOBDIR=crawls/somespider-1</div></pre></td></tr></table></figure></p>
+<p>和开始的代码是一样的，这样就可以使爬虫暂停了。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[正则表达式-1]]></title>
+      <url>/2017/08/18/Python/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-1/</url>
+      <content type="html"><![CDATA[<p><strong>基本要领</strong><br>通常是一个前面一个匹配表达式，后面接一个长度判定表达式，例如<code>[0-9a-zA-Z\_]+</code>，即匹配一个任意长度的包含数字或字符串或下划线的字符串，即一个标准的Python变量。<br><strong>匹配知识</strong><br><code>\d</code>：匹配数字<br><code>\s</code>：匹配空格<br><code>\w</code>：匹配字母<br><code>.</code>   ： 匹配任意字符<br><code>^</code>：表示行开头，即以什么开头的行<br><code>$</code>：表示行结尾，即以什么结尾的行<br><code>^</code>：在括号内表示非<br><strong>长度知识</strong><br><code>*</code>：任意个字符，包括0个<br><code>+</code>：至少1字符<br><code>？</code>：0个或者1个字符<br><code>\d{3}</code>：匹配3个数字<br><code>\d{3,8}</code>：匹配3到8个数字<br><code>[0-9a-zA-Z]</code>：匹配一个包含数字或者字母的字符串<br><strong>一些表达式</strong><br><code>(.*?)</code>：非贪婪地匹配所有元素，按照懒惰匹配的方式，匹配尽可能短的元素</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[抓取手机app，设置代理]]></title>
       <url>/2017/08/18/Python/%E6%8A%93%E5%8F%96%E6%89%8B%E6%9C%BAapp%EF%BC%8C%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/</url>
       <content type="html"><![CDATA[<p>代理的ip是自己开的wifi的ip，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cmd</div><div class="line">ipconfig</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[数字转换为字符串]]></title>
+      <url>/2017/08/18/Python/%E6%95%B0%E5%AD%97%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+      <content type="html"><![CDATA[<p>i = 1<br>print(‘%d’%i)  以字符串输出<br>str(i)</p>
 ]]></content>
       
         <categories>
@@ -766,9 +986,10 @@
     </entry>
     
     <entry>
-      <title><![CDATA[导入lxml包]]></title>
-      <url>/2017/08/18/Python/%E5%AF%BC%E5%85%A5lxml%E5%8C%85/</url>
-      <content type="html"><![CDATA[<p>使用Pip失败,直接到<a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml，下载相对应的包文件，下载下来之后把后缀名改为zip，解压完成以后复制第一个文件到python的lib文件里面，重点记得要和python版本匹配呀，cmd" target="_blank" rel="external">http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml，下载相对应的包文件，下载下来之后把后缀名改为zip，解压完成以后复制第一个文件到python的lib文件里面，重点记得要和python版本匹配呀，cmd</a> + python 查看自己python的版本号，还有注意是32位还是64位的。<br>爬虫</p>
+      <title><![CDATA[MongoDB导出数据]]></title>
+      <url>/2017/08/18/Python/MongoDB%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE/</url>
+      <content type="html"><![CDATA[<p><strong>bin</strong>文件里面有一个<strong>mongoexport</strong>文件<br>先给一个样例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongoexport -d jikexueyuan -c readcolor5 --csv -f book_list_author,book_name -o readcolor5.csv</div></pre></td></tr></table></figure></p>
+<p>解释一下，模板应该是这样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongoexport -d 数据库名 -c 集合名 --csv -f 要输出哪些属性 -o 输入文件</div></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>
@@ -784,6 +1005,70 @@
       <title><![CDATA[定位并登陆QQ空间]]></title>
       <url>/2017/08/18/Python/%E5%AE%9A%E4%BD%8D%E5%B9%B6%E7%99%BB%E9%99%86QQ%E7%A9%BA%E9%97%B4/</url>
       <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">try:    </div><div class="line">  driver.find_elements_by_id(&apos;login&apos;)    </div><div class="line">a = Trueexcept:    a = False</div><div class="line">  if a == True:    </div><div class="line">   driver.switch_to.frame(&apos;login_frame&apos;) </div><div class="line">   driver.find_element_by_id(&apos;switcher_plogin&apos;).click()  </div><div class="line">   driver.find_element_by_id(&apos;u&apos;).clear() </div><div class="line">   driver.find_element_by_id(&apos;u&apos;).send_keys(QQ)    </div><div class="line">   driver.find_element_by_id(&apos;p&apos;).clear() </div><div class="line">   driver.find_element_by_id(&apos;p&apos;).send_keys(key)  </div><div class="line">   driver.find_element_by_id(&apos;login_button&apos;).click()</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Mongo数据库的一些技巧]]></title>
+      <url>/2017/08/18/Python/Mongo%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%8A%80%E5%B7%A7/</url>
+      <content type="html"><![CDATA[<p>1）可以把”_id”字段通过构造，保证字符查询的唯一性<br>2）可以把所有的信息都存到一个col里面，然后通过不同的标签来区别查找，这样效率更高一点。<br>3）插入操作可以详细看“电影监控”工程的pipelines</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[MongoEngine的使用]]></title>
+      <url>/2017/08/18/Python/MongoEngine%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">from mongoengine import *   #导入所有的可用资源</div></pre></td></tr></table></figure>
+<p>##基础<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">connect(&apos;testmongo&apos;)   #连接数据库 </div><div class="line">class People(Document):   #声明一个类</div><div class="line">   name = StringField(required=True)    </div><div class="line">   age  = IntField(required=True)    </div><div class="line">   sex  = StringField(required=True)     # True表面添加的时候，这个是必加项</div><div class="line">   salary = IntField()</div><div class="line">kind = People(name = &apos;kind&apos;,age = 20,sex = &apos;male&apos;)</div><div class="line">kind.save()    ```  </div><div class="line">##查询</div></pre></td></tr></table></figure></p>
+<p>for each in People.objects:<br>     printf(each.name)<br>namelist = People.object(sex = ‘male’)<br>     for x in namelist:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">##删除</div></pre></td></tr></table></figure>
+<p>namelist.delete()<br>```</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Pandas-修改文件的头部]]></title>
+      <url>/2017/08/18/Python/Pandas-%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E7%9A%84%E5%A4%B4%E9%83%A8/</url>
+      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import pandas as pd</div><div class="line">dataset = pd.read_csv(r&apos;H:\python\数据挖掘代码\新建文件夹\Code_REWRITE\Chapter 3\8.csv&apos;)</div><div class="line">dataset.columns = [&quot;Date&quot;,&quot;Time&quot;,&quot;Visitor Team&quot;,&quot;VisitorPts&quot;,&quot;Home Team&quot;,&quot;HomePts&quot;,&quot;Score Type&quot;,&quot;OT?&quot;,&apos;Notes&apos;]</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[导入lxml包]]></title>
+      <url>/2017/08/18/Python/%E5%AF%BC%E5%85%A5lxml%E5%8C%85/</url>
+      <content type="html"><![CDATA[<p>使用Pip失败,直接到<a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml，下载相对应的包文件，下载下来之后把后缀名改为zip，解压完成以后复制第一个文件到python的lib文件里面，重点记得要和python版本匹配呀，cmd" target="_blank" rel="external">http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml，下载相对应的包文件，下载下来之后把后缀名改为zip，解压完成以后复制第一个文件到python的lib文件里面，重点记得要和python版本匹配呀，cmd</a> + python 查看自己python的版本号，还有注意是32位还是64位的。<br>爬虫</p>
 ]]></content>
       
         <categories>
@@ -813,6 +1098,57 @@
     </entry>
     
     <entry>
+      <title><![CDATA[QQyundong总结]]></title>
+      <url>/2017/08/18/Python/QQyundong%E6%80%BB%E7%BB%93/</url>
+      <content type="html"><![CDATA[<p>（1）wordcloud的的安装会出现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UnicodeDecodeError: &apos;utf-8&apos; codec can&apos;t decode byte 0xca in position 11: invalid continuation byte</div></pre></td></tr></table></figure></p>
+<p>解决方法：找到报错文件，把utf-8该为gbk<br>（2）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dic.get() #返回的是对应的值</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">dic = &#123;&#125;</div><div class="line">for each in file2.split(&apos; &apos;):   #文件按单个单词读入，按空格分割单词</div><div class="line">![Uploading QQ截图20170117002052_686915.png . . .]</div><div class="line"></div><div class="line">    if dic.get(each)!=None:</div><div class="line">        dic[each] +=1</div><div class="line">    else :</div><div class="line">        dic[each] =1</div></pre></td></tr></table></figure>
+<p>（3）post后面是url<br>主题是headers<br>最后是data，交的表单数据<br><img src="http://upload-images.jianshu.io/upload_images/3841786-3a5ca2debfd1804b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1"><br>（4）返回的Response可以直接转换成json操作，json看做一个字典就好了。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Python文件]]></title>
+      <url>/2017/08/18/Python/Python%E6%96%87%E4%BB%B6/</url>
+      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">file_obj.seek（offset，whence = 0）</div></pre></td></tr></table></figure>
+<p>在文件中移动指针<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">whence = 0 # 表示文件头部</div><div class="line">whence = 1 #表示当前位置</div><div class="line">whence = 2 #表示文件尾部</div><div class="line">默认为0</div></pre></td></tr></table></figure></p>
+<p>offset<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">offset 为偏移量</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[代理ip池]]></title>
+      <url>/2017/08/18/Python/%E4%BB%A3%E7%90%86ip%E6%B1%A0/</url>
+      <content type="html"><![CDATA[<p>url<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://127.0.0.1:8000/?types=0&amp;count=5&amp;country=国内</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line">import json</div><div class="line">r = requests.get(&apos;http://127.0.0.1:8000/?types=0&amp;count=5&amp;country=国内&apos;)</div><div class="line">ip_ports = json.loads(r.text)</div><div class="line">print (ip_ports)</div><div class="line">ip = ip_ports[0][0]</div><div class="line">port = ip_ports[0][1]</div><div class="line">proxies=&#123;</div><div class="line">    &apos;http&apos;:&apos;http://%s:%s&apos;%(ip,port),</div><div class="line">    &apos;https&apos;:&apos;http://%s:%s&apos;%(ip,port)</div><div class="line">&#125;</div><div class="line">r = requests.get(&apos;http://exercise.kingname.info/exercise_middleware_ip&apos;,proxies=proxies)</div><div class="line">r.encoding=&apos;utf-8&apos;</div><div class="line">print (r.text)</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[天气预报的一些资料收集]]></title>
       <url>/2017/08/18/Python/%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5%E7%9A%84%E4%B8%80%E4%BA%9B%E8%B5%84%E6%96%99%E6%94%B6%E9%9B%86/</url>
       <content type="html"><![CDATA[<p>（1）和风的api也可以用，但是每天的请求量比较小（免费），只有3000，做个人的一些app应该还是够用了，api使用如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://free-api.heweather.com/v5/forecast?city=paris&amp;key=xxxxxxxxxxxx</div></pre></td></tr></table></figure></p>
@@ -830,10 +1166,189 @@
     </entry>
     
     <entry>
+      <title><![CDATA[Scrapy下载安装]]></title>
+      <url>/2017/08/18/Python/Scrapy%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/</url>
+      <content type="html"><![CDATA[<p>###（1）下载这个<a href="http://landinghub.visualstudio.com/visual-cpp-build-tools" target="_blank" rel="external">http://landinghub.visualstudio.com/visual-cpp-build-tools</a></p>
+<p>###（2）安装pywin32  <a href="https://sourceforge.net/projects/pywin32/files/pywin32/Build%20220/" target="_blank" rel="external">https://sourceforge.net/projects/pywin32/files/pywin32/Build%20220/</a></p>
+<p>###(3)然后就直接安scrapy =v= 一定会有许多错误，但是别急，这些错误都是缺一些包造成的，可能是网络原因或者是源的原因，不能正常下载这些包，<br><code>https://pypi.python.org/pypi/cryptography/1.6</code>，<code>http://www.lfd.uci.edu/~gohlke/pythonlibs/</code> ，在这两个网站去下载缺失的包，然后pip install 文件名  安装这个包。或者用把whl改为zip，自己手动解压，然后放到Lib。这两种方法均可。<br>[如果还是有问题，可以私我]</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Selenium发表图片说说]]></title>
+      <url>/2017/08/18/Python/Selenium%E5%8F%91%E8%A1%A8%E5%9B%BE%E7%89%87%E8%AF%B4%E8%AF%B4/</url>
+      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">from selenium </div><div class="line">import webdriver</div><div class="line">import time</div><div class="line">import win32gui</div><div class="line">import win32con</div><div class="line">driver = webdriver.Chrome(r&apos;H:\python\chromedrive\chromedriver.exe&apos;)</div><div class="line">url = &apos;http://user.qzone.qq.com/715157026/infocenter?ptsig=YAykvv1IN0eLgVhwb9vnl2AyS*9pwf23WfDbffrZ20k_&apos;</div><div class="line">driver.get(url)</div><div class="line">try:</div><div class="line">    driver.find_elements_by_id(&apos;login&apos;)</div><div class="line">    a = True</div><div class="line">except:    a = False</div><div class="line">if a == True:  #模拟登陆</div><div class="line">    driver.switch_to.frame(&apos;login_frame&apos;) </div><div class="line">    driver.find_element_by_id(&apos;switcher_plogin&apos;).click() </div><div class="line">    driver.find_element_by_id(&apos;u&apos;).clear()</div><div class="line">    driver.find_element_by_id(&apos;u&apos;).send_keys(QQ)</div><div class="line">    driver.find_element_by_id(&apos;p&apos;).clear() </div><div class="line">    driver.find_element_by_id(&apos;p&apos;).send_keys(keys)      </div><div class="line">    driver.find_element_by_id(&apos;login_button&apos;).click()</div><div class="line">time.sleep(20)   </div><div class="line">driver.find_element_by_id(&quot;qz_poster_editor_v4_container&quot;).click() #很奇怪，好像是发说说的方式变了，直接点击发图片没有效果，必须要先点这个才行</div><div class="line">time.sleep(5)</div><div class="line">ele = driver.find_element_by_class_name(&quot;pic&quot;)</div><div class="line">time.sleep(3)</div><div class="line">ele.click()</div><div class="line">time.sleep(10)</div><div class="line">driver.find_element_by_id(&apos;qz_app_imageReader_1&apos;).click()</div><div class="line">time.sleep(5)</div><div class="line">dialog = win32gui.FindWindow(0, u&apos;打开&apos;)  # 对话框</div><div class="line">ComboBoxEx32 = win32gui.FindWindowEx(dialog, 0, &apos;ComboBoxEx32&apos;, None)</div><div class="line">ComboBox = win32gui.FindWindowEx(ComboBoxEx32, 0, &apos;ComboBox&apos;, None)</div><div class="line">Edit = win32gui.FindWindowEx(ComboBox, 0, &apos;Edit&apos;, None)  #输入相对地址</div><div class="line">button = win32gui.FindWindowEx(dialog, 0, &apos;Button&apos;, None) #确定按钮</div><div class="line">win32gui.SendMessage(Edit, win32con.WM_SETTEXT, None, r&quot;H:\自己瞎搞的[root,单片]\奇怪的图片\123.png&quot;)</div><div class="line">win32gui.SendMessage(dialog, win32con.WM_COMMAND, 1, button)</div><div class="line">time.sleep(35)  #等待图片上传到图床，时间较长</div><div class="line">driver.find_element_by_xpath(&quot;//*[@id=&apos;QM_Mood_Poster_Inner&apos;]/div/div[4]/div[4]/a[2]&quot;).click() #点击发表，因为class里面有空格，find_class无法定位，所以用Xpath，好像用css也可以</div></pre></td></tr></table></figure>
+<p>一些注释都在代码里面了，有些东西单独拿出来说。一个是说说上传图片好像变了<br><img src="http://upload-images.jianshu.io/upload_images/3841786-3bbc0c6f65f208fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>直接点这个并不能直接把隐藏的东西点出来了，不知道是不是我的浏览器抽风了，必须要点一下这个才可以。<br><img src="http://upload-images.jianshu.io/upload_images/3841786-bbd5ee61094c481d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>后面一部分是用Python操作Windows上传的代码。<br>sleep可以解决很多问题。。很多问题都是因为没有加载出来，才引发的问题。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[启动mongoDB和redis]]></title>
+      <url>/2017/08/18/Python/%E5%90%AF%E5%8A%A8mongoDB%E5%92%8Credis/</url>
+      <content type="html"><![CDATA[<p>(1)Robomongo得mongoDB运行起来以后，才可以连接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongod.exe --dbpath H:\mong\bin\data\db  #这个路径是在bin文件里面的</div></pre></td></tr></table></figure></p>
+<p>(2)启动redis<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-server.exe redis.windows.conf</div></pre></td></tr></table></figure></p>
+<p>出现一个盒子图标那种，就是启动成功了。如果失败了，可以参考一下我的另外一个解决方法。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Selenium实在不好定位的问题]]></title>
+      <url>/2017/08/18/Python/Selenium%E5%AE%9E%E5%9C%A8%E4%B8%8D%E5%A5%BD%E5%AE%9A%E4%BD%8D%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<p>实在不好定位，可以把标签全部提取出来以后，按照文字对比<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mylist = driver.find_elements_by_tag_name(&apos;button&apos;)  #比较难定位，只能遍历所有标签，找到相同名字的</div><div class="line">           for each in mylist:</div><div class="line">               if each.text==&apos;发私信&apos;:</div><div class="line">                   each.click()</div><div class="line">                   break</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Selenium爬取空白的问题]]></title>
+      <url>/2017/08/18/Python/Selenium%E7%88%AC%E5%8F%96%E7%A9%BA%E7%99%BD%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<p>用xpath或者find都可以正确定位到元素，但是就是什么东西都抓取不下来，最最最最发现。。。是因为js没有加载完成，我就直接去定位了，所有什么都爬不到。。最简单的方法，在网页加载以前停顿10s。等待js加载完成在去爬取<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">time.sleep(10)</div></pre></td></tr></table></figure></p>
+<p>大功告成！</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Selenium遇到iframe的问题]]></title>
       <url>/2017/08/18/Python/Selenium%E9%81%87%E5%88%B0iframe%E7%9A%84%E9%97%AE%E9%A2%98/</url>
       <content type="html"><![CDATA[<p>如果使用F12检查元素的时候，发现有iframe这么个东西，或者是用xpath或者find怎么都无法定位元素的时候，那很有可能就是iframe这么个东西在作怪了！使用如下方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">driver.switch_to.frame(&apos;app_canvas_frame&apos;)   #app_canvas_frame是iframe的name</div></pre></td></tr></table></figure></p>
 <p>进入到这个框架以后，在去操作定位元素，应该就没有问题了。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Unicode转中文]]></title>
+      <url>/2017/08/18/Python/Unicode%E8%BD%AC%E4%B8%AD%E6%96%87/</url>
+      <content type="html"><![CDATA[<p>先检查text是什么类型<br>如果type(text) is bytes，<br>那么text.decode(‘unicode_escape’)<br>如果type(text) is str，那么text.encode(‘latin-1’).decode(‘unicode_escape’)<br>（感谢这个知乎作者，终于解决了我的问题）</p>
+<p>作者：mailto1587<br>链接：<a href="https://www.zhihu.com/question/26921730/answer/49625649" target="_blank" rel="external">https://www.zhihu.com/question/26921730/answer/49625649</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Xpath的使用]]></title>
+      <url>/2017/08/18/Python/Xpath%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+      <content type="html"><![CDATA[<p>####（1）匹配id，class等<br>x.xpath（‘//div[@id=’xxxxxx’]/@href’） #div标签下，如果有的话，id=xxxxxx的href属性，也可以匹配text<br>x.xpath（‘//div/a/p/text（）’）</p>
+<p>####（2）如果已经抓取了大的了<br>x.xpath（‘div/@href’） #就没有//了</p>
+<p>####（3）starts-with<br>x.xpath（‘//* [starts-with（@id，‘xxxxxx’）]’）  <strong>这里一定是  //* ，//不行</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[crawlspider使用说明]]></title>
+      <url>/2017/08/18/Python/crawlspider%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</url>
+      <content type="html"><![CDATA[<p>开始阶段，命令行输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">scrapy startproject test</div><div class="line">cd test</div><div class="line">scrapy genspider -t crawl example example.com</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[crawlspider-zhihu总结]]></title>
+      <url>/2017/08/18/Python/crawlspider-zhihu%E6%80%BB%E7%BB%93/</url>
+      <content type="html"><![CDATA[<p>1）解决500和423错误403错误<br>在settings里面设置header可以解决500错误<br>限速可以解决423错误<br>403错误，使用ip中间件以后，可能该ip已经被网站封了<br>2）<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">3）异常处理</div></pre></td></tr></table></figure></p>
+<p>try:</p>
+<p> except Exception as e:<br>            print(e)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">4）```response.status  response.url</div></pre></td></tr></table></figure>
+<p>5）对异常ip的处理，虽然我不明白原理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">from scrapy.core.downloader.handlers.http11 import TunnelError</div><div class="line"></div><div class="line">from scrapy.contrib.downloadermiddleware.retry import RetryMiddleware</div><div class="line">class RetryMiddleware(RetryMiddleware):</div><div class="line">    def process_exception(self, request, exception, spider):</div><div class="line">        if ( isinstance(exception, self.EXCEPTIONS_TO_RETRY) or isinstance(exception, TunnelError) ) \</div><div class="line">                and &apos;dont_retry&apos; not in request.meta:</div><div class="line">            return self._retry(request, exception, spider)</div><div class="line"></div><div class="line">settings.py设置如下</div><div class="line">DOWNLOADER_MIDDLEWARES = &#123;</div><div class="line">   # &apos;zhihu_basic.middlewares.UAMiddleware&apos;: 543,</div><div class="line">   &apos;zhihu_basic.middlewares.RetryMiddleware&apos;: 200,</div><div class="line">   &apos;scrapy.contrib.downloadermiddleware.retry.RetryMiddleware&apos;: None</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>6）settings里面设置header，cookies，可以用来访问<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">def make_requests_from_url(self, url):</div><div class="line">    return scrapy.Request(url, method=&apos;GET&apos;, headers=settings[&apos;ZHIHU_HEADER&apos;], cookies=settings[&apos;ZHIHU_COOKIE&apos;])</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[egg文件处理]]></title>
+      <url>/2017/08/18/Python/egg%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/</url>
+      <content type="html"><![CDATA[<p>妈的。。实在不行，修改文件后缀为zip，只要没用动态库，直接解压出来放到lib里面。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[is-和-==]]></title>
+      <url>/2017/08/18/Python/is-%E5%92%8C-==/</url>
+      <content type="html"><![CDATA[<p>‘is’是判定是否是同一个对象<br>‘==’判定值是否相等</p>
 ]]></content>
       
         <categories>
@@ -925,10 +1440,10 @@
     </entry>
     
     <entry>
-      <title><![CDATA[MongoDB导出数据]]></title>
-      <url>/2017/08/18/Python/MongoDB%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE/</url>
-      <content type="html"><![CDATA[<p><strong>bin</strong>文件里面有一个<strong>mongoexport</strong>文件<br>先给一个样例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongoexport -d jikexueyuan -c readcolor5 --csv -f book_list_author,book_name -o readcolor5.csv</div></pre></td></tr></table></figure></p>
-<p>解释一下，模板应该是这样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongoexport -d 数据库名 -c 集合名 --csv -f 要输出哪些属性 -o 输入文件</div></pre></td></tr></table></figure></p>
+      <title><![CDATA[mongoDB安装]]></title>
+      <url>/2017/08/18/Python/mongoDB%E5%AE%89%E8%A3%85/</url>
+      <content type="html"><![CDATA[<p>神特么坑，我的网速奇慢，用firefox自带的下载器简直不忍直视。。建议还是转用迅雷吧<br>另外zip不太好操作，建议还是msi。<br>浏览器转迅雷：</p>
+<p>#####在下载东西的地方右键，复制链接到迅雷即可。注意是已经处于下载状态的。</p>
 ]]></content>
       
         <categories>
@@ -941,13 +1456,11 @@
     </entry>
     
     <entry>
-      <title><![CDATA[MongoEngine的使用]]></title>
-      <url>/2017/08/18/Python/MongoEngine%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">from mongoengine import *   #导入所有的可用资源</div></pre></td></tr></table></figure>
-<p>##基础<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">connect(&apos;testmongo&apos;)   #连接数据库 </div><div class="line">class People(Document):   #声明一个类</div><div class="line">   name = StringField(required=True)    </div><div class="line">   age  = IntField(required=True)    </div><div class="line">   sex  = StringField(required=True)     # True表面添加的时候，这个是必加项</div><div class="line">   salary = IntField()</div><div class="line">kind = People(name = &apos;kind&apos;,age = 20,sex = &apos;male&apos;)</div><div class="line">kind.save()    ```  </div><div class="line">##查询</div></pre></td></tr></table></figure></p>
-<p>for each in People.objects:<br>     printf(each.name)<br>namelist = People.object(sex = ‘male’)<br>     for x in namelist:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">##删除</div></pre></td></tr></table></figure>
-<p>namelist.delete()<br>```</p>
+      <title><![CDATA[key值没有双引号，处理为json格式]]></title>
+      <url>/2017/08/18/Python/key%E5%80%BC%E6%B2%A1%E6%9C%89%E5%8F%8C%E5%BC%95%E5%8F%B7%EF%BC%8C%E5%A4%84%E7%90%86%E4%B8%BAjson%E6%A0%BC%E5%BC%8F/</url>
+      <content type="html"><![CDATA[<p>导入库execjs<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install execjs</div></pre></td></tr></table></figure></p>
+<p>重点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">myjson = execjs.eval(string)  #string为需要处理的没有双引号的串</div></pre></td></tr></table></figure></p>
+<p>然后自己加一些需要的处理，比如单引号换双引号视情况而定<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">myjson.replace(&quot;\&apos;&quot;,&apos;&apos;)</div></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>
@@ -960,107 +1473,9 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Mongo数据库的一些技巧]]></title>
-      <url>/2017/08/18/Python/Mongo%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%8A%80%E5%B7%A7/</url>
-      <content type="html"><![CDATA[<p>1）可以把”_id”字段通过构造，保证字符查询的唯一性<br>2）可以把所有的信息都存到一个col里面，然后通过不同的标签来区别查找，这样效率更高一点。<br>3）插入操作可以详细看“电影监控”工程的pipelines</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Pandas-修改文件的头部]]></title>
-      <url>/2017/08/18/Python/Pandas-%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E7%9A%84%E5%A4%B4%E9%83%A8/</url>
-      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import pandas as pd</div><div class="line">dataset = pd.read_csv(r&apos;H:\python\数据挖掘代码\新建文件夹\Code_REWRITE\Chapter 3\8.csv&apos;)</div><div class="line">dataset.columns = [&quot;Date&quot;,&quot;Time&quot;,&quot;Visitor Team&quot;,&quot;VisitorPts&quot;,&quot;Home Team&quot;,&quot;HomePts&quot;,&quot;Score Type&quot;,&quot;OT?&quot;,&apos;Notes&apos;]</div></pre></td></tr></table></figure>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[贴吧ABC]]></title>
-      <url>/2017/08/18/Python/%E8%B4%B4%E5%90%A7ABC/</url>
-      <content type="html"><![CDATA[<p>类的定义和使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class someinfo:</div><div class="line"></div><div class="line">    def __init__(self,mytime,content,name):</div><div class="line">        self.mytime = time</div><div class="line">        self.content = content</div><div class="line">        self.name = name</div></pre></td></tr></table></figure></p>
-<p>列表对类的某个属性进行排序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dic.sort(key=lambda x:x.mytime)</div></pre></td></tr></table></figure></p>
-<p>字典是否存在这个键值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">myinfo.get(huifu_id)!=None</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[用xpath下载图片]]></title>
-      <url>/2017/08/18/Python/%E7%94%A8xpath%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87/</url>
-      <content type="html"><![CDATA[<p>picc = selction.xpath(‘//*[@id=”post_content_98516860569”]/img’)<br>i = 1<br>for each in picc:<br>    z = each.get(‘src’)  //转换为网址形式<br>    pic = requests.get(z)<br>    fp = open(‘直播 19岁 背包冒险 西藏 尼泊尔 印度的故事\‘+str(i)+’.jpg’,’wb’)<br>    fp.write(pic.content)  //这样可以下载图片<br>    fp.close()<br>    i+=1</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Python文件]]></title>
-      <url>/2017/08/18/Python/Python%E6%96%87%E4%BB%B6/</url>
-      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">file_obj.seek（offset，whence = 0）</div></pre></td></tr></table></figure>
-<p>在文件中移动指针<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">whence = 0 # 表示文件头部</div><div class="line">whence = 1 #表示当前位置</div><div class="line">whence = 2 #表示文件尾部</div><div class="line">默认为0</div></pre></td></tr></table></figure></p>
-<p>offset<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">offset 为偏移量</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[QQyundong总结]]></title>
-      <url>/2017/08/18/Python/QQyundong%E6%80%BB%E7%BB%93/</url>
-      <content type="html"><![CDATA[<p>（1）wordcloud的的安装会出现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UnicodeDecodeError: &apos;utf-8&apos; codec can&apos;t decode byte 0xca in position 11: invalid continuation byte</div></pre></td></tr></table></figure></p>
-<p>解决方法：找到报错文件，把utf-8该为gbk<br>（2）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dic.get() #返回的是对应的值</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">dic = &#123;&#125;</div><div class="line">for each in file2.split(&apos; &apos;):   #文件按单个单词读入，按空格分割单词</div><div class="line">![Uploading QQ截图20170117002052_686915.png . . .]</div><div class="line"></div><div class="line">    if dic.get(each)!=None:</div><div class="line">        dic[each] +=1</div><div class="line">    else :</div><div class="line">        dic[each] =1</div></pre></td></tr></table></figure>
-<p>（3）post后面是url<br>主题是headers<br>最后是data，交的表单数据<br><img src="http://upload-images.jianshu.io/upload_images/3841786-3a5ca2debfd1804b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1"><br>（4）返回的Response可以直接转换成json操作，json看做一个字典就好了。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Redis配合爬虫的一些要领]]></title>
-      <url>/2017/08/18/Python/Redis%E9%85%8D%E5%90%88%E7%88%AC%E8%99%AB%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E9%A2%86/</url>
-      <content type="html"><![CDATA[<p>（1）首先爬虫运行以后，要先在Redis给出一个初始的地址，就叫种子吧。但是你这之前得先把Redis启动起来才行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lpush x:x 网址   # 这个网址一定是http开头的</div></pre></td></tr></table></figure></p>
-<p>（2）如果卡住了。。。虽然我也不知道为啥会卡住。。但是这么可以解决这个问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">flushall  #把数据库里面的数据先清除了，然后再lpush一次，应该就可以了</div></pre></td></tr></table></figure></p>
+      <title><![CDATA[requirement-txt包安装]]></title>
+      <url>/2017/08/18/Python/requirement-txt%E5%8C%85%E5%AE%89%E8%A3%85/</url>
+      <content type="html"><![CDATA[ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip3 install -r requirement.txt</div></pre></td></tr></table></figure>
 ]]></content>
       
         <categories>
@@ -1091,263 +1506,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Scrapy下载安装]]></title>
-      <url>/2017/08/18/Python/Scrapy%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/</url>
-      <content type="html"><![CDATA[<p>###（1）下载这个<a href="http://landinghub.visualstudio.com/visual-cpp-build-tools" target="_blank" rel="external">http://landinghub.visualstudio.com/visual-cpp-build-tools</a></p>
-<p>###（2）安装pywin32  <a href="https://sourceforge.net/projects/pywin32/files/pywin32/Build%20220/" target="_blank" rel="external">https://sourceforge.net/projects/pywin32/files/pywin32/Build%20220/</a></p>
-<p>###(3)然后就直接安scrapy =v= 一定会有许多错误，但是别急，这些错误都是缺一些包造成的，可能是网络原因或者是源的原因，不能正常下载这些包，<br><code>https://pypi.python.org/pypi/cryptography/1.6</code>，<code>http://www.lfd.uci.edu/~gohlke/pythonlibs/</code> ，在这两个网站去下载缺失的包，然后pip install 文件名  安装这个包。或者用把whl改为zip，自己手动解压，然后放到Lib。这两种方法均可。<br>[如果还是有问题，可以私我]</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[正则表达式]]></title>
-      <url>/2017/08/18/Python/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
-      <content type="html"><![CDATA[<p>a = ‘wefwef’<br>b = re.findall(‘fwef. * ? fwef’,a)//匹配fwef…fwef之间的东西,但输出包括xx xx<br>b = re.findall(‘xx(. * ?)xx’,a)//功能同上，但是输出不包括xx xx<br>b = re.findall(‘xx (. * ? )xx’,a,re.S) //可以匹配带有换行符的文段<br>b = re.sub(‘123(.  * ?)123’,’45645’,a)//把形为123…123的串替换为45645，并且不改变a串<br>b = re.findall(‘(\d+)’,a) //匹配纯数字，可以把所有数字匹配出来</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Selenium发表图片说说]]></title>
-      <url>/2017/08/18/Python/Selenium%E5%8F%91%E8%A1%A8%E5%9B%BE%E7%89%87%E8%AF%B4%E8%AF%B4/</url>
-      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">from selenium </div><div class="line">import webdriver</div><div class="line">import time</div><div class="line">import win32gui</div><div class="line">import win32con</div><div class="line">driver = webdriver.Chrome(r&apos;H:\python\chromedrive\chromedriver.exe&apos;)</div><div class="line">url = &apos;http://user.qzone.qq.com/715157026/infocenter?ptsig=YAykvv1IN0eLgVhwb9vnl2AyS*9pwf23WfDbffrZ20k_&apos;</div><div class="line">driver.get(url)</div><div class="line">try:</div><div class="line">    driver.find_elements_by_id(&apos;login&apos;)</div><div class="line">    a = True</div><div class="line">except:    a = False</div><div class="line">if a == True:  #模拟登陆</div><div class="line">    driver.switch_to.frame(&apos;login_frame&apos;) </div><div class="line">    driver.find_element_by_id(&apos;switcher_plogin&apos;).click() </div><div class="line">    driver.find_element_by_id(&apos;u&apos;).clear()</div><div class="line">    driver.find_element_by_id(&apos;u&apos;).send_keys(QQ)</div><div class="line">    driver.find_element_by_id(&apos;p&apos;).clear() </div><div class="line">    driver.find_element_by_id(&apos;p&apos;).send_keys(keys)      </div><div class="line">    driver.find_element_by_id(&apos;login_button&apos;).click()</div><div class="line">time.sleep(20)   </div><div class="line">driver.find_element_by_id(&quot;qz_poster_editor_v4_container&quot;).click() #很奇怪，好像是发说说的方式变了，直接点击发图片没有效果，必须要先点这个才行</div><div class="line">time.sleep(5)</div><div class="line">ele = driver.find_element_by_class_name(&quot;pic&quot;)</div><div class="line">time.sleep(3)</div><div class="line">ele.click()</div><div class="line">time.sleep(10)</div><div class="line">driver.find_element_by_id(&apos;qz_app_imageReader_1&apos;).click()</div><div class="line">time.sleep(5)</div><div class="line">dialog = win32gui.FindWindow(0, u&apos;打开&apos;)  # 对话框</div><div class="line">ComboBoxEx32 = win32gui.FindWindowEx(dialog, 0, &apos;ComboBoxEx32&apos;, None)</div><div class="line">ComboBox = win32gui.FindWindowEx(ComboBoxEx32, 0, &apos;ComboBox&apos;, None)</div><div class="line">Edit = win32gui.FindWindowEx(ComboBox, 0, &apos;Edit&apos;, None)  #输入相对地址</div><div class="line">button = win32gui.FindWindowEx(dialog, 0, &apos;Button&apos;, None) #确定按钮</div><div class="line">win32gui.SendMessage(Edit, win32con.WM_SETTEXT, None, r&quot;H:\自己瞎搞的[root,单片]\奇怪的图片\123.png&quot;)</div><div class="line">win32gui.SendMessage(dialog, win32con.WM_COMMAND, 1, button)</div><div class="line">time.sleep(35)  #等待图片上传到图床，时间较长</div><div class="line">driver.find_element_by_xpath(&quot;//*[@id=&apos;QM_Mood_Poster_Inner&apos;]/div/div[4]/div[4]/a[2]&quot;).click() #点击发表，因为class里面有空格，find_class无法定位，所以用Xpath，好像用css也可以</div></pre></td></tr></table></figure>
-<p>一些注释都在代码里面了，有些东西单独拿出来说。一个是说说上传图片好像变了<br><img src="http://upload-images.jianshu.io/upload_images/3841786-3bbc0c6f65f208fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>直接点这个并不能直接把隐藏的东西点出来了，不知道是不是我的浏览器抽风了，必须要点一下这个才可以。<br><img src="http://upload-images.jianshu.io/upload_images/3841786-bbd5ee61094c481d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>后面一部分是用Python操作Windows上传的代码。<br>sleep可以解决很多问题。。很多问题都是因为没有加载出来，才引发的问题。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Selenium实在不好定位的问题]]></title>
-      <url>/2017/08/18/Python/Selenium%E5%AE%9E%E5%9C%A8%E4%B8%8D%E5%A5%BD%E5%AE%9A%E4%BD%8D%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-      <content type="html"><![CDATA[<p>实在不好定位，可以把标签全部提取出来以后，按照文字对比<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mylist = driver.find_elements_by_tag_name(&apos;button&apos;)  #比较难定位，只能遍历所有标签，找到相同名字的</div><div class="line">           for each in mylist:</div><div class="line">               if each.text==&apos;发私信&apos;:</div><div class="line">                   each.click()</div><div class="line">                   break</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Selenium爬取空白的问题]]></title>
-      <url>/2017/08/18/Python/Selenium%E7%88%AC%E5%8F%96%E7%A9%BA%E7%99%BD%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-      <content type="html"><![CDATA[<p>用xpath或者find都可以正确定位到元素，但是就是什么东西都抓取不下来，最最最最发现。。。是因为js没有加载完成，我就直接去定位了，所有什么都爬不到。。最简单的方法，在网页加载以前停顿10s。等待js加载完成在去爬取<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">time.sleep(10)</div></pre></td></tr></table></figure></p>
-<p>大功告成！</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[正则表达式-1]]></title>
-      <url>/2017/08/18/Python/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-1/</url>
-      <content type="html"><![CDATA[<p><strong>基本要领</strong><br>通常是一个前面一个匹配表达式，后面接一个长度判定表达式，例如<code>[0-9a-zA-Z\_]+</code>，即匹配一个任意长度的包含数字或字符串或下划线的字符串，即一个标准的Python变量。<br><strong>匹配知识</strong><br><code>\d</code>：匹配数字<br><code>\s</code>：匹配空格<br><code>\w</code>：匹配字母<br><code>.</code>   ： 匹配任意字符<br><code>^</code>：表示行开头，即以什么开头的行<br><code>$</code>：表示行结尾，即以什么结尾的行<br><code>^</code>：在括号内表示非<br><strong>长度知识</strong><br><code>*</code>：任意个字符，包括0个<br><code>+</code>：至少1字符<br><code>？</code>：0个或者1个字符<br><code>\d{3}</code>：匹配3个数字<br><code>\d{3,8}</code>：匹配3到8个数字<br><code>[0-9a-zA-Z]</code>：匹配一个包含数字或者字母的字符串<br><strong>一些表达式</strong><br><code>(.*?)</code>：非贪婪地匹配所有元素，按照懒惰匹配的方式，匹配尽可能短的元素</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Unicode转中文]]></title>
-      <url>/2017/08/18/Python/Unicode%E8%BD%AC%E4%B8%AD%E6%96%87/</url>
-      <content type="html"><![CDATA[<p>先检查text是什么类型<br>如果type(text) is bytes，<br>那么text.decode(‘unicode_escape’)<br>如果type(text) is str，那么text.encode(‘latin-1’).decode(‘unicode_escape’)<br>（感谢这个知乎作者，终于解决了我的问题）</p>
-<p>作者：mailto1587<br>链接：<a href="https://www.zhihu.com/question/26921730/answer/49625649" target="_blank" rel="external">https://www.zhihu.com/question/26921730/answer/49625649</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Xpath的使用]]></title>
-      <url>/2017/08/18/Python/Xpath%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-      <content type="html"><![CDATA[<p>####（1）匹配id，class等<br>x.xpath（‘//div[@id=’xxxxxx’]/@href’） #div标签下，如果有的话，id=xxxxxx的href属性，也可以匹配text<br>x.xpath（‘//div/a/p/text（）’）</p>
-<p>####（2）如果已经抓取了大的了<br>x.xpath（‘div/@href’） #就没有//了</p>
-<p>####（3）starts-with<br>x.xpath（‘//* [starts-with（@id，‘xxxxxx’）]’）  <strong>这里一定是  //* ，//不行</strong></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[crawlspider-zhihu总结]]></title>
-      <url>/2017/08/18/Python/crawlspider-zhihu%E6%80%BB%E7%BB%93/</url>
-      <content type="html"><![CDATA[<p>1）解决500和423错误403错误<br>在settings里面设置header可以解决500错误<br>限速可以解决423错误<br>403错误，使用ip中间件以后，可能该ip已经被网站封了<br>2）<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">3）异常处理</div></pre></td></tr></table></figure></p>
-<p>try:</p>
-<p> except Exception as e:<br>            print(e)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">4）```response.status  response.url</div></pre></td></tr></table></figure>
-<p>5）对异常ip的处理，虽然我不明白原理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">from scrapy.core.downloader.handlers.http11 import TunnelError</div><div class="line"></div><div class="line">from scrapy.contrib.downloadermiddleware.retry import RetryMiddleware</div><div class="line">class RetryMiddleware(RetryMiddleware):</div><div class="line">    def process_exception(self, request, exception, spider):</div><div class="line">        if ( isinstance(exception, self.EXCEPTIONS_TO_RETRY) or isinstance(exception, TunnelError) ) \</div><div class="line">                and &apos;dont_retry&apos; not in request.meta:</div><div class="line">            return self._retry(request, exception, spider)</div><div class="line"></div><div class="line">settings.py设置如下</div><div class="line">DOWNLOADER_MIDDLEWARES = &#123;</div><div class="line">   # &apos;zhihu_basic.middlewares.UAMiddleware&apos;: 543,</div><div class="line">   &apos;zhihu_basic.middlewares.RetryMiddleware&apos;: 200,</div><div class="line">   &apos;scrapy.contrib.downloadermiddleware.retry.RetryMiddleware&apos;: None</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>6）settings里面设置header，cookies，可以用来访问<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">def make_requests_from_url(self, url):</div><div class="line">    return scrapy.Request(url, method=&apos;GET&apos;, headers=settings[&apos;ZHIHU_HEADER&apos;], cookies=settings[&apos;ZHIHU_COOKIE&apos;])</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[crawlspider使用说明]]></title>
-      <url>/2017/08/18/Python/crawlspider%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</url>
-      <content type="html"><![CDATA[<p>开始阶段，命令行输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">scrapy startproject test</div><div class="line">cd test</div><div class="line">scrapy genspider -t crawl example example.com</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[egg文件处理]]></title>
-      <url>/2017/08/18/Python/egg%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/</url>
-      <content type="html"><![CDATA[<p>妈的。。实在不行，修改文件后缀为zip，只要没用动态库，直接解压出来放到lib里面。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[暂停爬虫]]></title>
-      <url>/2017/08/18/Python/%E6%9A%82%E5%81%9C%E7%88%AC%E8%99%AB/</url>
-      <content type="html"><![CDATA[<p>打开MongoDB和Redis都是必须的，主要是开始的时候的代码换一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scrapy crawl somespider -s JOBDIR=crawls/somespider-1</div></pre></td></tr></table></figure></p>
-<p>继续开始的代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scrapy crawl somespider -s JOBDIR=crawls/somespider-1</div></pre></td></tr></table></figure></p>
-<p>和开始的代码是一样的，这样就可以使爬虫暂停了。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[is-和-==]]></title>
-      <url>/2017/08/18/Python/is-%E5%92%8C-==/</url>
-      <content type="html"><![CDATA[<p>‘is’是判定是否是同一个对象<br>‘==’判定值是否相等</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[key值没有双引号，处理为json格式]]></title>
-      <url>/2017/08/18/Python/key%E5%80%BC%E6%B2%A1%E6%9C%89%E5%8F%8C%E5%BC%95%E5%8F%B7%EF%BC%8C%E5%A4%84%E7%90%86%E4%B8%BAjson%E6%A0%BC%E5%BC%8F/</url>
-      <content type="html"><![CDATA[<p>导入库execjs<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install execjs</div></pre></td></tr></table></figure></p>
-<p>重点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">myjson = execjs.eval(string)  #string为需要处理的没有双引号的串</div></pre></td></tr></table></figure></p>
-<p>然后自己加一些需要的处理，比如单引号换双引号视情况而定<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">myjson.replace(&quot;\&apos;&quot;,&apos;&apos;)</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[mongoDB安装]]></title>
-      <url>/2017/08/18/Python/mongoDB%E5%AE%89%E8%A3%85/</url>
-      <content type="html"><![CDATA[<p>神特么坑，我的网速奇慢，用firefox自带的下载器简直不忍直视。。建议还是转用迅雷吧<br>另外zip不太好操作，建议还是msi。<br>浏览器转迅雷：</p>
-<p>#####在下载东西的地方右键，复制链接到迅雷即可。注意是已经处于下载状态的。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[requirement-txt包安装]]></title>
-      <url>/2017/08/18/Python/requirement-txt%E5%8C%85%E5%AE%89%E8%A3%85/</url>
-      <content type="html"><![CDATA[ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip3 install -r requirement.txt</div></pre></td></tr></table></figure>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[scrapy中间件的使用]]></title>
       <url>/2017/08/18/Python/scrapy%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
       <content type="html"><![CDATA[<p>首先创建<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">class UAMiddleware（object）:</div><div class="line">  def process_request（self,request,spider）:</div><div class="line">        ua = random.choice（UA_LIST）</div><div class="line">        request.header[&apos;User-Agent&apos;] = ua  #这个是定义的随机user-agent</div></pre></td></tr></table></figure></p>
@@ -1359,212 +1517,6 @@
         <categories>
             
             <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[数字转换为字符串]]></title>
-      <url>/2017/08/18/Python/%E6%95%B0%E5%AD%97%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
-      <content type="html"><![CDATA[<p>i = 1<br>print(‘%d’%i)  以字符串输出<br>str(i)</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[一个json格式检验的网站]]></title>
-      <url>/2017/08/18/Python/%E4%B8%80%E4%B8%AAjson%E6%A0%BC%E5%BC%8F%E6%A3%80%E9%AA%8C%E7%9A%84%E7%BD%91%E7%AB%99/</url>
-      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://jsonformatter.curiousconcept.com/</div></pre></td></tr></table></figure>
-<p>可能需要自备梯子</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[代理ip池]]></title>
-      <url>/2017/08/18/Python/%E4%BB%A3%E7%90%86ip%E6%B1%A0/</url>
-      <content type="html"><![CDATA[<p>url<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://127.0.0.1:8000/?types=0&amp;count=5&amp;country=国内</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line">import json</div><div class="line">r = requests.get(&apos;http://127.0.0.1:8000/?types=0&amp;count=5&amp;country=国内&apos;)</div><div class="line">ip_ports = json.loads(r.text)</div><div class="line">print (ip_ports)</div><div class="line">ip = ip_ports[0][0]</div><div class="line">port = ip_ports[0][1]</div><div class="line">proxies=&#123;</div><div class="line">    &apos;http&apos;:&apos;http://%s:%s&apos;%(ip,port),</div><div class="line">    &apos;https&apos;:&apos;http://%s:%s&apos;%(ip,port)</div><div class="line">&#125;</div><div class="line">r = requests.get(&apos;http://exercise.kingname.info/exercise_middleware_ip&apos;,proxies=proxies)</div><div class="line">r.encoding=&apos;utf-8&apos;</div><div class="line">print (r.text)</div></pre></td></tr></table></figure>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[使用Scrapy爬取的基本]]></title>
-      <url>/2017/08/18/Python/%E4%BD%BF%E7%94%A8Scrapy%E7%88%AC%E5%8F%96%E7%9A%84%E5%9F%BA%E6%9C%AC/</url>
-      <content type="html"><![CDATA[<p>（1）创建工程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scrapy startproject name #name为你想创建的工程名字，名字不可与第三方库名冲突</div></pre></td></tr></table></figure></p>
-<p>（2）创建爬虫<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd name</div><div class="line">scrapy genspider example example.com #scrapy genspider 爬虫名 爬虫网址</div></pre></td></tr></table></figure></p>
-<p>（3）修改pass<br>进入example.py 文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">将pass修改为  print(response.body.decode())</div></pre></td></tr></table></figure></p>
-<p>在终端里执行，直接执行py文件没有作用….<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scrapy crawl example</div></pre></td></tr></table></figure></p>
-<p>有东西输出，但是还是看不见网页的源代码，打开setting.py发现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># Obey robots.txt rulesROBOTSTXT_OBEY = True</div></pre></td></tr></table></figure></p>
-<p>将其修改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># Obey robots.txt rulesROBOTSTXT_OBEY = False</div></pre></td></tr></table></figure></p>
-<p>然后就可以发现源代码被打印出来了<br>（4）在pycharm里面运行<br>在工程的根目录里面新建一个，main.py文件，输入如下代码就可以了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from scrapy import cmdline   </div><div class="line">cmdline.execute(&quot;scrapy crawl example&quot;.split())</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[使用多线程]]></title>
-      <url>/2017/08/18/Python/%E4%BD%BF%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
-      <content type="html"><![CDATA[<p>x = threading.Thread(target=solve,args=(urll,))  //solve的参数是有后面的args里面的urll传递的，solve为一个函数<br>x.start()<br>[threadGet(urll) for urll in list]</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[写的第一个淘宝信息爬虫总结]]></title>
-      <url>/2017/08/18/Python/%E5%86%99%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%B7%98%E5%AE%9D%E4%BF%A1%E6%81%AF%E7%88%AC%E8%99%AB%E6%80%BB%E7%BB%93/</url>
-      <content type="html"><![CDATA[<p>###1.用的selenium 来处理js<br>driver = webdriver.Chrome(r’H:\python\chromedrive\chromedriver.exe’) #应该更改为相对路径<br>driver.get(url)element=driver.find_elements_by_xpath(‘//*[starts-with(@class,”item J_MouserOnverReq  “)]’) #先抓大再抓小</p>
-<p>#####此处注意chrome的版本要和chromedrive的版本相匹配不然会报错。</p>
-<p>###2.打开csv文件<br>csvfile = open(‘taobao.csv’,’w’)<br>writer = csv.writer(csvfile)<br>…<br>writer.writerow(…)  #此处的变量应该是一个字典</p>
-<p>#####字典<br>dicc = {‘产地’:’’, ‘店铺名称’:’’, ‘商品网址’:’’, ‘销售数量’:’’, ‘价格’:’’, ‘商品名字’:’’}<br>dicc.keys()获取字典的键值，dicc.value()获取字典的值</p>
-<p>###3.element的信息处理<br>shopname = element[i].find_element_by_class_name(‘shop’)<br>这个还是比较好处理的，class,tags,id什么的同理用这个方法。<br>主要是属性,href之类的，我弄了很久。。半路出家python。。没有系统学过web之类的知识。。</p>
-<p>#####itemname = driver.find_elements_by_xpath(‘//div[@class=”row row-2 title”]/a’)[i]  # 产品名字</p>
-<p>#####itemurl = itemname.get_attribute(‘href’)#网址<br>我先用的xpath抓到class，然后再获取这个class的属性，用get_attribute</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[启动mongoDB和redis]]></title>
-      <url>/2017/08/18/Python/%E5%90%AF%E5%8A%A8mongoDB%E5%92%8Credis/</url>
-      <content type="html"><![CDATA[<p>(1)Robomongo得mongoDB运行起来以后，才可以连接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongod.exe --dbpath H:\mong\bin\data\db  #这个路径是在bin文件里面的</div></pre></td></tr></table></figure></p>
-<p>(2)启动redis<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-server.exe redis.windows.conf</div></pre></td></tr></table></figure></p>
-<p>出现一个盒子图标那种，就是启动成功了。如果失败了，可以参考一下我的另外一个解决方法。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[给当前目录的所有文件增添权限]]></title>
-      <url>/2017/08/18/Linux/%E7%BB%99%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95%E7%9A%84%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6%E5%A2%9E%E6%B7%BB%E6%9D%83%E9%99%90/</url>
-      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod 777 .     // . 表示当前目录下所有文件</div></pre></td></tr></table></figure>
-]]></content>
-      
-        <categories>
-            
-            <category> Linux </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[爬虫部署最后总结-zhihu_basic]]></title>
-      <url>/2017/08/18/Linux/%E7%88%AC%E8%99%AB%E9%83%A8%E7%BD%B2%E6%9C%80%E5%90%8E%E6%80%BB%E7%BB%93-zhihu_basic/</url>
-      <content type="html"><![CDATA[<p>1）supervisor配置和启动命令<br>配置文件放置的地方<br><figure class="highlight plain"><figcaption><span>etc/supervisor/conf.d```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">编写配置文件</div></pre></td></tr></table></figure></p>
-<p>[program:project]<br>command = python main.py //运行命令<br>autostart = true  //supervisor开机启动<br>autorestart = true  //异常崩掉以后重启<br>stdout_logfile = 文件地址   #日志地址<br>stderr_logfile = 文件地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">修改配置文件以后要重启supervisor</div></pre></td></tr></table></figure></p>
-<p>service supervisor restart</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">2）如果用supervisor管理scrapy，主程序要放到根目录以下，不然无法用crawl运行项目。。。但是启动以后好像运行速度很慢，也不知为什么</div><div class="line">3）mongod的自启动和后台运行也可以用supervisor，参见第一步的配置</div></pre></td></tr></table></figure>
-<p>command = data/mongodb/bin/mongod –dbpath /data/db 其他都是相同的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">4）打印日志很重要，很多错误都可以从日志中查出来</div><div class="line">5）linux查看占用端口的进程</div></pre></td></tr></table></figure></p>
-<p>ps -ef | grep 名字<br>netstat -ap | grep 8080<br>lsof -i:8888<br>kill -9 id   //杀死进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">6）vim清空文档，非插入模式下</div></pre></td></tr></table></figure></p>
-<p>:.,$d</p>
-<p>```</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Linux </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[安装scrapy所有的错误合集网站和命令]]></title>
-      <url>/2017/08/18/Linux/%E5%AE%89%E8%A3%85scrapy%E6%89%80%E6%9C%89%E7%9A%84%E9%94%99%E8%AF%AF%E5%90%88%E9%9B%86%E7%BD%91%E7%AB%99%E5%92%8C%E5%91%BD%E4%BB%A4/</url>
-      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://www.cnblogs.com/xiaoli2018/p/4661604.html  那个libffi我好像没有配置完，直接cffi加后面四个文件，就可以安装cryptography了</div><div class="line">http://www.tuicool.com/articles/URNVV3E cryptography错误解决方案</div></pre></td></tr></table></figure>
-<p><code>easy_install 网络地址</code> 可以到网站下载东西到所在目录<br><code>tar zxvf</code>解压命令<br>如果是python3的话，python-dev应该换成python3-dev ，好像是这样的。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Linux </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[双系统下为Linux系统增加硬盘空间]]></title>
-      <url>/2017/08/18/Linux/%E5%8F%8C%E7%B3%BB%E7%BB%9F%E4%B8%8B%E4%B8%BALinux%E7%B3%BB%E7%BB%9F%E5%A2%9E%E5%8A%A0%E7%A1%AC%E7%9B%98%E7%A9%BA%E9%97%B4/</url>
-      <content type="html"><![CDATA[<p>1）在Win系统下，在磁盘分区里面，分出一个新的磁盘空间，生成一个新的卷。<br>2）切换到Linux系统中，用“磁盘”这个软件，查看该新生成的卷，挂载在哪里，记下这个挂载。<br>3）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo mkfs -t ext4 /dev/sda10     //sda10即为新的挂载</div><div class="line">sudo vim /etc/fstab</div></pre></td></tr></table></figure></p>
-<p>在最后加上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/dev/sda10 /home/kk/hard_disk ext4 defaults 0  1     //   /home/kk/hard_disk即为挂载点</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Linux </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[给Ubuntu系统添加SSH请求服务]]></title>
-      <url>/2017/08/18/Linux/%E7%BB%99Ubuntu%E7%B3%BB%E7%BB%9F%E6%B7%BB%E5%8A%A0SSH%E8%AF%B7%E6%B1%82%E6%9C%8D%E5%8A%A1/</url>
-      <content type="html"><![CDATA[<p>1）安装ssh服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install openssh-server</div></pre></td></tr></table></figure></p>
-<p>2）检查ssh是否运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ps -e | grep ssh</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Linux </category>
             
         </categories>
         
@@ -1592,27 +1544,9 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Mongod服务器启动命令]]></title>
-      <url>/2017/08/18/Linux/Mongod%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%90%AF%E5%8A%A8%E5%91%BD%E4%BB%A4/</url>
-      <content type="html"><![CDATA[<p>启动进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongod --dbpath /data/db</div></pre></td></tr></table></figure></p>
-<p>打开操作台<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongo</div></pre></td></tr></table></figure></p>
-<p>查看端口状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">netstat -lanp | grep &quot;27017&quot;</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Linux </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Mongod服务器出现端口占用]]></title>
-      <url>/2017/08/18/Linux/Mongod%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%87%BA%E7%8E%B0%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8/</url>
-      <content type="html"><![CDATA[<p>查看进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ps aux | grep mongo</div></pre></td></tr></table></figure></p>
-<p>杀死进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kill -9 第一组数字</div></pre></td></tr></table></figure></p>
+      <title><![CDATA[给当前目录的所有文件增添权限]]></title>
+      <url>/2017/08/18/Linux/%E7%BB%99%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95%E7%9A%84%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6%E5%A2%9E%E6%B7%BB%E6%9D%83%E9%99%90/</url>
+      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod 777 .     // . 表示当前目录下所有文件</div></pre></td></tr></table></figure>
 ]]></content>
       
         <categories>
@@ -1651,6 +1585,109 @@
     </entry>
     
     <entry>
+      <title><![CDATA[安装scrapy所有的错误合集网站和命令]]></title>
+      <url>/2017/08/18/Linux/%E5%AE%89%E8%A3%85scrapy%E6%89%80%E6%9C%89%E7%9A%84%E9%94%99%E8%AF%AF%E5%90%88%E9%9B%86%E7%BD%91%E7%AB%99%E5%92%8C%E5%91%BD%E4%BB%A4/</url>
+      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://www.cnblogs.com/xiaoli2018/p/4661604.html  那个libffi我好像没有配置完，直接cffi加后面四个文件，就可以安装cryptography了</div><div class="line">http://www.tuicool.com/articles/URNVV3E cryptography错误解决方案</div></pre></td></tr></table></figure>
+<p><code>easy_install 网络地址</code> 可以到网站下载东西到所在目录<br><code>tar zxvf</code>解压命令<br>如果是python3的话，python-dev应该换成python3-dev ，好像是这样的。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[爬虫部署最后总结-zhihu_basic]]></title>
+      <url>/2017/08/18/Linux/%E7%88%AC%E8%99%AB%E9%83%A8%E7%BD%B2%E6%9C%80%E5%90%8E%E6%80%BB%E7%BB%93-zhihu_basic/</url>
+      <content type="html"><![CDATA[<p>1）supervisor配置和启动命令<br>配置文件放置的地方<br><figure class="highlight plain"><figcaption><span>etc/supervisor/conf.d```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">编写配置文件</div></pre></td></tr></table></figure></p>
+<p>[program:project]<br>command = python main.py //运行命令<br>autostart = true  //supervisor开机启动<br>autorestart = true  //异常崩掉以后重启<br>stdout_logfile = 文件地址   #日志地址<br>stderr_logfile = 文件地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">修改配置文件以后要重启supervisor</div></pre></td></tr></table></figure></p>
+<p>service supervisor restart</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">2）如果用supervisor管理scrapy，主程序要放到根目录以下，不然无法用crawl运行项目。。。但是启动以后好像运行速度很慢，也不知为什么</div><div class="line">3）mongod的自启动和后台运行也可以用supervisor，参见第一步的配置</div></pre></td></tr></table></figure>
+<p>command = data/mongodb/bin/mongod –dbpath /data/db 其他都是相同的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">4）打印日志很重要，很多错误都可以从日志中查出来</div><div class="line">5）linux查看占用端口的进程</div></pre></td></tr></table></figure></p>
+<p>ps -ef | grep 名字<br>netstat -ap | grep 8080<br>lsof -i:8888<br>kill -9 id   //杀死进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">6）vim清空文档，非插入模式下</div></pre></td></tr></table></figure></p>
+<p>:.,$d</p>
+<p>```</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Mongod服务器出现端口占用]]></title>
+      <url>/2017/08/18/Linux/Mongod%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%87%BA%E7%8E%B0%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8/</url>
+      <content type="html"><![CDATA[<p>查看进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ps aux | grep mongo</div></pre></td></tr></table></figure></p>
+<p>杀死进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kill -9 第一组数字</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Mongod服务器启动命令]]></title>
+      <url>/2017/08/18/Linux/Mongod%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%90%AF%E5%8A%A8%E5%91%BD%E4%BB%A4/</url>
+      <content type="html"><![CDATA[<p>启动进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongod --dbpath /data/db</div></pre></td></tr></table></figure></p>
+<p>打开操作台<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongo</div></pre></td></tr></table></figure></p>
+<p>查看端口状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">netstat -lanp | grep &quot;27017&quot;</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[给Ubuntu系统添加SSH请求服务]]></title>
+      <url>/2017/08/18/Linux/%E7%BB%99Ubuntu%E7%B3%BB%E7%BB%9F%E6%B7%BB%E5%8A%A0SSH%E8%AF%B7%E6%B1%82%E6%9C%8D%E5%8A%A1/</url>
+      <content type="html"><![CDATA[<p>1）安装ssh服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install openssh-server</div></pre></td></tr></table></figure></p>
+<p>2）检查ssh是否运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ps -e | grep ssh</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[双系统下为Linux系统增加硬盘空间]]></title>
+      <url>/2017/08/18/Linux/%E5%8F%8C%E7%B3%BB%E7%BB%9F%E4%B8%8B%E4%B8%BALinux%E7%B3%BB%E7%BB%9F%E5%A2%9E%E5%8A%A0%E7%A1%AC%E7%9B%98%E7%A9%BA%E9%97%B4/</url>
+      <content type="html"><![CDATA[<p>1）在Win系统下，在磁盘分区里面，分出一个新的磁盘空间，生成一个新的卷。<br>2）切换到Linux系统中，用“磁盘”这个软件，查看该新生成的卷，挂载在哪里，记下这个挂载。<br>3）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo mkfs -t ext4 /dev/sda10     //sda10即为新的挂载</div><div class="line">sudo vim /etc/fstab</div></pre></td></tr></table></figure></p>
+<p>在最后加上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/dev/sda10 /home/kk/hard_disk ext4 defaults 0  1     //   /home/kk/hard_disk即为挂载点</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[更新新的文件]]></title>
       <url>/2017/08/18/Linux/%E6%9B%B4%E6%96%B0%E6%96%B0%E7%9A%84%E6%96%87%E4%BB%B6/</url>
       <content type="html"><![CDATA[<p>我的flaskmy文件里面还有虚拟环境。。下次把虚拟环境放出来，不然每次都要重新安装包之类的<br>1）用winscp上传文件到根目录下<br>2）关闭supervisor上的应用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo supervisorctl</div><div class="line">stop flaskmy</div><div class="line">status</div></pre></td></tr></table></figure></p>
@@ -1668,9 +1705,31 @@
     </entry>
     
     <entry>
-      <title><![CDATA[进入单用户模式下]]></title>
-      <url>/2017/08/18/Linux/%E8%BF%9B%E5%85%A5%E5%8D%95%E7%94%A8%E6%88%B7%E6%A8%A1%E5%BC%8F%E4%B8%8B/</url>
-      <content type="html"><![CDATA[<p>在开机进入前的页面里面，选择”ubuntu”高级选项，然后选择一个“recovery mode”，等配置完成以后，在选择框里面，选择“root”，输入root密码，记得小键盘是默认没有开启的，然后即可进入单用户模式，就和一半的进入root用户模式下了一样。</p>
+      <title><![CDATA[基本操作]]></title>
+      <url>/2017/08/18/Linux/%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
+      <content type="html"><![CDATA[<p>1）查看目录下所有文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ls</div></pre></td></tr></table></figure></p>
+<p>2）返回最上级目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /</div><div class="line">cd ..      返回上级目录</div></pre></td></tr></table></figure></p>
+<p>3）复制文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cp 要复制的文件名 复制之后的文件名</div></pre></td></tr></table></figure></p>
+<p>4）supervisor一套<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sudo service supervisor start</div><div class="line">sudo supervisorctl //查看操作台</div><div class="line">start 项目名字 </div><div class="line">stop 项目名字</div><div class="line">status</div></pre></td></tr></table></figure></p>
+<p>5）supervisor简单配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[program:app]</div><div class="line">command = python3 /路径</div></pre></td></tr></table></figure></p>
+<p>6）删除所有文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -rf 文件名</div></pre></td></tr></table></figure></p>
+<p>7）查看版本信息和内核信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">uname -a</div><div class="line">cat /proc/version</div></pre></td></tr></table></figure></p>
+<p>8）</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[克隆github仓库]]></title>
+      <url>/2017/08/18/Linux/%E5%85%8B%E9%9A%86github%E4%BB%93%E5%BA%93/</url>
+      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone 仓库地址</div></pre></td></tr></table></figure>
 ]]></content>
       
         <categories>
@@ -1688,6 +1747,23 @@
       <content type="html"><![CDATA[<p>查看指定端口的进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lsof -i:8000</div></pre></td></tr></table></figure></p>
 <p>杀死指定进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kill -9 pid</div></pre></td></tr></table></figure></p>
 <p>查看程序运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ps -def | grep 程序名字</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[supervisor命令]]></title>
+      <url>/2017/08/18/Linux/supervisor%E5%91%BD%E4%BB%A4/</url>
+      <content type="html"><![CDATA[<p>启动supervisor<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service supervisor start</div></pre></td></tr></table></figure></p>
+<p>查看控制台<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo supervisorctl</div></pre></td></tr></table></figure></p>
+<p>退出命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">exit</div></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>
@@ -1752,28 +1828,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[基本操作]]></title>
-      <url>/2017/08/18/Linux/%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
-      <content type="html"><![CDATA[<p>1）查看目录下所有文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ls</div></pre></td></tr></table></figure></p>
-<p>2）返回最上级目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /</div><div class="line">cd ..      返回上级目录</div></pre></td></tr></table></figure></p>
-<p>3）复制文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cp 要复制的文件名 复制之后的文件名</div></pre></td></tr></table></figure></p>
-<p>4）supervisor一套<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sudo service supervisor start</div><div class="line">sudo supervisorctl //查看操作台</div><div class="line">start 项目名字 </div><div class="line">stop 项目名字</div><div class="line">status</div></pre></td></tr></table></figure></p>
-<p>5）supervisor简单配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[program:app]</div><div class="line">command = python3 /路径</div></pre></td></tr></table></figure></p>
-<p>6）删除所有文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -rf 文件名</div></pre></td></tr></table></figure></p>
-<p>7）查看版本信息和内核信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">uname -a</div><div class="line">cat /proc/version</div></pre></td></tr></table></figure></p>
-<p>8）</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Linux </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[添加命令]]></title>
       <url>/2017/08/18/Linux/%E6%B7%BB%E5%8A%A0%E5%91%BD%E4%BB%A4/</url>
       <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ~</div><div class="line">sudo vim .bashrc</div><div class="line">alias hexo=&apos;/opt/node-v6.11.2-linux-x64/bin/hexo&apos;</div></pre></td></tr></table></figure>
@@ -1789,26 +1843,9 @@
     </entry>
     
     <entry>
-      <title><![CDATA[克隆github仓库]]></title>
-      <url>/2017/08/18/Linux/%E5%85%8B%E9%9A%86github%E4%BB%93%E5%BA%93/</url>
-      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone 仓库地址</div></pre></td></tr></table></figure>
-]]></content>
-      
-        <categories>
-            
-            <category> Linux </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[supervisor命令]]></title>
-      <url>/2017/08/18/Linux/supervisor%E5%91%BD%E4%BB%A4/</url>
-      <content type="html"><![CDATA[<p>启动supervisor<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service supervisor start</div></pre></td></tr></table></figure></p>
-<p>查看控制台<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo supervisorctl</div></pre></td></tr></table></figure></p>
-<p>退出命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">exit</div></pre></td></tr></table></figure></p>
+      <title><![CDATA[进入单用户模式下]]></title>
+      <url>/2017/08/18/Linux/%E8%BF%9B%E5%85%A5%E5%8D%95%E7%94%A8%E6%88%B7%E6%A8%A1%E5%BC%8F%E4%B8%8B/</url>
+      <content type="html"><![CDATA[<p>在开机进入前的页面里面，选择”ubuntu”高级选项，然后选择一个“recovery mode”，等配置完成以后，在选择框里面，选择“root”，输入root密码，记得小键盘是默认没有开启的，然后即可进入单用户模式，就和一半的进入root用户模式下了一样。</p>
 ]]></content>
       
         <categories>
@@ -1869,11 +1906,14 @@
     </entry>
     
     <entry>
-      <title><![CDATA[git的版本回退]]></title>
-      <url>/2017/08/18/Git/git%E7%9A%84%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80/</url>
-      <content type="html"><![CDATA[<p>回到上一个版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset --hard HEAD^</div></pre></td></tr></table></figure></p>
-<p>也可以这样回到某一个版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset --hard 3628164</div></pre></td></tr></table></figure></p>
-<p>查看每一次操作，当回到以前版本以后，再返回当前的版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git reflog</div><div class="line">ea34578 HEAD@&#123;0&#125;: reset: moving to HEAD^</div><div class="line">3628164 HEAD@&#123;1&#125;: commit: append GPL</div><div class="line">ea34578 HEAD@&#123;2&#125;: commit: add distributed</div><div class="line">cb926e7 HEAD@&#123;3&#125;: commit (initial): wrote a readme file</div></pre></td></tr></table></figure></p>
+      <title><![CDATA[git的本地与远程操作]]></title>
+      <url>/2017/08/18/Git/git%E7%9A%84%E6%9C%AC%E5%9C%B0%E4%B8%8E%E8%BF%9C%E7%A8%8B%E6%93%8D%E4%BD%9C/</url>
+      <content type="html"><![CDATA[<p>删除本地分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch -d &lt;branch-name&gt;</div></pre></td></tr></table></figure></p>
+<p>删除远程分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin --delete &lt;branch-name&gt;</div></pre></td></tr></table></figure></p>
+<p>打本地标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git tag &lt;tag-name&gt;</div></pre></td></tr></table></figure></p>
+<p>将本地标签push到远程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin --tag</div></pre></td></tr></table></figure></p>
+<p>把本地分支push到远程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin local-branch-name:remote-branch-name</div></pre></td></tr></table></figure></p>
+<p>创建一个分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch son-branch mother-branch</div></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>
@@ -1886,14 +1926,11 @@
     </entry>
     
     <entry>
-      <title><![CDATA[git的本地与远程操作]]></title>
-      <url>/2017/08/18/Git/git%E7%9A%84%E6%9C%AC%E5%9C%B0%E4%B8%8E%E8%BF%9C%E7%A8%8B%E6%93%8D%E4%BD%9C/</url>
-      <content type="html"><![CDATA[<p>删除本地分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch -d &lt;branch-name&gt;</div></pre></td></tr></table></figure></p>
-<p>删除远程分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin --delete &lt;branch-name&gt;</div></pre></td></tr></table></figure></p>
-<p>打本地标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git tag &lt;tag-name&gt;</div></pre></td></tr></table></figure></p>
-<p>将本地标签push到远程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin --tag</div></pre></td></tr></table></figure></p>
-<p>把本地分支push到远程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin local-branch-name:remote-branch-name</div></pre></td></tr></table></figure></p>
-<p>创建一个分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch son-branch mother-branch</div></pre></td></tr></table></figure></p>
+      <title><![CDATA[git的版本回退]]></title>
+      <url>/2017/08/18/Git/git%E7%9A%84%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80/</url>
+      <content type="html"><![CDATA[<p>回到上一个版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset --hard HEAD^</div></pre></td></tr></table></figure></p>
+<p>也可以这样回到某一个版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset --hard 3628164</div></pre></td></tr></table></figure></p>
+<p>查看每一次操作，当回到以前版本以后，再返回当前的版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git reflog</div><div class="line">ea34578 HEAD@&#123;0&#125;: reset: moving to HEAD^</div><div class="line">3628164 HEAD@&#123;1&#125;: commit: append GPL</div><div class="line">ea34578 HEAD@&#123;2&#125;: commit: add distributed</div><div class="line">cb926e7 HEAD@&#123;3&#125;: commit (initial): wrote a readme file</div></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>
@@ -1940,10 +1977,11 @@
     </entry>
     
     <entry>
-      <title><![CDATA[蓝图的静态文件调用]]></title>
-      <url>/2017/08/18/Flask/%E8%93%9D%E5%9B%BE%E7%9A%84%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E8%B0%83%E7%94%A8/</url>
-      <content type="html"><![CDATA[<p>首先要在蓝图的__init__.py文件加上静态文件的注册参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">static_folder=&apos;static&apos;</div></pre></td></tr></table></figure></p>
-<p>然后把所有的资源引用修改如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script src=&#123;&#123; url_for(&apos;ppt_barrage.static&apos;,filename=&apos;js/jquery-3.1.1.min.js&apos;) &#125;&#125;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+      <title><![CDATA[蓝图的装饰器的运用]]></title>
+      <url>/2017/08/18/Flask/%E8%93%9D%E5%9B%BE%E7%9A%84%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84%E8%BF%90%E7%94%A8/</url>
+      <content type="html"><![CDATA[<p>views从<strong>init</strong>里面调用的时候，头部引用应该这么写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">from app.main_page import main_page as main_page_Blueprint</div></pre></td></tr></table></figure></p>
+<p>不能直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">from . import main_page</div></pre></td></tr></table></figure></p>
+<p>如果这样，好像会和包名冲突，具体原因还没查，反正就是这样容易出错。。<br>然后后面的装饰器都应该写为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@main_page_Blueprint.route(&apos;/&apos;)</div></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>
@@ -1973,12 +2011,11 @@
     </entry>
     
     <entry>
-      <title><![CDATA[flask使用mongoengine来login]]></title>
-      <url>/2017/08/18/Flask/flask%E4%BD%BF%E7%94%A8mongoengine%E6%9D%A5login/</url>
-      <content type="html"><![CDATA[<p>出现这个错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">AttributeError: &apos;BaseQuerySet&apos; object has no attribute &apos;is_authenticated&apos;</div></pre></td></tr></table></figure></p>
-<p>因为我是这么写的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return User.objects(id = user_id)</div></pre></td></tr></table></figure></p>
-<p>这么是返回的一个查询的集合，修改如下即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return User.objects(id = user_id).first()</div></pre></td></tr></table></figure></p>
-<p>还有这里是<code>id = user_id</code>，不是<code>_id = user_id</code>，好像flask-login在这里会对查询id做特殊处理，结合flask-mongoengine。</p>
+      <title><![CDATA[Ajax的跨域请求]]></title>
+      <url>/2017/08/18/Flask/Ajax%E7%9A%84%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82/</url>
+      <content type="html"><![CDATA[<p>1）前端Ajax部分代码<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function changeClass()&#123;</div><div class="line">        $.ajax(&#123;</div><div class="line">            url: &apos;http://192.168.1.107:9000/main_page/front/data&apos;, //在这里提填写你的地址</div><div class="line">            async: false,</div><div class="line">            dataType: &apos;jsonp&apos;,</div><div class="line">			type:&apos;get&apos;,</div><div class="line">			jsonp:&quot;callback&quot;,     //回调jsonp的前面那个变量的名字</div><div class="line">			jsonpCallback:&quot;callback&quot;,</div><div class="line">            success: function (json_str) &#123;	</div><div class="line">				object_js = json_str;</div><div class="line">				//document.write(object_js);</div><div class="line">				showAllList();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>2）后端路由部分代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">@main_page_Blueprint.route(&apos;/front/data&apos;)</div><div class="line">def front_data():</div><div class="line">    Class = BaseClass(class_number)</div><div class="line">    list_sign_students = Class.list_sign_students</div><div class="line">    list_unsign_students = Class.list_unsign_students</div><div class="line">    dic_all_students = &#123;&#125;</div><div class="line">    for student in list_sign_students:</div><div class="line">        dic_all_students[student] = 1</div><div class="line">    for student in list_unsign_students:</div><div class="line">        dic_all_students[student] = 0</div><div class="line">    jsonp = &apos;callback&apos; + &apos;(&apos; + str(dic_all_students ) + &apos;)&apos;         #主要这里要返回有callback的字符串，不能返回json数据</div><div class="line">    return jsonp</div></pre></td></tr></table></figure></p>
+<p>3）附加链接，解释json和jsonp的区别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://kb.cnblogs.com/page/139725/</div></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>
@@ -1994,6 +2031,24 @@
       <title><![CDATA[ImportError，包导入错误]]></title>
       <url>/2017/08/18/Flask/ImportError%EF%BC%8C%E5%8C%85%E5%AF%BC%E5%85%A5%E9%94%99%E8%AF%AF/</url>
       <content type="html"><![CDATA[<p>使用<code>from app import db</code>这种导入包的方式的时候，可能会出现包导入错误，应该包的加载顺序的问题，每当一次引用，即<code>import</code>，就会加载一次包文件，当加载app包的时候，我写的时候把注册蓝图放到了上面，所以加载了一次蓝图的包，即auth包，而此时db变量还没有申明，所以会出现无法导出的错误，注意加载的顺序就可避免这种错误。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Flask </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[flask使用mongoengine来login]]></title>
+      <url>/2017/08/18/Flask/flask%E4%BD%BF%E7%94%A8mongoengine%E6%9D%A5login/</url>
+      <content type="html"><![CDATA[<p>出现这个错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">AttributeError: &apos;BaseQuerySet&apos; object has no attribute &apos;is_authenticated&apos;</div></pre></td></tr></table></figure></p>
+<p>因为我是这么写的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return User.objects(id = user_id)</div></pre></td></tr></table></figure></p>
+<p>这么是返回的一个查询的集合，修改如下即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return User.objects(id = user_id).first()</div></pre></td></tr></table></figure></p>
+<p>还有这里是<code>id = user_id</code>，不是<code>_id = user_id</code>，好像flask-login在这里会对查询id做特殊处理，结合flask-mongoengine。</p>
 ]]></content>
       
         <categories>
@@ -2040,87 +2095,15 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Flask与Ajax结合]]></title>
-      <url>/2017/08/18/Flask/Flask%E4%B8%8EAjax%E7%BB%93%E5%90%88/</url>
-      <content type="html"><![CDATA[<p>视图函数，处理出Json数据，即字典以后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return jsonify(my_dic)</div></pre></td></tr></table></figure></p>
-<p>这样，直接访问这个返回数据的路由，可以直接看到生成的Json数据，但是记得千万不要这样写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return jsonify(my_dic = my_dic)</div></pre></td></tr></table></figure></p>
-<p>这样就是一个json变量了，而不是一个json数据，特么的。。。我在这里卡了好久。。。<br>Ajax部分这么写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function check_stu()&#123;</div><div class="line">        $.ajax(&#123;</div><div class="line">            url: &apos;/main_page/data&apos;, //在这里提填写你的路由地址</div><div class="line">            async: true,</div><div class="line">            dataType: &apos;json&apos;,</div><div class="line">            success: function (json_obj) &#123;</div><div class="line">                object_js=json_obj;</div><div class="line">                showAllList();</div><div class="line">            &#125;  </div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">setInterval(&apos;check_stu()&apos;,2000);  //这里，一定要加括号</div></pre></td></tr></table></figure></p>
-<p>showAllList（）为要执行的js代码函数</p>
+      <title><![CDATA[蓝图的静态文件调用]]></title>
+      <url>/2017/08/18/Flask/%E8%93%9D%E5%9B%BE%E7%9A%84%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E8%B0%83%E7%94%A8/</url>
+      <content type="html"><![CDATA[<p>首先要在蓝图的__init__.py文件加上静态文件的注册参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">static_folder=&apos;static&apos;</div></pre></td></tr></table></figure></p>
+<p>然后把所有的资源引用修改如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script src=&#123;&#123; url_for(&apos;ppt_barrage.static&apos;,filename=&apos;js/jquery-3.1.1.min.js&apos;) &#125;&#125;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>
             
             <category> Flask </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[蓝图的装饰器的运用]]></title>
-      <url>/2017/08/18/Flask/%E8%93%9D%E5%9B%BE%E7%9A%84%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84%E8%BF%90%E7%94%A8/</url>
-      <content type="html"><![CDATA[<p>views从<strong>init</strong>里面调用的时候，头部引用应该这么写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">from app.main_page import main_page as main_page_Blueprint</div></pre></td></tr></table></figure></p>
-<p>不能直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">from . import main_page</div></pre></td></tr></table></figure></p>
-<p>如果这样，好像会和包名冲突，具体原因还没查，反正就是这样容易出错。。<br>然后后面的装饰器都应该写为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@main_page_Blueprint.route(&apos;/&apos;)</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Flask </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Ajax的跨域请求]]></title>
-      <url>/2017/08/18/Flask/Ajax%E7%9A%84%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82/</url>
-      <content type="html"><![CDATA[<p>1）前端Ajax部分代码<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function changeClass()&#123;</div><div class="line">        $.ajax(&#123;</div><div class="line">            url: &apos;http://192.168.1.107:9000/main_page/front/data&apos;, //在这里提填写你的地址</div><div class="line">            async: false,</div><div class="line">            dataType: &apos;jsonp&apos;,</div><div class="line">			type:&apos;get&apos;,</div><div class="line">			jsonp:&quot;callback&quot;,     //回调jsonp的前面那个变量的名字</div><div class="line">			jsonpCallback:&quot;callback&quot;,</div><div class="line">            success: function (json_str) &#123;	</div><div class="line">				object_js = json_str;</div><div class="line">				//document.write(object_js);</div><div class="line">				showAllList();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<p>2）后端路由部分代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">@main_page_Blueprint.route(&apos;/front/data&apos;)</div><div class="line">def front_data():</div><div class="line">    Class = BaseClass(class_number)</div><div class="line">    list_sign_students = Class.list_sign_students</div><div class="line">    list_unsign_students = Class.list_unsign_students</div><div class="line">    dic_all_students = &#123;&#125;</div><div class="line">    for student in list_sign_students:</div><div class="line">        dic_all_students[student] = 1</div><div class="line">    for student in list_unsign_students:</div><div class="line">        dic_all_students[student] = 0</div><div class="line">    jsonp = &apos;callback&apos; + &apos;(&apos; + str(dic_all_students ) + &apos;)&apos;         #主要这里要返回有callback的字符串，不能返回json数据</div><div class="line">    return jsonp</div></pre></td></tr></table></figure></p>
-<p>3）附加链接，解释json和jsonp的区别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://kb.cnblogs.com/page/139725/</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Flask </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Bash入门，基础知识]]></title>
-      <url>/2017/08/18/Bash/Bash%E5%85%A5%E9%97%A8%EF%BC%8C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
-      <content type="html"><![CDATA[<p>1）新建一个文件，test.sh，编辑内容如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#! /bin/bash</div><div class="line">echo &quot;hello&quot;</div></pre></td></tr></table></figure></p>
-<p>#! 约定记号，后面的跟的是解释器的位置，即使用哪种解释器。<br>echo 为在控制台输出。<br>2）运行脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/bin/sh test.sh</div></pre></td></tr></table></figure></p>
-<p>3）变量定义时，变量与值之间不能有<strong>空格</strong>，“ ”。有空格会有，not found错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">your_name=’kk&apos;</div></pre></td></tr></table></figure></p>
-<p>4）单引号，双引号的区别<br>他们的区别在于，单引号将剥夺其中的所有字符的特殊含义，而双引号中的’$’（参数替换）和’`’（命令替换）是例外。<br>5）单引号里面的单引号不能转义，双引号里面的双引号可以转义。<br>6）字符串拼接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">name=&apos;xiao&apos;</div><div class="line">hisname=&apos;$xiao wang&apos;</div><div class="line">echo hisname</div></pre></td></tr></table></figure></p>
-<p>7）取字符串长度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">name=&apos;greet&apos;</div><div class="line">echo $&#123;#name&#125;   #输出即为4，注意，一定要有两个大括号，没有括号有错误</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Bash </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Docker容器无法访问网站，但是ping-ip可以ping通的问题]]></title>
-      <url>/2017/08/18/Docker/Docker%E5%AE%B9%E5%99%A8%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E7%BD%91%E7%AB%99%EF%BC%8C%E4%BD%86%E6%98%AFping-ip%E5%8F%AF%E4%BB%A5ping%E9%80%9A%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-      <content type="html"><![CDATA[<p>应该是dns解析出了问题，修改主机的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim /etc/default/docker</div></pre></td></tr></table></figure></p>
-<p>去掉<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker_OPTS...</div></pre></td></tr></table></figure></p>
-<p>前的#号，然后把8.8.8.8修改为192.168.1.1，重启docker，如果重启之后，进入容器dns没有发生改变的话，参见我的另外一篇Docker文章。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Docker </category>
             
         </categories>
         
@@ -2147,6 +2130,41 @@
     </entry>
     
     <entry>
+      <title><![CDATA[Flask与Ajax结合]]></title>
+      <url>/2017/08/18/Flask/Flask%E4%B8%8EAjax%E7%BB%93%E5%90%88/</url>
+      <content type="html"><![CDATA[<p>视图函数，处理出Json数据，即字典以后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return jsonify(my_dic)</div></pre></td></tr></table></figure></p>
+<p>这样，直接访问这个返回数据的路由，可以直接看到生成的Json数据，但是记得千万不要这样写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return jsonify(my_dic = my_dic)</div></pre></td></tr></table></figure></p>
+<p>这样就是一个json变量了，而不是一个json数据，特么的。。。我在这里卡了好久。。。<br>Ajax部分这么写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function check_stu()&#123;</div><div class="line">        $.ajax(&#123;</div><div class="line">            url: &apos;/main_page/data&apos;, //在这里提填写你的路由地址</div><div class="line">            async: true,</div><div class="line">            dataType: &apos;json&apos;,</div><div class="line">            success: function (json_obj) &#123;</div><div class="line">                object_js=json_obj;</div><div class="line">                showAllList();</div><div class="line">            &#125;  </div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">setInterval(&apos;check_stu()&apos;,2000);  //这里，一定要加括号</div></pre></td></tr></table></figure></p>
+<p>showAllList（）为要执行的js代码函数</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Flask </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Docker容器无法访问网站，但是ping-ip可以ping通的问题]]></title>
+      <url>/2017/08/18/Docker/Docker%E5%AE%B9%E5%99%A8%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E7%BD%91%E7%AB%99%EF%BC%8C%E4%BD%86%E6%98%AFping-ip%E5%8F%AF%E4%BB%A5ping%E9%80%9A%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<p>应该是dns解析出了问题，修改主机的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim /etc/default/docker</div></pre></td></tr></table></figure></p>
+<p>去掉<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker_OPTS...</div></pre></td></tr></table></figure></p>
+<p>前的#号，然后把8.8.8.8修改为192.168.1.1，重启docker，如果重启之后，进入容器dns没有发生改变的话，参见我的另外一篇Docker文章。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Docker </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Docker免去使用sudo命令]]></title>
       <url>/2017/08/18/Docker/Docker%E5%85%8D%E5%8E%BB%E4%BD%BF%E7%94%A8sudo%E5%91%BD%E4%BB%A4/</url>
       <content type="html"><![CDATA[<p>1）创建docker组<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo groupadd docker</div></pre></td></tr></table></figure></p>
@@ -2159,6 +2177,25 @@
         <categories>
             
             <category> Docker </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Bash入门，基础知识]]></title>
+      <url>/2017/08/18/Bash/Bash%E5%85%A5%E9%97%A8%EF%BC%8C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
+      <content type="html"><![CDATA[<p>1）新建一个文件，test.sh，编辑内容如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#! /bin/bash</div><div class="line">echo &quot;hello&quot;</div></pre></td></tr></table></figure></p>
+<p>#! 约定记号，后面的跟的是解释器的位置，即使用哪种解释器。<br>echo 为在控制台输出。<br>2）运行脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/bin/sh test.sh</div></pre></td></tr></table></figure></p>
+<p>3）变量定义时，变量与值之间不能有<strong>空格</strong>，“ ”。有空格会有，not found错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">your_name=’kk&apos;</div></pre></td></tr></table></figure></p>
+<p>4）单引号，双引号的区别<br>他们的区别在于，单引号将剥夺其中的所有字符的特殊含义，而双引号中的’$’（参数替换）和’`’（命令替换）是例外。<br>5）单引号里面的单引号不能转义，双引号里面的双引号可以转义。<br>6）字符串拼接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">name=&apos;xiao&apos;</div><div class="line">hisname=&apos;$xiao wang&apos;</div><div class="line">echo hisname</div></pre></td></tr></table></figure></p>
+<p>7）取字符串长度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">name=&apos;greet&apos;</div><div class="line">echo $&#123;#name&#125;   #输出即为4，注意，一定要有两个大括号，没有括号有错误</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Bash </category>
             
         </categories>
         

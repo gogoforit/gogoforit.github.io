@@ -191,6 +191,537 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Python/QQyundong总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Python/QQyundong总结/">QQyundong总结</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Python/QQyundong总结/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>（1）wordcloud的的安装会出现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UnicodeDecodeError: &apos;utf-8&apos; codec can&apos;t decode byte 0xca in position 11: invalid continuation byte</div></pre></td></tr></table></figure></p>
+<p>解决方法：找到报错文件，把utf-8该为gbk<br>（2）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dic.get() #返回的是对应的值</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">dic = &#123;&#125;</div><div class="line">for each in file2.split(&apos; &apos;):   #文件按单个单词读入，按空格分割单词</div><div class="line">![Uploading QQ截图20170117002052_686915.png . . .]</div><div class="line"></div><div class="line">    if dic.get(each)!=None:</div><div class="line">        dic[each] +=1</div><div class="line">    else :</div><div class="line">        dic[each] =1</div></pre></td></tr></table></figure>
+<p>（3）post后面是url<br>主题是headers<br>最后是data，交的表单数据<br><img src="http://upload-images.jianshu.io/upload_images/3841786-3a5ca2debfd1804b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1"><br>（4）返回的Response可以直接转换成json操作，json看做一个字典就好了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Python/QQyundong总结/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/Python文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Python/Python文件/">Python文件</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Python/Python文件/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">file_obj.seek（offset，whence = 0）</div></pre></td></tr></table></figure>
+<p>在文件中移动指针<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">whence = 0 # 表示文件头部</div><div class="line">whence = 1 #表示当前位置</div><div class="line">whence = 2 #表示文件尾部</div><div class="line">默认为0</div></pre></td></tr></table></figure></p>
+<p>offset<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">offset 为偏移量</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Python/Python文件/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/代理ip池" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Python/代理ip池/">代理ip池</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Python/代理ip池/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>url<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://127.0.0.1:8000/?types=0&amp;count=5&amp;country=国内</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line">import json</div><div class="line">r = requests.get(&apos;http://127.0.0.1:8000/?types=0&amp;count=5&amp;country=国内&apos;)</div><div class="line">ip_ports = json.loads(r.text)</div><div class="line">print (ip_ports)</div><div class="line">ip = ip_ports[0][0]</div><div class="line">port = ip_ports[0][1]</div><div class="line">proxies=&#123;</div><div class="line">    &apos;http&apos;:&apos;http://%s:%s&apos;%(ip,port),</div><div class="line">    &apos;https&apos;:&apos;http://%s:%s&apos;%(ip,port)</div><div class="line">&#125;</div><div class="line">r = requests.get(&apos;http://exercise.kingname.info/exercise_middleware_ip&apos;,proxies=proxies)</div><div class="line">r.encoding=&apos;utf-8&apos;</div><div class="line">print (r.text)</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Python/代理ip池/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/天气预报的一些资料收集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Python/天气预报的一些资料收集/">天气预报的一些资料收集</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Python/天气预报的一些资料收集/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>（1）和风的api也可以用，但是每天的请求量比较小（免费），只有3000，做个人的一些app应该还是够用了，api使用如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://free-api.heweather.com/v5/forecast?city=paris&amp;key=xxxxxxxxxxxx</div></pre></td></tr></table></figure></p>
+<p>（2）然后每天请求比较多，又不太想花钱的，可以试一下openweathermap，但是好像要自备梯子，它的这个api使用我一直没弄懂，好像是我的key使用的姿势不对。。。然后我就换用了Pyowm，感觉还可以。还是Python爽。具体的Pyowm下载和使用方法看文档就好。此处附上Pyowm的使用文档，特别好用！<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://github.com/csparpa/pyowm/wiki/Usage-examples</div></pre></td></tr></table></figure></p>
+<p>（3）然后就是这个知乎答案还是挺不错的，还有一些其他的api可以试一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://www.zhihu.com/question/20575288</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Python/天气预报的一些资料收集/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/Scrapy下载安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Python/Scrapy下载安装/">Scrapy下载安装</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Python/Scrapy下载安装/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###（1）下载这个<a href="http://landinghub.visualstudio.com/visual-cpp-build-tools" target="_blank" rel="external">http://landinghub.visualstudio.com/visual-cpp-build-tools</a></p>
+<p>###（2）安装pywin32  <a href="https://sourceforge.net/projects/pywin32/files/pywin32/Build%20220/" target="_blank" rel="external">https://sourceforge.net/projects/pywin32/files/pywin32/Build%20220/</a></p>
+<p>###(3)然后就直接安scrapy =v= 一定会有许多错误，但是别急，这些错误都是缺一些包造成的，可能是网络原因或者是源的原因，不能正常下载这些包，<br><code>https://pypi.python.org/pypi/cryptography/1.6</code>，<code>http://www.lfd.uci.edu/~gohlke/pythonlibs/</code> ，在这两个网站去下载缺失的包，然后pip install 文件名  安装这个包。或者用把whl改为zip，自己手动解压，然后放到Lib。这两种方法均可。<br>[如果还是有问题，可以私我]</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Python/Scrapy下载安装/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/Selenium发表图片说说" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Python/Selenium发表图片说说/">Selenium发表图片说说</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Python/Selenium发表图片说说/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">from selenium </div><div class="line">import webdriver</div><div class="line">import time</div><div class="line">import win32gui</div><div class="line">import win32con</div><div class="line">driver = webdriver.Chrome(r&apos;H:\python\chromedrive\chromedriver.exe&apos;)</div><div class="line">url = &apos;http://user.qzone.qq.com/715157026/infocenter?ptsig=YAykvv1IN0eLgVhwb9vnl2AyS*9pwf23WfDbffrZ20k_&apos;</div><div class="line">driver.get(url)</div><div class="line">try:</div><div class="line">    driver.find_elements_by_id(&apos;login&apos;)</div><div class="line">    a = True</div><div class="line">except:    a = False</div><div class="line">if a == True:  #模拟登陆</div><div class="line">    driver.switch_to.frame(&apos;login_frame&apos;) </div><div class="line">    driver.find_element_by_id(&apos;switcher_plogin&apos;).click() </div><div class="line">    driver.find_element_by_id(&apos;u&apos;).clear()</div><div class="line">    driver.find_element_by_id(&apos;u&apos;).send_keys(QQ)</div><div class="line">    driver.find_element_by_id(&apos;p&apos;).clear() </div><div class="line">    driver.find_element_by_id(&apos;p&apos;).send_keys(keys)      </div><div class="line">    driver.find_element_by_id(&apos;login_button&apos;).click()</div><div class="line">time.sleep(20)   </div><div class="line">driver.find_element_by_id(&quot;qz_poster_editor_v4_container&quot;).click() #很奇怪，好像是发说说的方式变了，直接点击发图片没有效果，必须要先点这个才行</div><div class="line">time.sleep(5)</div><div class="line">ele = driver.find_element_by_class_name(&quot;pic&quot;)</div><div class="line">time.sleep(3)</div><div class="line">ele.click()</div><div class="line">time.sleep(10)</div><div class="line">driver.find_element_by_id(&apos;qz_app_imageReader_1&apos;).click()</div><div class="line">time.sleep(5)</div><div class="line">dialog = win32gui.FindWindow(0, u&apos;打开&apos;)  # 对话框</div><div class="line">ComboBoxEx32 = win32gui.FindWindowEx(dialog, 0, &apos;ComboBoxEx32&apos;, None)</div><div class="line">ComboBox = win32gui.FindWindowEx(ComboBoxEx32, 0, &apos;ComboBox&apos;, None)</div><div class="line">Edit = win32gui.FindWindowEx(ComboBox, 0, &apos;Edit&apos;, None)  #输入相对地址</div><div class="line">button = win32gui.FindWindowEx(dialog, 0, &apos;Button&apos;, None) #确定按钮</div><div class="line">win32gui.SendMessage(Edit, win32con.WM_SETTEXT, None, r&quot;H:\自己瞎搞的[root,单片]\奇怪的图片\123.png&quot;)</div><div class="line">win32gui.SendMessage(dialog, win32con.WM_COMMAND, 1, button)</div><div class="line">time.sleep(35)  #等待图片上传到图床，时间较长</div><div class="line">driver.find_element_by_xpath(&quot;//*[@id=&apos;QM_Mood_Poster_Inner&apos;]/div/div[4]/div[4]/a[2]&quot;).click() #点击发表，因为class里面有空格，find_class无法定位，所以用Xpath，好像用css也可以</div></pre></td></tr></table></figure>
+<p>一些注释都在代码里面了，有些东西单独拿出来说。一个是说说上传图片好像变了<br><img src="http://upload-images.jianshu.io/upload_images/3841786-3bbc0c6f65f208fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>直接点这个并不能直接把隐藏的东西点出来了，不知道是不是我的浏览器抽风了，必须要点一下这个才可以。<br><img src="http://upload-images.jianshu.io/upload_images/3841786-bbd5ee61094c481d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>后面一部分是用Python操作Windows上传的代码。<br>sleep可以解决很多问题。。很多问题都是因为没有加载出来，才引发的问题。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Python/Selenium发表图片说说/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/启动mongoDB和redis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Python/启动mongoDB和redis/">启动mongoDB和redis</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Python/启动mongoDB和redis/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>(1)Robomongo得mongoDB运行起来以后，才可以连接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongod.exe --dbpath H:\mong\bin\data\db  #这个路径是在bin文件里面的</div></pre></td></tr></table></figure></p>
+<p>(2)启动redis<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-server.exe redis.windows.conf</div></pre></td></tr></table></figure></p>
+<p>出现一个盒子图标那种，就是启动成功了。如果失败了，可以参考一下我的另外一个解决方法。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Python/启动mongoDB和redis/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Python/Selenium实在不好定位的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -340,19 +871,19 @@
 
 
   
-    <article id="post-Python/正则表达式-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python/Selenium遇到iframe的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Python/正则表达式-1/">正则表达式-1</a>
+      <a class="article-title" href="/2017/08/18/Python/Selenium遇到iframe的问题/">Selenium遇到iframe的问题</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/Python/正则表达式-1/" class="archive-article-date">
+        <a href="/2017/08/18/Python/Selenium遇到iframe的问题/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -360,7 +891,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>基本要领</strong><br>通常是一个前面一个匹配表达式，后面接一个长度判定表达式，例如<code>[0-9a-zA-Z\_]+</code>，即匹配一个任意长度的包含数字或字符串或下划线的字符串，即一个标准的Python变量。<br><strong>匹配知识</strong><br><code>\d</code>：匹配数字<br><code>\s</code>：匹配空格<br><code>\w</code>：匹配字母<br><code>.</code>   ： 匹配任意字符<br><code>^</code>：表示行开头，即以什么开头的行<br><code>$</code>：表示行结尾，即以什么结尾的行<br><code>^</code>：在括号内表示非<br><strong>长度知识</strong><br><code>*</code>：任意个字符，包括0个<br><code>+</code>：至少1字符<br><code>？</code>：0个或者1个字符<br><code>\d{3}</code>：匹配3个数字<br><code>\d{3,8}</code>：匹配3到8个数字<br><code>[0-9a-zA-Z]</code>：匹配一个包含数字或者字母的字符串<br><strong>一些表达式</strong><br><code>(.*?)</code>：非贪婪地匹配所有元素，按照懒惰匹配的方式，匹配尽可能短的元素</p>
+        <p>如果使用F12检查元素的时候，发现有iframe这么个东西，或者是用xpath或者find怎么都无法定位元素的时候，那很有可能就是iframe这么个东西在作怪了！使用如下方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">driver.switch_to.frame(&apos;app_canvas_frame&apos;)   #app_canvas_frame是iframe的name</div></pre></td></tr></table></figure></p>
+<p>进入到这个框架以后，在去操作定位元素，应该就没有问题了。</p>
 
       
 
@@ -384,535 +916,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Python/正则表达式-1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/Unicode转中文" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Python/Unicode转中文/">Unicode转中文</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Python/Unicode转中文/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>先检查text是什么类型<br>如果type(text) is bytes，<br>那么text.decode(‘unicode_escape’)<br>如果type(text) is str，那么text.encode(‘latin-1’).decode(‘unicode_escape’)<br>（感谢这个知乎作者，终于解决了我的问题）</p>
-<p>作者：mailto1587<br>链接：<a href="https://www.zhihu.com/question/26921730/answer/49625649" target="_blank" rel="external">https://www.zhihu.com/question/26921730/answer/49625649</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Python/Unicode转中文/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/Xpath的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Python/Xpath的使用/">Xpath的使用</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Python/Xpath的使用/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>####（1）匹配id，class等<br>x.xpath（‘//div[@id=’xxxxxx’]/@href’） #div标签下，如果有的话，id=xxxxxx的href属性，也可以匹配text<br>x.xpath（‘//div/a/p/text（）’）</p>
-<p>####（2）如果已经抓取了大的了<br>x.xpath（‘div/@href’） #就没有//了</p>
-<p>####（3）starts-with<br>x.xpath（‘//* [starts-with（@id，‘xxxxxx’）]’）  <strong>这里一定是  //* ，//不行</strong></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Python/Xpath的使用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/crawlspider-zhihu总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Python/crawlspider-zhihu总结/">crawlspider-zhihu总结</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Python/crawlspider-zhihu总结/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1）解决500和423错误403错误<br>在settings里面设置header可以解决500错误<br>限速可以解决423错误<br>403错误，使用ip中间件以后，可能该ip已经被网站封了<br>2）<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">3）异常处理</div></pre></td></tr></table></figure></p>
-<p>try:</p>
-<p> except Exception as e:<br>            print(e)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">4）```response.status  response.url</div></pre></td></tr></table></figure>
-<p>5）对异常ip的处理，虽然我不明白原理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">from scrapy.core.downloader.handlers.http11 import TunnelError</div><div class="line"></div><div class="line">from scrapy.contrib.downloadermiddleware.retry import RetryMiddleware</div><div class="line">class RetryMiddleware(RetryMiddleware):</div><div class="line">    def process_exception(self, request, exception, spider):</div><div class="line">        if ( isinstance(exception, self.EXCEPTIONS_TO_RETRY) or isinstance(exception, TunnelError) ) \</div><div class="line">                and &apos;dont_retry&apos; not in request.meta:</div><div class="line">            return self._retry(request, exception, spider)</div><div class="line"></div><div class="line">settings.py设置如下</div><div class="line">DOWNLOADER_MIDDLEWARES = &#123;</div><div class="line">   # &apos;zhihu_basic.middlewares.UAMiddleware&apos;: 543,</div><div class="line">   &apos;zhihu_basic.middlewares.RetryMiddleware&apos;: 200,</div><div class="line">   &apos;scrapy.contrib.downloadermiddleware.retry.RetryMiddleware&apos;: None</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>6）settings里面设置header，cookies，可以用来访问<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">def make_requests_from_url(self, url):</div><div class="line">    return scrapy.Request(url, method=&apos;GET&apos;, headers=settings[&apos;ZHIHU_HEADER&apos;], cookies=settings[&apos;ZHIHU_COOKIE&apos;])</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Python/crawlspider-zhihu总结/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/crawlspider使用说明" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Python/crawlspider使用说明/">crawlspider使用说明</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Python/crawlspider使用说明/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>开始阶段，命令行输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">scrapy startproject test</div><div class="line">cd test</div><div class="line">scrapy genspider -t crawl example example.com</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Python/crawlspider使用说明/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/egg文件处理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Python/egg文件处理/">egg文件处理</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Python/egg文件处理/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>妈的。。实在不行，修改文件后缀为zip，只要没用动态库，直接解压出来放到lib里面。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Python/egg文件处理/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/暂停爬虫" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Python/暂停爬虫/">暂停爬虫</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Python/暂停爬虫/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>打开MongoDB和Redis都是必须的，主要是开始的时候的代码换一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scrapy crawl somespider -s JOBDIR=crawls/somespider-1</div></pre></td></tr></table></figure></p>
-<p>继续开始的代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scrapy crawl somespider -s JOBDIR=crawls/somespider-1</div></pre></td></tr></table></figure></p>
-<p>和开始的代码是一样的，这样就可以使爬虫暂停了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Python/暂停爬虫/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python/is-和-==" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Python/is-和-==/">is-和-==</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Python/is-和-==/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>‘is’是判定是否是同一个对象<br>‘==’判定值是否相等</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Python/is-和-==/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/Python/Selenium遇到iframe的问题/">展开全文 >></a>
         </p>
       
 
@@ -1035,7 +1039,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
+                <a href="javascript:void(0)" class="js-tag color2">脚本语言学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1044,6 +1048,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">字符串替换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
             
             <div class="clearfix"></div>

@@ -191,19 +191,19 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Python/启动mongoDB和redis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Python/爬虫登陆豆瓣" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Python/启动mongoDB和redis/">启动mongoDB和redis</a>
+      <a class="article-title" href="/2017/08/18/Python/爬虫登陆豆瓣/">爬虫登陆豆瓣</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/Python/启动mongoDB和redis/" class="archive-article-date">
+        <a href="/2017/08/18/Python/爬虫登陆豆瓣/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -211,9 +211,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>(1)Robomongo得mongoDB运行起来以后，才可以连接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongod.exe --dbpath H:\mong\bin\data\db  #这个路径是在bin文件里面的</div></pre></td></tr></table></figure></p>
-<p>(2)启动redis<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-server.exe redis.windows.conf</div></pre></td></tr></table></figure></p>
-<p>出现一个盒子图标那种，就是启动成功了。如果失败了，可以参考一下我的另外一个解决方法。</p>
+        <p>豆瓣有那么一点恶心，爬虫想登上去不是很容易，登陆豆瓣，<strong>应该是看到的这个界面</strong><br><img src="http://upload-images.jianshu.io/upload_images/3841786-8ed591c304652dd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>但是这个页面是不能直接处理登陆的。。噢，对了，我是用的selenium登陆豆瓣的，也可以用cookies，而且好像cookies好像还更简单一点。。我是开始的时候被坑了，发现源码里面没有文章的东西（其实是我看漏了），以为是js动态加载的，就想着用selenium处理。。。绕了一大圈。。咳咳，还是说正事。。。<br><strong>然后我就换到这个页面登陆</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://www.douban.com/accounts/login?source=main</div></pre></td></tr></table></figure></p>
+<p><strong>这个就好处理多了</strong><br><strong>直接</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">username = drive.find_element_by_name(&apos;form_email&apos;)</div><div class="line">username.clear()</div><div class="line">username.send_keys(&apos;xxxxx&apos;)</div><div class="line">password = drive.find_element_by_name(&apos;form_password&apos;)</div><div class="line">password.clear()</div><div class="line">password.send_keys(&apos;xxxxxx&apos;)</div></pre></td></tr></table></figure></p>
+<p><strong>然后验证码的处理我用的手动输入。。不想弄麻烦了。。</strong><br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">a = input(&quot;输入验证码：&quot;)</div><div class="line">yanzheng = drive.find_element_by_name(&apos;captcha-solution&apos;)</div><div class="line">yanzheng.clear()</div><div class="line">yanzheng.send_keys(a)</div><div class="line">yanzheng.send_keys(Keys.RETURN)</div></pre></td></tr></table></figure></p>
+<p><strong>登陆上以后，你就可以直接打开其他的豆瓣页面了。</strong></p>
 
       
 
@@ -237,7 +238,163 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Python/启动mongoDB和redis/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/Python/爬虫登陆豆瓣/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Python/scrapy中间件的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Python/scrapy中间件的使用/">scrapy中间件的使用</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Python/scrapy中间件的使用/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.974Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先创建<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">class UAMiddleware（object）:</div><div class="line">  def process_request（self,request,spider）:</div><div class="line">        ua = random.choice（UA_LIST）</div><div class="line">        request.header[&apos;User-Agent&apos;] = ua  #这个是定义的随机user-agent</div></pre></td></tr></table></figure></p>
+<p>settings文件添加一个UA_LIST，即UA列表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">UA_LIST = [</div><div class="line">        &quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1&quot;\</div><div class="line">        &quot;Mozilla/5.0 (X11; CrOS i686 2268.111.0) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11&quot;,\</div><div class="line">        &quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1092.0 Safari/536.6&quot;,\</div><div class="line">        &quot;Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1090.0 Safari/536.6&quot;,\</div><div class="line">        &quot;Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/19.77.34.5 Safari/537.1&quot;,\</div><div class="line">        &quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.9 Safari/536.5&quot;,\</div><div class="line">        &quot;Mozilla/5.0 (Windows NT 6.0) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.36 Safari/536.5&quot;,\</div><div class="line">        &quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3&quot;,\</div><div class="line">        &quot;Mozilla/5.0 (Windows NT 5.1) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3&quot;,\</div><div class="line">        &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_0) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3&quot;,\</div><div class="line">        &quot;Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1062.0 Safari/536.3&quot;,\</div><div class="line">        &quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1062.0 Safari/536.3&quot;,\</div><div class="line">        &quot;Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3&quot;,\</div><div class="line">        &quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3&quot;,\</div><div class="line">        &quot;Mozilla/5.0 (Windows NT 6.1) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3&quot;,\</div><div class="line">        &quot;Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.0 Safari/536.3&quot;,\</div><div class="line">        &quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24&quot;,\</div><div class="line">        &quot;Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24&quot;</div><div class="line">       ]</div></pre></td></tr></table></figure></p>
+<p>然后在setting里面找到<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">DOWNLOADER_MIDDLEWARES = &#123;</div><div class="line">   &apos;midtest.middlewares.UAMiddleware&apos;: 543,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果还有其他中间件，按照这个方式添加即可，定义类-&gt;配置settings文件</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Python/scrapy中间件的使用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux/mongod异常和一些处理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Linux/mongod异常和一些处理/">mongod异常和一些处理</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Linux/mongod异常和一些处理/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.970Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>查看进程和杀死进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ps -ef |grep mongo</div><div class="line">kill -9 就是第一个数字</div></pre></td></tr></table></figure></p>
+<p>mongo的运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mongod在 /data/mongodb/bin 里面</div><div class="line">运行命令：</div><div class="line">mongod --dbpath /data/db</div></pre></td></tr></table></figure></p>
+<p>mongo的运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service mongod start/restart</div></pre></td></tr></table></figure></p>
+<p>mongo的配置文件在<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/ect/mongodb.conf</div></pre></td></tr></table></figure></p>
+<p>关闭mongo服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mongo</div><div class="line">use admin</div><div class="line">db.shutdownServer()</div></pre></td></tr></table></figure></p>
+<p>mongo设置到后台运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://chenzhou123520.iteye.com/blog/1634676 这里说的很详细了</div><div class="line">配置完以后就可以直接后台运行了</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Linux/mongod异常和一些处理/">展开全文 >></a>
         </p>
       
 
@@ -312,6 +469,166 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/08/18/Linux/给当前目录的所有文件增添权限/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux/Linux下Virtualenv的配置与使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Linux/Linux下Virtualenv的配置与使用/">Linux下Virtualenv的配置与使用</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Linux/Linux下Virtualenv的配置与使用/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.970Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、安装pip</p>
+<pre><code>$ sudo apt-get install python-pip
+</code></pre><p>2、安装virtualenv</p>
+<pre><code>$ sudo pip install virtualenv
+</code></pre><p>3、创建一个隔离环境</p>
+<pre><code>$ virtualenv test
+</code></pre><p>4、激活隔离环境</p>
+<pre><code>$ source test/bin/activate
+</code></pre><p>5丶若要退出虚拟环境</p>
+<pre><code>$ deactivate
+</code></pre><p>6丶若要卸载virtualenv</p>
+<pre><code>$ sudo pip uninstall virtualenv
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Linux/Linux下Virtualenv的配置与使用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux/安装scrapy所有的错误合集网站和命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Linux/安装scrapy所有的错误合集网站和命令/">安装scrapy所有的错误合集网站和命令</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Linux/安装scrapy所有的错误合集网站和命令/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.970Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://www.cnblogs.com/xiaoli2018/p/4661604.html  那个libffi我好像没有配置完，直接cffi加后面四个文件，就可以安装cryptography了</div><div class="line">http://www.tuicool.com/articles/URNVV3E cryptography错误解决方案</div></pre></td></tr></table></figure>
+<p><code>easy_install 网络地址</code> 可以到网站下载东西到所在目录<br><code>tar zxvf</code>解压命令<br>如果是python3的话，python-dev应该换成python3-dev ，好像是这样的。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Linux/安装scrapy所有的错误合集网站和命令/">展开全文 >></a>
         </p>
       
 
@@ -422,19 +739,19 @@
 
 
   
-    <article id="post-Linux/安装scrapy所有的错误合集网站和命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Linux/Mongod服务器出现端口占用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Linux/安装scrapy所有的错误合集网站和命令/">安装scrapy所有的错误合集网站和命令</a>
+      <a class="article-title" href="/2017/08/18/Linux/Mongod服务器出现端口占用/">Mongod服务器出现端口占用</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/Linux/安装scrapy所有的错误合集网站和命令/" class="archive-article-date">
+        <a href="/2017/08/18/Linux/Mongod服务器出现端口占用/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:38.970Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -442,8 +759,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://www.cnblogs.com/xiaoli2018/p/4661604.html  那个libffi我好像没有配置完，直接cffi加后面四个文件，就可以安装cryptography了</div><div class="line">http://www.tuicool.com/articles/URNVV3E cryptography错误解决方案</div></pre></td></tr></table></figure>
-<p><code>easy_install 网络地址</code> 可以到网站下载东西到所在目录<br><code>tar zxvf</code>解压命令<br>如果是python3的话，python-dev应该换成python3-dev ，好像是这样的。</p>
+        <p>查看进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ps aux | grep mongo</div></pre></td></tr></table></figure></p>
+<p>杀死进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kill -9 第一组数字</div></pre></td></tr></table></figure></p>
 
       
 
@@ -467,236 +784,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Linux/安装scrapy所有的错误合集网站和命令/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/双系统下为Linux系统增加硬盘空间" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Linux/双系统下为Linux系统增加硬盘空间/">双系统下为Linux系统增加硬盘空间</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Linux/双系统下为Linux系统增加硬盘空间/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.970Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1）在Win系统下，在磁盘分区里面，分出一个新的磁盘空间，生成一个新的卷。<br>2）切换到Linux系统中，用“磁盘”这个软件，查看该新生成的卷，挂载在哪里，记下这个挂载。<br>3）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo mkfs -t ext4 /dev/sda10     //sda10即为新的挂载</div><div class="line">sudo vim /etc/fstab</div></pre></td></tr></table></figure></p>
-<p>在最后加上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/dev/sda10 /home/kk/hard_disk ext4 defaults 0  1     //   /home/kk/hard_disk即为挂载点</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Linux/双系统下为Linux系统增加硬盘空间/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/给Ubuntu系统添加SSH请求服务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Linux/给Ubuntu系统添加SSH请求服务/">给Ubuntu系统添加SSH请求服务</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Linux/给Ubuntu系统添加SSH请求服务/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.970Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1）安装ssh服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install openssh-server</div></pre></td></tr></table></figure></p>
-<p>2）检查ssh是否运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ps -e | grep ssh</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Linux/给Ubuntu系统添加SSH请求服务/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/mongod异常和一些处理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Linux/mongod异常和一些处理/">mongod异常和一些处理</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Linux/mongod异常和一些处理/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.970Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>查看进程和杀死进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ps -ef |grep mongo</div><div class="line">kill -9 就是第一个数字</div></pre></td></tr></table></figure></p>
-<p>mongo的运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mongod在 /data/mongodb/bin 里面</div><div class="line">运行命令：</div><div class="line">mongod --dbpath /data/db</div></pre></td></tr></table></figure></p>
-<p>mongo的运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service mongod start/restart</div></pre></td></tr></table></figure></p>
-<p>mongo的配置文件在<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/ect/mongodb.conf</div></pre></td></tr></table></figure></p>
-<p>关闭mongo服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mongo</div><div class="line">use admin</div><div class="line">db.shutdownServer()</div></pre></td></tr></table></figure></p>
-<p>mongo设置到后台运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://chenzhou123520.iteye.com/blog/1634676 这里说的很详细了</div><div class="line">配置完以后就可以直接后台运行了</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Linux/mongod异常和一些处理/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/Linux/Mongod服务器出现端口占用/">展开全文 >></a>
         </p>
       
 
@@ -802,19 +890,19 @@
 
 
   
-    <article id="post-Linux/Mongod服务器出现端口占用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Linux/给Ubuntu系统添加SSH请求服务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Linux/Mongod服务器出现端口占用/">Mongod服务器出现端口占用</a>
+      <a class="article-title" href="/2017/08/18/Linux/给Ubuntu系统添加SSH请求服务/">给Ubuntu系统添加SSH请求服务</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/Linux/Mongod服务器出现端口占用/" class="archive-article-date">
+        <a href="/2017/08/18/Linux/给Ubuntu系统添加SSH请求服务/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:38.970Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -822,8 +910,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>查看进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ps aux | grep mongo</div></pre></td></tr></table></figure></p>
-<p>杀死进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kill -9 第一组数字</div></pre></td></tr></table></figure></p>
+        <p>1）安装ssh服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install openssh-server</div></pre></td></tr></table></figure></p>
+<p>2）检查ssh是否运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ps -e | grep ssh</div></pre></td></tr></table></figure></p>
 
       
 
@@ -847,92 +935,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Linux/Mongod服务器出现端口占用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux/Linux下Virtualenv的配置与使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/Linux/Linux下Virtualenv的配置与使用/">Linux下Virtualenv的配置与使用</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/Linux/Linux下Virtualenv的配置与使用/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:38.970Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、安装pip</p>
-<pre><code>$ sudo apt-get install python-pip
-</code></pre><p>2、安装virtualenv</p>
-<pre><code>$ sudo pip install virtualenv
-</code></pre><p>3、创建一个隔离环境</p>
-<pre><code>$ virtualenv test
-</code></pre><p>4、激活隔离环境</p>
-<pre><code>$ source test/bin/activate
-</code></pre><p>5丶若要退出虚拟环境</p>
-<pre><code>$ deactivate
-</code></pre><p>6丶若要卸载virtualenv</p>
-<pre><code>$ sudo pip uninstall virtualenv
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/Linux/Linux下Virtualenv的配置与使用/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/Linux/给Ubuntu系统添加SSH请求服务/">展开全文 >></a>
         </p>
       
 
@@ -1055,7 +1058,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
+                <a href="javascript:void(0)" class="js-tag color2">脚本语言学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1064,6 +1067,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">字符串替换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
             
             <div class="clearfix"></div>

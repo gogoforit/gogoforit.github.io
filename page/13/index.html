@@ -191,6 +191,84 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Bash/Bash入门，基础知识" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/Bash/Bash入门，基础知识/">Bash入门，基础知识</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/Bash/Bash入门，基础知识/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:38.942Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1）新建一个文件，test.sh，编辑内容如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#! /bin/bash</div><div class="line">echo &quot;hello&quot;</div></pre></td></tr></table></figure></p>
+<p>#! 约定记号，后面的跟的是解释器的位置，即使用哪种解释器。<br>echo 为在控制台输出。<br>2）运行脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/bin/sh test.sh</div></pre></td></tr></table></figure></p>
+<p>3）变量定义时，变量与值之间不能有<strong>空格</strong>，“ ”。有空格会有，not found错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">your_name=’kk&apos;</div></pre></td></tr></table></figure></p>
+<p>4）单引号，双引号的区别<br>他们的区别在于，单引号将剥夺其中的所有字符的特殊含义，而双引号中的’$’（参数替换）和’`’（命令替换）是例外。<br>5）单引号里面的单引号不能转义，双引号里面的双引号可以转义。<br>6）字符串拼接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">name=&apos;xiao&apos;</div><div class="line">hisname=&apos;$xiao wang&apos;</div><div class="line">echo hisname</div></pre></td></tr></table></figure></p>
+<p>7）取字符串长度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">name=&apos;greet&apos;</div><div class="line">echo $&#123;#name&#125;   #输出即为4，注意，一定要有两个大括号，没有括号有错误</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Bash/" class="article-tag-list-link color5">Bash</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/Bash/Bash入门，基础知识/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Docker/Docker常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -582,7 +660,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
+                <a href="javascript:void(0)" class="js-tag color2">脚本语言学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -591,6 +669,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">字符串替换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
             
             <div class="clearfix"></div>
