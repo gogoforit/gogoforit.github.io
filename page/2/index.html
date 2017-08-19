@@ -70,6 +70,8 @@
 	        
 				<li><a href="/categories/PythonPractice">PythonPractice</a></li>
 	        
+				<li><a href="/categories/500Lines">500Lines</a></li>
+	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
@@ -134,6 +136,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -152,23 +156,25 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 11.11111111111111%"><a href="/">主页</a></li>
+					<li style="width: 10%"><a href="/">主页</a></li>
 		        
-					<li style="width: 11.11111111111111%"><a href="/categories/树莓派">树莓派</a></li>
+					<li style="width: 10%"><a href="/categories/树莓派">树莓派</a></li>
 		        
-					<li style="width: 11.11111111111111%"><a href="/categories/Docker">Docker</a></li>
+					<li style="width: 10%"><a href="/categories/Docker">Docker</a></li>
 		        
-					<li style="width: 11.11111111111111%"><a href="/categories/Bash">Bash</a></li>
+					<li style="width: 10%"><a href="/categories/Bash">Bash</a></li>
 		        
-					<li style="width: 11.11111111111111%"><a href="/categories/Flask">Flask</a></li>
+					<li style="width: 10%"><a href="/categories/Flask">Flask</a></li>
 		        
-					<li style="width: 11.11111111111111%"><a href="/categories/Git">Git</a></li>
+					<li style="width: 10%"><a href="/categories/Git">Git</a></li>
 		        
-					<li style="width: 11.11111111111111%"><a href="/categories/Linux">Linux</a></li>
+					<li style="width: 10%"><a href="/categories/Linux">Linux</a></li>
 		        
-					<li style="width: 11.11111111111111%"><a href="/categories/Python">Python</a></li>
+					<li style="width: 10%"><a href="/categories/Python">Python</a></li>
 		        
-					<li style="width: 11.11111111111111%"><a href="/categories/PythonPractice">PythonPractice</a></li>
+					<li style="width: 10%"><a href="/categories/PythonPractice">PythonPractice</a></li>
+		        
+					<li style="width: 10%"><a href="/categories/500Lines">500Lines</a></li>
 		        
 				</ul>
 			</nav>
@@ -185,19 +191,19 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-树莓派/树莓派安装mongodb的奇怪问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-树莓派/本地的服务器配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/树莓派/树莓派安装mongodb的奇怪问题/">树莓派安装mongodb的奇怪问题</a>
+      <a class="article-title" href="/2017/08/18/树莓派/本地的服务器配置/">本地的服务器配置</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/树莓派/树莓派安装mongodb的奇怪问题/" class="archive-article-date">
+        <a href="/2017/08/18/树莓派/本地的服务器配置/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -205,9 +211,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>安装好三月那个镜像以后，先<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure></p>
-<p>不修改阿里的镜像直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install mongodb</div></pre></td></tr></table></figure></p>
-<p>这样好像就可以直接安装好。。。虽然我也不知道为啥可以这样。。。</p>
+        <p>安装nginx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install nginx</div></pre></td></tr></table></figure></p>
+<p>安装gunicorn，supervisor<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pip install gunicorn supervisor</div></pre></td></tr></table></figure></p>
+<p>配置nginx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">cd /etc/nginx/sites-available</div><div class="line">sudo vim program_name</div><div class="line">#编写配置文件</div><div class="line">server &#123;</div><div class="line"> listen 80; </div><div class="line"></div><div class="line"></div><div class="line"> location / &#123; </div><div class="line">    proxy_pass http://127.0.0.1:9000;</div><div class="line">    &#125;   </div><div class="line">&#125;</div><div class="line">cd /etc/nginx/sites-enabled</div><div class="line">sudo ln -s name</div><div class="line">sudo service nginx reload</div><div class="line">sudo service nginx restart</div></pre></td></tr></table></figure></p>
+<p>修改localhost<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim /etc/hosts</div></pre></td></tr></table></figure></p>
 
       
 
@@ -231,7 +238,228 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/树莓派/树莓派安装mongodb的奇怪问题/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/树莓派/本地的服务器配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-树莓派/更改su-密码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/树莓派/更改su-密码/">更改su-密码</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/树莓派/更改su-密码/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo passwd</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/树莓派/" class="article-tag-list-link color4">树莓派</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/树莓派/更改su-密码/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-树莓派/更换阿里的源" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/树莓派/更换阿里的源/">更换阿里的源</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/树莓派/更换阿里的源/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>具体指导如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.shumeipaiba.com/wanpai/jiaocheng/16.html</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/树莓派/" class="article-tag-list-link color4">树莓派</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/树莓派/更换阿里的源/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-树莓派/安装captiveportal错误" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/树莓派/安装captiveportal错误/">安装captiveportal错误</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/树莓派/安装captiveportal错误/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/树莓派/" class="article-tag-list-link color4">树莓派</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/树莓派/安装captiveportal错误/">展开全文 >></a>
         </p>
       
 
@@ -306,6 +534,80 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/08/18/树莓派/安装MongoDB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-树莓派/vim下复制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/树莓派/vim下复制/">vim下复制</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/树莓派/vim下复制/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先，可以在命令模式下输入v进入自由选取模式，选择需要剪切的文字后，按下d就可以进行剪切了。<br>其他命令模式下剪切命令：<br>dd：剪切当前行<br>ndd：n表示大于1的数字，剪切n行<br>dw：从光标处剪切至一个单子/单词的末尾，包括空格<br>de：从光标处剪切至一个单子/单词的末尾，不包括空格<br>d$：从当前光标剪切到行末<br>d0：从当前光标位置（不包括光标位置）剪切之行首<br>d3l：从光标位置（包括光标位置）向右剪切3个字符<br>d5G：将当前行（包括当前行）至第5行（不包括它）剪切<br>d3B：从当前光标位置（不包括光标位置）反向剪切3个单词<br>dH：剪切从当前行至所显示屏幕顶行的全部行<br>dM：剪切从当前行至命令M所指定行的全部行<br>dL：剪切从当前行至所显示屏幕底的全部行</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/树莓派/" class="article-tag-list-link color4">树莓派</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/树莓派/vim下复制/">展开全文 >></a>
         </p>
       
 
@@ -657,314 +959,6 @@
 
 
   
-    <article id="post-树莓派/树莓派dd，烧录新卡[转载]" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/树莓派/树莓派dd，烧录新卡[转载]/">树莓派dd，烧录新卡[转载]</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/树莓派/树莓派dd，烧录新卡[转载]/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>如何把现在的系统转移到新的存储卡？<br>把新买来的32G存储卡插入读卡器，然后接到树莓派上，如果没有异常树莓派会自动挂载磁盘，那么我们就需要先卸载掉磁盘。用df命令查看挂载的位置，然后用umount命令卸载掉【具体方法如：umount /media/disk】。<br>接着，就是把现在的系统完整的复制到新卡上。由于树莓派本身就是Linux系统，所以我们可以参考苹果电脑烧写镜像的教程【毕竟mac系统也是基于Linux的……】，用<br>dd bs=4m if=2013-02-09-wheezy-raspbian.img of=/dev/rdisk1<br>命令把镜像写入磁盘。而在这里我们就不需要镜像了，直接把正在使用的存储卡dd过去。<br>所以我们用的命令是这样的：<br>dd bs=4m if=/dev/mmcblk0 of=/dev/sda<br>mmcblk0就是树莓派上的存储卡【正在使用的】<br>sda就是插入的USB存储设备【可能会随着接入的设备多少而改变，如可能为sdb，sdc等，自己根据情况去判断是哪一个】<br>然后耐心的等待写入完成就可以了。<br>用命令init 0 或者其他命令关机【我习惯用init 0，简单方便容易记……】，然后把树莓派断电，取出旧的TF卡，插入新的TF卡，上电开机。之后你会发现树莓派上的配置还是原来的样子，磁盘大小也没有改变。那么为了能使用整个完整的存储卡，我们还需要像刚安装好镜像那样用raspi-config的第一个功能来扩展整个磁盘。这样重启后就可以使用整个32G的磁盘了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/树莓派/" class="article-tag-list-link color4">树莓派</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/树莓派/树莓派dd，烧录新卡[转载]/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-树莓派/树莓派无线终端上网模块" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/树莓派/树莓派无线终端上网模块/">树莓派无线终端上网模块</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/树莓派/树莓派无线终端上网模块/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>树莓派3G上网<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://blog.csdn.net/chiliaolm/article/details/51883366</div><div class="line">http://blog.csdn.net/rk2900/article/details/8667833</div></pre></td></tr></table></figure></p>
-<p>上网模块：华为e173，好像华为的上网模块只支持电信的。<br>4G/3G/2G上网卡，不推荐使用模块，需要配置环境，太麻烦。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/树莓派/" class="article-tag-list-link color4">树莓派</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/树莓派/树莓派无线终端上网模块/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-PythonPractice/0007-读出代码行书，注释以及空行" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/PythonPractice/0007-读出代码行书，注释以及空行/">0007-读出代码行书，注释以及空行</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/PythonPractice/0007-读出代码行书，注释以及空行/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">import glob</div><div class="line">import os</div><div class="line"></div><div class="line"></div><div class="line">def get_files():</div><div class="line">    file_full = &apos;&apos;.join([os.getcwd(), &apos;/code/*.py&apos;])</div><div class="line">    files = glob.glob(file_full)</div><div class="line">    return files</div><div class="line"></div><div class="line"></div><div class="line">def count_lines(files):</div><div class="line">    for file in files:</div><div class="line">        total_lines = 0</div><div class="line">        notes_lines = 0</div><div class="line">        blank_lines = 0</div><div class="line">        print(&quot;Filename is &#123;0&#125;&quot;.format(file.split(r&apos;/&apos;)[-1]))</div><div class="line">        with open(file) as lines:</div><div class="line">            for line in lines:</div><div class="line">                total_lines += 1</div><div class="line">                if line == &apos;\n&apos;:</div><div class="line">                    blank_lines += 1</div><div class="line">                elif line.startswith(&apos;#&apos;):</div><div class="line">                    notes_lines += 1</div><div class="line">        print_result(total_lines, notes_lines, blank_lines)</div><div class="line"></div><div class="line"></div><div class="line">def print_result(total_lines,</div><div class="line">                 notes_lines,</div><div class="line">                 blank_lines):</div><div class="line"></div><div class="line">    print(&quot;Total is &#123;0&#125;, Notes is &#123;1&#125;, Blank is &#123;2&#125;\n&quot;.format(total_lines,</div><div class="line">                                                              notes_lines,</div><div class="line">                                                              blank_lines))</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    files = get_files()</div><div class="line">    count_lines(files)</div></pre></td></tr></table></figure>
-<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p>按行读入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">lines = open(&apos;/home/1.txt&quot;)</div><div class="line">for line in lines:</div><div class="line">  print(line)</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/PythonPractice/" class="article-tag-list-link color5">PythonPractice</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/PythonPractice/0007-读出代码行书，注释以及空行/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-PythonPractice/0003-存入redis数据库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/PythonPractice/0003-存入redis数据库/">0003-存入redis数据库</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/PythonPractice/0003-存入redis数据库/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">import redis</div><div class="line">import string</div><div class="line">import random</div><div class="line"></div><div class="line"></div><div class="line">def base_str():</div><div class="line">    return string.ascii_letters + string.digits</div><div class="line"></div><div class="line"></div><div class="line">KEY_VALUE = 20</div><div class="line">KEY_NUMBER = 200</div><div class="line">r = redis.Redis(host=&apos;127.0.0.1&apos;, port=6379)</div><div class="line"></div><div class="line"></div><div class="line">result = []</div><div class="line">for i in range(200):</div><div class="line">    st = [random.choice(base_str()) for j in range(20)]</div><div class="line">    st = &apos;&apos;.join(st)</div><div class="line">    r.lpush(&apos;key&apos;, st)</div><div class="line"></div><div class="line">print(r.lrange(&apos;key&apos;, 0, -1))</div></pre></td></tr></table></figure>
-<h3 id="Redis的操作"><a href="#Redis的操作" class="headerlink" title="Redis的操作"></a>Redis的操作</h3><p>1、连接操作相关的命令<br>    quit：关闭连接（connection）<br>    auth：简单密码认证</p>
-<p>2、对value操作的命令<br>    exists(key)：  确认一个key是否存在<br>    del(key)：     删除一个key<br>    type(key)：    返回值的类型<br>    keys(pattern)：返回满足给定pattern的所有key<br>    randomkey：    随机返回key空间的一个key<br>    rename(oldname, newname)：将key由oldname重命名为newname，若newname存在则删除newname表示的key<br>    dbsize：  返回当前数据库中key的数目<br>    expire：  设定一个key的活动时间（s）<br>    ttl：     获得一个key的活动时间<br>    select(index)：     按索引查询<br>    move(key, dbindex)：将当前数据库中的key转移到有dbindex索引的数据库<br>    flushdb：           删除当前选择数据库中的所有key<br>    flushall：          删除所有数据库中的所有key</p>
-<p>3、对String操作的命令<br>    set(key, value)：   给数据库中名称为key的string赋予值value<br>    get(key)：          返回数据库中名称为key的string的value<br>    getset(key, value)：给名称为key的string赋予上一次的value<br>    mget(key1, key2,…, key N)：   返回库中多个string（它们的名称为key1，key2…）的value<br>    setnx(key, value)：           如果不存在名称为key的string，则向库中添加string，名称为key，值为value<br>    setex(key, time, value)：     向库中添加string（名称为key，值为value）同时，设定过期时间time<br>    mset(key1, value1, key2, value2,…key N, value N)：  同时给多个string赋值，名称为key i的string赋值value i<br>    msetnx(key1, value1, key2, value2,…key N, value N)：如果所有名称为key i的string都不存在，则向库中添加string，名称key i赋值为value i<br>    incr(key)：名称为key的string增1操作<br>    incrby(key, integer)：名称为key的string增加integer<br>    decr(key)：名称为key的string减1操作<br>    decrby(key, integer)：名称为key的string减少integer<br>    append(key, value)：名称为key的string的值附加value<br>    substr(key, start, end)：返回名称为key的string的value的子串</p>
-<p>4、对List操作的命令<br>    rpush(key, value)：在名称为key的list尾添加一个值为value的元素<br>    lpush(key, value)：在名称为key的list头添加一个值为value的 元素<br>    llen(key)：返回名称为key的list的长度<br>    lrange(key, start, end)：返回名称为key的list中start至end之间的元素（下标从0开始，下同）<br>    ltrim(key, start, end)：截取名称为key的list，保留start至end之间的元素<br>    lindex(key, index)：返回名称为key的list中index位置的元素<br>    lset(key, index, value)：给名称为key的list中index位置的元素赋值为value<br>    lrem(key, count, value)：删除count个名称为key的list中值为value的元素。<br>    count为0，删除所有值为value的元素，count&gt;0从头至尾删除count个值为value的元素，count<0从尾到头删除|count|个值为value的元素。 lpop(key)：返回并删除名称为key的list中的首元素="" rpop(key)：返回并删除名称为key的list中的尾元素="" blpop(key1,="" key2,…="" key="" n,="" timeout)：lpop命令的block版本。="" 即当timeout为0时，若遇到名称为key="" i的list不存在或该list为空，则命令结束。="" 如果timeout="">0，则遇到上述情况时，等待timeout秒，如果问题没有解决，则对keyi+1开始的list执行pop操作。<br>    brpop(key1, key2,… key N, timeout)：rpop的block版本。参考上一命令。<br>    rpoplpush(srckey, dstkey)：返回并删除名称为srckey的list的尾元素，并将该元素添加到名称为dstkey的list的头部</0从尾到头删除|count|个值为value的元素。></p>
-<p>5、对Set操作的命令<br>    sadd(key, member)：向名称为key的set中添加元素member<br>    srem(key, member) ：删除名称为key的set中的元素member<br>    spop(key) ：随机返回并删除名称为key的set中一个元素<br>    smove(srckey, dstkey, member) ：将member元素从名称为srckey的集合移到名称为dstkey的集合<br>    scard(key) ：返回名称为key的set的基数<br>    sismember(key, member) ：测试member是否是名称为key的set的元素<br>    sinter(key1, key2,…key N) ：求交集<br>    sinterstore(dstkey, key1, key2,…key N) ：求交集并将交集保存到dstkey的集合<br>    sunion(key1, key2,…key N) ：求并集<br>    sunionstore(dstkey, key1, key2,…key N) ：求并集并将并集保存到dstkey的集合<br>    sdiff(key1, key2,…key N) ：求差集<br>    sdiffstore(dstkey, key1, key2,…key N) ：求差集并将差集保存到dstkey的集合<br>    smembers(key) ：返回名称为key的set的所有元素<br>    srandmember(key) ：随机返回名称为key的set的一个元素</p>
-<p>6、对zset（sorted set）操作的命令<br>    zadd(key, score, member)：向名称为key的zset中添加元素member，score用于排序。如该元素已存在，则根据score更新该元素的顺序。<br>    zrem(key, member) ：删除名称为key的zset中的元素member<br>    zincrby(key, increment, member) ：如果在名称为key的zset中已经存在元素member，则该元素的score增加increment；<br>                                                            否则向集合中添加该元素，其score的值为increment<br>    zrank(key, member) ：返回名称为key的zset（元素已按score从小到大排序）中member元素的rank（即index，从0开始），<br>                                        若没有member元素，返回“nil”<br>    zrevrank(key, member) ：返回名称为key的zset（元素已按score从大到小排序）中member元素的rank（即index，从0开始），<br>                                            若没有member元素，返回“nil”<br>    zrange(key, start, end)：返回名称为key的zset（元素已按score从小到大排序）中的index从start到end的所有元素<br>    zrevrange(key, start, end)：返回名称为key的zset（元素已按score从大到小排序）中的index从start到end的所有元素<br>    zrangebyscore(key, min, max)：返回名称为key的zset中score &gt;= min且score &lt;= max的所有元素<br>    zcard(key)：返回名称为key的zset的基数<br>    zscore(key, element)：返回名称为key的zset中元素element的score<br>    zremrangebyrank(key, min, max)：删除名称为key的zset中rank &gt;= min且rank &lt;= max的所有元素<br>    zremrangebyscore(key, min, max) ：删除名称为key的zset中score &gt;= min且score &lt;= max的所有元素<br>    zunionstore / zinterstore(dstkeyN, key1,…,keyN, WEIGHTS w1,…wN, AGGREGATE SUM|MIN|MAX)：对N个zset求并集和交集，<br>                      并将最后的集合保存在dstkeyN中。对于集合中每一个元素的score，在进行AGGREGATE运算前，都要乘以对于的WEIGHT参数。<br>                      如果没有提供WEIGHT，默认为1。默认的AGGREGATE是SUM，即结果集合中元素的score是所有集合对应元素进行SUM运算的值，<br>                      而MIN和MAX是指，结果集合中元素的score是所有集合对应元素中最小值和最大值。</p>
-<p>7、对Hash操作的命令<br>    hset(key, field, value)：向名称为key的hash中添加元素field&lt;—&gt;value<br>    hget(key, field)：返回名称为key的hash中field对应的value<br>    hmget(key, field1, …,field N)：返回名称为key的hash中field i对应的value<br>    hmset(key, field1, value1,…,field N, value N)：向名称为key的hash中添加元素field i&lt;—&gt;value i<br>    hincrby(key, field, integer)：将名称为key的hash中field的value增加integer<br>    hexists(key, field)：名称为key的hash中是否存在键为field的域<br>    hdel(key, field)：删除名称为key的hash中键为field的域<br>    hlen(key)：返回名称为key的hash中元素个数<br>    hkeys(key)：返回名称为key的hash中所有键<br>    hvals(key)：返回名称为key的hash中所有键对应的value<br>    hgetall(key)：返回名称为key的hash中所有的键（field）及其对应的value</p>
-<p>8、持久化<br>    save：将数据同步保存到磁盘<br>    bgsave：将数据异步保存到磁盘<br>    lastsave：返回上次成功将数据保存到磁盘的Unix时戳<br>    shundown：将数据同步保存到磁盘，然后关闭服务</p>
-<p>9、远程服务控制<br>    info：提供服务器的信息和统计<br>    monitor：实时转储收到的请求<br>    slaveof：改变复制策略设置<br>    config：在运行时配置Redis服务器</p>
-<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p>Redis有的数据结构，集合(set)无重复元素并且无序，队列(list)，哈西表(hash)，String有重复元素的集合，有序集合(zset)<br>Redis可用于数据存入Mysql/MongoDB之前的缓存，因为数据存储在内存中，所以缓存速度十分快，效率很高<br>启动Redis：<code>redis-server</code></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/PythonPractice/" class="article-tag-list-link color5">PythonPractice</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/PythonPractice/0003-存入redis数据库/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1055,6 +1049,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">helokfe</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
              
               <li class="article-tag-list-item">

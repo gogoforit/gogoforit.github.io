@@ -70,6 +70,8 @@
 	        
 				<li><a href="/categories/PythonPractice">PythonPractice</a></li>
 	        
+				<li><a href="/categories/500Lines">500Lines</a></li>
+	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
@@ -134,6 +136,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -152,23 +156,25 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 11.11111111111111%"><a href="/">主页</a></li>
+					<li style="width: 10%"><a href="/">主页</a></li>
 		        
-					<li style="width: 11.11111111111111%"><a href="/categories/树莓派">树莓派</a></li>
+					<li style="width: 10%"><a href="/categories/树莓派">树莓派</a></li>
 		        
-					<li style="width: 11.11111111111111%"><a href="/categories/Docker">Docker</a></li>
+					<li style="width: 10%"><a href="/categories/Docker">Docker</a></li>
 		        
-					<li style="width: 11.11111111111111%"><a href="/categories/Bash">Bash</a></li>
+					<li style="width: 10%"><a href="/categories/Bash">Bash</a></li>
 		        
-					<li style="width: 11.11111111111111%"><a href="/categories/Flask">Flask</a></li>
+					<li style="width: 10%"><a href="/categories/Flask">Flask</a></li>
 		        
-					<li style="width: 11.11111111111111%"><a href="/categories/Git">Git</a></li>
+					<li style="width: 10%"><a href="/categories/Git">Git</a></li>
 		        
-					<li style="width: 11.11111111111111%"><a href="/categories/Linux">Linux</a></li>
+					<li style="width: 10%"><a href="/categories/Linux">Linux</a></li>
 		        
-					<li style="width: 11.11111111111111%"><a href="/categories/Python">Python</a></li>
+					<li style="width: 10%"><a href="/categories/Python">Python</a></li>
 		        
-					<li style="width: 11.11111111111111%"><a href="/categories/PythonPractice">PythonPractice</a></li>
+					<li style="width: 10%"><a href="/categories/PythonPractice">PythonPractice</a></li>
+		        
+					<li style="width: 10%"><a href="/categories/500Lines">500Lines</a></li>
 		        
 				</ul>
 			</nav>
@@ -184,6 +190,302 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-500Lines/整体的框架设计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/19/500Lines/整体的框架设计/">web-server 整体的框架设计</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/19/500Lines/整体的框架设计/" class="archive-article-date">
+  	<time datetime="2017-08-19T07:34:01.339Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><h4 id="1-主体架构的精简性"><a href="#1-主体架构的精简性" class="headerlink" title="1.主体架构的精简性"></a>1.主体架构的精简性</h4><p>主体架构越精简越好，主体就只处理最普通最简单的逻辑，例如RequestHandler类中的，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">class RequestHandler(BaseHTTPRequestHandler):</div><div class="line"></div><div class="line">    Cases = [case_no_file,</div><div class="line">             case_run_py,</div><div class="line">             case_existing_file,</div><div class="line">             case_directory_index_file,</div><div class="line">             case_directory_no_index_file,</div><div class="line">             case_always_fail]</div><div class="line"></div><div class="line">    def do_GET(self):</div><div class="line">        try:</div><div class="line">            self.full_path = &apos;&apos;.join([os.getcwd(), self.path])</div><div class="line">            for case in self.Cases:</div><div class="line">                handler = case()</div><div class="line">                if handler.test(self):</div><div class="line">                    handler.act(self)</div><div class="line">                    break</div><div class="line">        except Exception as msg:</div><div class="line">            self.handle_error(msg)</div><div class="line"></div><div class="line">    Error_Page = &quot;&quot;&quot;\</div><div class="line">            &lt;html&gt;</div><div class="line">            &lt;body&gt;</div><div class="line">            &lt;h1&gt;Error accessing &#123;path&#125;&lt;/h1&gt;</div><div class="line">            &lt;p&gt;&#123;msg&#125;&lt;/p&gt;</div><div class="line">            &lt;/body&gt;</div><div class="line">            &lt;/html&gt;</div><div class="line">            &quot;&quot;&quot;</div><div class="line"></div><div class="line">    def handle_error(self, msg):</div><div class="line">        content = self.Error_Page.format(path=self.path, msg=msg)</div><div class="line">        self.send_content(content, 404)</div><div class="line"></div><div class="line">    def send_content(self, content, status=200):</div><div class="line">        self.send_response(status)</div><div class="line">        self.send_header(&apos;Content-Type&apos;, &apos;text/html&apos;)</div><div class="line">        self.send_header(&apos;Content-Length&apos;, str(len(content)))</div><div class="line">        self.end_headers()</div><div class="line">        if type(content) == str:</div><div class="line">            self.wfile.write(content.encode(&apos;utf-8&apos;))  # 字符串转字节</div><div class="line">        else:</div><div class="line">            self.wfile.write(content)</div></pre></td></tr></table></figure></p>
+<p>主体类中，就只处理三部分内容，处理get请求，处理错误异常，返回response包，这些最基础的东西，不管扩展什么新的功能都是不变的，这些功能应该单独列出来，作为主体。</p>
+<h4 id="2-扩展功能的设计"><a href="#2-扩展功能的设计" class="headerlink" title="2.扩展功能的设计"></a>2.扩展功能的设计</h4><p>新的功能扩展应该不能和以前的功能相冲突，在设计功能的时候就应该为以后的扩展预留好接口。有两个思路，一个是base里面只有最基础的方法即<code>test</code>和<code>act</code>，子类需要什么功能再重新定义，二一个是把共有的方法作为接口写在base类里，子类去实现这些接口，并且把子类需要的方法也都写在base类里，其他所有的子类都共享这些方法。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/500Lines/" class="article-tag-list-link color4">500Lines</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/19/500Lines/整体的框架设计/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-500Lines/寻找文件夹资源" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/19/500Lines/寻找文件夹资源/">web-server 寻找文件夹资源</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/19/500Lines/寻找文件夹资源/" class="archive-article-date">
+  	<time datetime="2017-08-19T07:33:39.791Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="总体思路"><a href="#总体思路" class="headerlink" title="总体思路"></a>总体思路</h3><ul>
+<li>处理get请求</li>
+<li>验证路径</li>
+<li>验证文件<ul>
+<li>打印文件内容</li>
+</ul>
+</li>
+<li>验证文件夹<ul>
+<li>有index.html文件<ul>
+<li>打印index.html文件</li>
+</ul>
+</li>
+<li>无index.html文件<ul>
+<li>遍历整个文件夹，打印文件名称</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>异常处理</li>
+</ul>
+<h3 id="精华代码"><a href="#精华代码" class="headerlink" title="精华代码"></a>精华代码</h3><p><strong>如果一个类没有显式继承，那都继承自object类</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class case_no_file(object):</div><div class="line"></div><div class="line">    def test(self, handler):</div><div class="line">        return not os.path.exists(handler.full_path)</div><div class="line"></div><div class="line">    def act(self, handler):</div><div class="line">        raise Exception(&quot;&apos;&#123;0&#125;&apos; not found&quot;.format(handler.path))</div></pre></td></tr></table></figure></p>
+<p><strong>可以将类放入到队列中，把判定条件放入到类的方法中，这样可以避免出现过多的循环判定</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Cases = [case_no_file,</div><div class="line">                   case_existing_file,</div><div class="line">                   case_directory_index_file,</div><div class="line">                   case_directory_no_index_file,</div><div class="line">                   case_always_fail]</div><div class="line"></div><div class="line">for case in self.Cases:</div><div class="line">    handler = case()</div><div class="line">    if handler.test(self): </div><div class="line">        handler.act(self)</div><div class="line">        break</div></pre></td></tr></table></figure></p>
+<p><strong>很精妙的逻辑，叹为观止……</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class case_directory_no_index_file(object):</div><div class="line"></div><div class="line">    def index_path(self, handler):</div><div class="line">        return os.path.join(handler.full_path, &apos;index.html&apos;)</div><div class="line"></div><div class="line">    def test(self, handler):</div><div class="line">        return os.path.isdir(handler.full_path) and \    # 先判定是否是文件夹</div><div class="line">               not os.path.isfile(self.index_path(handler))  # 再判定是否存在index.html文件</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/500Lines/" class="article-tag-list-link color4">500Lines</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/19/500Lines/寻找文件夹资源/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-500Lines/处理静态文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/19/500Lines/处理静态文件/">web-server 处理静态文件</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/19/500Lines/处理静态文件/" class="archive-article-date">
+  	<time datetime="2017-08-19T07:33:24.291Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="总体思路"><a href="#总体思路" class="headerlink" title="总体思路"></a>总体思路</h3><ul>
+<li>处理get请求</li>
+<li>检查路径是否存在，如果不存在，抛异常</li>
+<li>检查该路径下是否是一个文件<ul>
+<li>该文件可以打开<ul>
+<li>处理文件，打开，提取内容</li>
+</ul>
+</li>
+<li>该文件不可打开<ul>
+<li>抛出异常</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>处理异常，返回错误代码</li>
+<li>处理response，注意，不管是正常还是异常，都是通过这一步来返回最终的response<h3 id="精妙代码"><a href="#精妙代码" class="headerlink" title="精妙代码"></a>精妙代码</h3><h4 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h4><strong>异常处理的思路很清晰，出现异常，抛给上一层，然后上一层把异常发送给最后处理response，和正常状态无冲突</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">def do_GET(self):</div><div class="line">    file_path = &apos;&apos;.join([os.getcwd(), self.path])</div><div class="line">    try:</div><div class="line">        if not os.path.exists(file_path):</div><div class="line">            raise Exception(&quot;&#123;0&#125; not found&quot;.format(self.path))</div><div class="line">        elif os.path.isfile(file_path):</div><div class="line">            self.handle_file(file_path)</div><div class="line">        else:</div><div class="line">            raise Exception(&quot;&#123;0&#125; not a Object&quot;.format(self.path))</div><div class="line">    except Exception as msg:</div><div class="line">        self.handle_err(msg)</div><div class="line"></div><div class="line">def handle_file(self, file_path):</div><div class="line">    try:</div><div class="line">        with open(file_path) as file:</div><div class="line">            content = file.read()</div><div class="line">            self.send_content(content)</div><div class="line">    except IOError as msg:</div><div class="line">        self.send_content(msg, 404)</div><div class="line">err_page = &quot;&quot;&quot;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;h1&gt;&#123;path&#125;&lt;/h1&gt;</div><div class="line">&lt;p&gt;&#123;msg&#125;&lt;/p&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div><div class="line">&quot;&quot;&quot;</div><div class="line">def handle_err(self, msg):</div><div class="line">    content = self.err_page.format(path=self.path, msg=msg)</div><div class="line">    self.send_content(content, 404)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/500Lines/" class="article-tag-list-link color4">500Lines</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/19/500Lines/处理静态文件/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-PythonPractice/0012-敏感词替换" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -357,19 +659,19 @@
 
 
   
-    <article id="post-树莓派/安装captiveportal错误" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-树莓派/树莓派无线终端上网模块" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/树莓派/安装captiveportal错误/">安装captiveportal错误</a>
+      <a class="article-title" href="/2017/08/18/树莓派/树莓派无线终端上网模块/">树莓派无线终端上网模块</a>
     </h1>
   
 
         
-        <a href="/2017/08/18/树莓派/安装captiveportal错误/" class="archive-article-date">
+        <a href="/2017/08/18/树莓派/树莓派无线终端上网模块/" class="archive-article-date">
   	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
 </a>
         
@@ -377,7 +679,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>树莓派3G上网<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://blog.csdn.net/chiliaolm/article/details/51883366</div><div class="line">http://blog.csdn.net/rk2900/article/details/8667833</div></pre></td></tr></table></figure></p>
+<p>上网模块：华为e173，好像华为的上网模块只支持电信的。<br>4G/3G/2G上网卡，不推荐使用模块，需要配置环境，太麻烦。</p>
+
       
 
       
@@ -400,7 +704,81 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/树莓派/安装captiveportal错误/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/18/树莓派/树莓派无线终端上网模块/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-树莓派/树莓派dd，烧录新卡[转载]" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/18/树莓派/树莓派dd，烧录新卡[转载]/">树莓派dd，烧录新卡[转载]</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/18/树莓派/树莓派dd，烧录新卡[转载]/" class="archive-article-date">
+  	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>如何把现在的系统转移到新的存储卡？<br>把新买来的32G存储卡插入读卡器，然后接到树莓派上，如果没有异常树莓派会自动挂载磁盘，那么我们就需要先卸载掉磁盘。用df命令查看挂载的位置，然后用umount命令卸载掉【具体方法如：umount /media/disk】。<br>接着，就是把现在的系统完整的复制到新卡上。由于树莓派本身就是Linux系统，所以我们可以参考苹果电脑烧写镜像的教程【毕竟mac系统也是基于Linux的……】，用<br>dd bs=4m if=2013-02-09-wheezy-raspbian.img of=/dev/rdisk1<br>命令把镜像写入磁盘。而在这里我们就不需要镜像了，直接把正在使用的存储卡dd过去。<br>所以我们用的命令是这样的：<br>dd bs=4m if=/dev/mmcblk0 of=/dev/sda<br>mmcblk0就是树莓派上的存储卡【正在使用的】<br>sda就是插入的USB存储设备【可能会随着接入的设备多少而改变，如可能为sdb，sdc等，自己根据情况去判断是哪一个】<br>然后耐心的等待写入完成就可以了。<br>用命令init 0 或者其他命令关机【我习惯用init 0，简单方便容易记……】，然后把树莓派断电，取出旧的TF卡，插入新的TF卡，上电开机。之后你会发现树莓派上的配置还是原来的样子，磁盘大小也没有改变。那么为了能使用整个完整的存储卡，我们还需要像刚安装好镜像那样用raspi-config的第一个功能来扩展整个磁盘。这样重启后就可以使用整个32G的磁盘了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/树莓派/" class="article-tag-list-link color4">树莓派</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/18/树莓派/树莓派dd，烧录新卡[转载]/">展开全文 >></a>
         </p>
       
 
@@ -657,305 +1035,6 @@
 
 
   
-    <article id="post-树莓派/本地的服务器配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/树莓派/本地的服务器配置/">本地的服务器配置</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/树莓派/本地的服务器配置/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>安装nginx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install nginx</div></pre></td></tr></table></figure></p>
-<p>安装gunicorn，supervisor<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pip install gunicorn supervisor</div></pre></td></tr></table></figure></p>
-<p>配置nginx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">cd /etc/nginx/sites-available</div><div class="line">sudo vim program_name</div><div class="line">#编写配置文件</div><div class="line">server &#123;</div><div class="line"> listen 80; </div><div class="line"></div><div class="line"></div><div class="line"> location / &#123; </div><div class="line">    proxy_pass http://127.0.0.1:9000;</div><div class="line">    &#125;   </div><div class="line">&#125;</div><div class="line">cd /etc/nginx/sites-enabled</div><div class="line">sudo ln -s name</div><div class="line">sudo service nginx reload</div><div class="line">sudo service nginx restart</div></pre></td></tr></table></figure></p>
-<p>修改localhost<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim /etc/hosts</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/树莓派/" class="article-tag-list-link color4">树莓派</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/树莓派/本地的服务器配置/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-树莓派/更改su-密码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/树莓派/更改su-密码/">更改su-密码</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/树莓派/更改su-密码/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo passwd</div></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/树莓派/" class="article-tag-list-link color4">树莓派</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/树莓派/更改su-密码/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-树莓派/更换阿里的源" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/树莓派/更换阿里的源/">更换阿里的源</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/树莓派/更换阿里的源/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>具体指导如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.shumeipaiba.com/wanpai/jiaocheng/16.html</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/树莓派/" class="article-tag-list-link color4">树莓派</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/树莓派/更换阿里的源/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-树莓派/vim下复制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/18/树莓派/vim下复制/">vim下复制</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/18/树莓派/vim下复制/" class="archive-article-date">
-  	<time datetime="2017-08-18T08:29:39.006Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先，可以在命令模式下输入v进入自由选取模式，选择需要剪切的文字后，按下d就可以进行剪切了。<br>其他命令模式下剪切命令：<br>dd：剪切当前行<br>ndd：n表示大于1的数字，剪切n行<br>dw：从光标处剪切至一个单子/单词的末尾，包括空格<br>de：从光标处剪切至一个单子/单词的末尾，不包括空格<br>d$：从当前光标剪切到行末<br>d0：从当前光标位置（不包括光标位置）剪切之行首<br>d3l：从光标位置（包括光标位置）向右剪切3个字符<br>d5G：将当前行（包括当前行）至第5行（不包括它）剪切<br>d3B：从当前光标位置（不包括光标位置）反向剪切3个单词<br>dH：剪切从当前行至所显示屏幕顶行的全部行<br>dM：剪切从当前行至命令M所指定行的全部行<br>dL：剪切从当前行至所显示屏幕底的全部行</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/树莓派/" class="article-tag-list-link color4">树莓派</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/18/树莓派/vim下复制/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1046,6 +1125,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">helokfe</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
              
               <li class="article-tag-list-item">

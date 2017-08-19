@@ -3,6 +3,110 @@
   
     
     <entry>
+      <title><![CDATA[web-server 整体的框架设计]]></title>
+      <url>/2017/08/19/500Lines/%E6%95%B4%E4%BD%93%E7%9A%84%E6%A1%86%E6%9E%B6%E8%AE%BE%E8%AE%A1/</url>
+      <content type="html"><![CDATA[<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><h4 id="1-主体架构的精简性"><a href="#1-主体架构的精简性" class="headerlink" title="1.主体架构的精简性"></a>1.主体架构的精简性</h4><p>主体架构越精简越好，主体就只处理最普通最简单的逻辑，例如RequestHandler类中的，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">class RequestHandler(BaseHTTPRequestHandler):</div><div class="line"></div><div class="line">    Cases = [case_no_file,</div><div class="line">             case_run_py,</div><div class="line">             case_existing_file,</div><div class="line">             case_directory_index_file,</div><div class="line">             case_directory_no_index_file,</div><div class="line">             case_always_fail]</div><div class="line"></div><div class="line">    def do_GET(self):</div><div class="line">        try:</div><div class="line">            self.full_path = &apos;&apos;.join([os.getcwd(), self.path])</div><div class="line">            for case in self.Cases:</div><div class="line">                handler = case()</div><div class="line">                if handler.test(self):</div><div class="line">                    handler.act(self)</div><div class="line">                    break</div><div class="line">        except Exception as msg:</div><div class="line">            self.handle_error(msg)</div><div class="line"></div><div class="line">    Error_Page = &quot;&quot;&quot;\</div><div class="line">            &lt;html&gt;</div><div class="line">            &lt;body&gt;</div><div class="line">            &lt;h1&gt;Error accessing &#123;path&#125;&lt;/h1&gt;</div><div class="line">            &lt;p&gt;&#123;msg&#125;&lt;/p&gt;</div><div class="line">            &lt;/body&gt;</div><div class="line">            &lt;/html&gt;</div><div class="line">            &quot;&quot;&quot;</div><div class="line"></div><div class="line">    def handle_error(self, msg):</div><div class="line">        content = self.Error_Page.format(path=self.path, msg=msg)</div><div class="line">        self.send_content(content, 404)</div><div class="line"></div><div class="line">    def send_content(self, content, status=200):</div><div class="line">        self.send_response(status)</div><div class="line">        self.send_header(&apos;Content-Type&apos;, &apos;text/html&apos;)</div><div class="line">        self.send_header(&apos;Content-Length&apos;, str(len(content)))</div><div class="line">        self.end_headers()</div><div class="line">        if type(content) == str:</div><div class="line">            self.wfile.write(content.encode(&apos;utf-8&apos;))  # 字符串转字节</div><div class="line">        else:</div><div class="line">            self.wfile.write(content)</div></pre></td></tr></table></figure></p>
+<p>主体类中，就只处理三部分内容，处理get请求，处理错误异常，返回response包，这些最基础的东西，不管扩展什么新的功能都是不变的，这些功能应该单独列出来，作为主体。</p>
+<h4 id="2-扩展功能的设计"><a href="#2-扩展功能的设计" class="headerlink" title="2.扩展功能的设计"></a>2.扩展功能的设计</h4><p>新的功能扩展应该不能和以前的功能相冲突，在设计功能的时候就应该为以后的扩展预留好接口。有两个思路，一个是base里面只有最基础的方法即<code>test</code>和<code>act</code>，子类需要什么功能再重新定义，二一个是把共有的方法作为接口写在base类里，子类去实现这些接口，并且把子类需要的方法也都写在base类里，其他所有的子类都共享这些方法。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 500Lines </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> web </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[web-server 寻找文件夹资源]]></title>
+      <url>/2017/08/19/500Lines/%E5%AF%BB%E6%89%BE%E6%96%87%E4%BB%B6%E5%A4%B9%E8%B5%84%E6%BA%90/</url>
+      <content type="html"><![CDATA[<h3 id="总体思路"><a href="#总体思路" class="headerlink" title="总体思路"></a>总体思路</h3><ul>
+<li>处理get请求</li>
+<li>验证路径</li>
+<li>验证文件<ul>
+<li>打印文件内容</li>
+</ul>
+</li>
+<li>验证文件夹<ul>
+<li>有index.html文件<ul>
+<li>打印index.html文件</li>
+</ul>
+</li>
+<li>无index.html文件<ul>
+<li>遍历整个文件夹，打印文件名称</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>异常处理</li>
+</ul>
+<h3 id="精华代码"><a href="#精华代码" class="headerlink" title="精华代码"></a>精华代码</h3><p><strong>如果一个类没有显式继承，那都继承自object类</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class case_no_file(object):</div><div class="line"></div><div class="line">    def test(self, handler):</div><div class="line">        return not os.path.exists(handler.full_path)</div><div class="line"></div><div class="line">    def act(self, handler):</div><div class="line">        raise Exception(&quot;&apos;&#123;0&#125;&apos; not found&quot;.format(handler.path))</div></pre></td></tr></table></figure></p>
+<p><strong>可以将类放入到队列中，把判定条件放入到类的方法中，这样可以避免出现过多的循环判定</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Cases = [case_no_file,</div><div class="line">                   case_existing_file,</div><div class="line">                   case_directory_index_file,</div><div class="line">                   case_directory_no_index_file,</div><div class="line">                   case_always_fail]</div><div class="line"></div><div class="line">for case in self.Cases:</div><div class="line">    handler = case()</div><div class="line">    if handler.test(self): </div><div class="line">        handler.act(self)</div><div class="line">        break</div></pre></td></tr></table></figure></p>
+<p><strong>很精妙的逻辑，叹为观止……</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class case_directory_no_index_file(object):</div><div class="line"></div><div class="line">    def index_path(self, handler):</div><div class="line">        return os.path.join(handler.full_path, &apos;index.html&apos;)</div><div class="line"></div><div class="line">    def test(self, handler):</div><div class="line">        return os.path.isdir(handler.full_path) and \    # 先判定是否是文件夹</div><div class="line">               not os.path.isfile(self.index_path(handler))  # 再判定是否存在index.html文件</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 500Lines </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> web </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[web-server 处理静态文件]]></title>
+      <url>/2017/08/19/500Lines/%E5%A4%84%E7%90%86%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6/</url>
+      <content type="html"><![CDATA[<h3 id="总体思路"><a href="#总体思路" class="headerlink" title="总体思路"></a>总体思路</h3><ul>
+<li>处理get请求</li>
+<li>检查路径是否存在，如果不存在，抛异常</li>
+<li>检查该路径下是否是一个文件<ul>
+<li>该文件可以打开<ul>
+<li>处理文件，打开，提取内容</li>
+</ul>
+</li>
+<li>该文件不可打开<ul>
+<li>抛出异常</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>处理异常，返回错误代码</li>
+<li>处理response，注意，不管是正常还是异常，都是通过这一步来返回最终的response<h3 id="精妙代码"><a href="#精妙代码" class="headerlink" title="精妙代码"></a>精妙代码</h3><h4 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h4><strong>异常处理的思路很清晰，出现异常，抛给上一层，然后上一层把异常发送给最后处理response，和正常状态无冲突</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">def do_GET(self):</div><div class="line">    file_path = &apos;&apos;.join([os.getcwd(), self.path])</div><div class="line">    try:</div><div class="line">        if not os.path.exists(file_path):</div><div class="line">            raise Exception(&quot;&#123;0&#125; not found&quot;.format(self.path))</div><div class="line">        elif os.path.isfile(file_path):</div><div class="line">            self.handle_file(file_path)</div><div class="line">        else:</div><div class="line">            raise Exception(&quot;&#123;0&#125; not a Object&quot;.format(self.path))</div><div class="line">    except Exception as msg:</div><div class="line">        self.handle_err(msg)</div><div class="line"></div><div class="line">def handle_file(self, file_path):</div><div class="line">    try:</div><div class="line">        with open(file_path) as file:</div><div class="line">            content = file.read()</div><div class="line">            self.send_content(content)</div><div class="line">    except IOError as msg:</div><div class="line">        self.send_content(msg, 404)</div><div class="line">err_page = &quot;&quot;&quot;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;h1&gt;&#123;path&#125;&lt;/h1&gt;</div><div class="line">&lt;p&gt;&#123;msg&#125;&lt;/p&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div><div class="line">&quot;&quot;&quot;</div><div class="line">def handle_err(self, msg):</div><div class="line">    content = self.err_page.format(path=self.path, msg=msg)</div><div class="line">    self.send_content(content, 404)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 500Lines </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> web </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[0012-敏感词替换]]></title>
       <url>/2017/08/18/PythonPractice/0012-%E6%95%8F%E6%84%9F%E8%AF%8D%E6%9B%BF%E6%8D%A2/</url>
       <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">def get_filtered_words():</div><div class="line">    array_words = []</div><div class="line">    with open(&apos;filtered_words.txt&apos;) as lines:</div><div class="line">        for line in lines:</div><div class="line">            array_words.append(line.replace(&apos;\n&apos;, &apos;&apos;))</div><div class="line">    return array_words</div><div class="line"></div><div class="line"></div><div class="line">def replace_string(input_words):</div><div class="line">    filtered_words = get_filtered_words()</div><div class="line">    for word in filtered_words:</div><div class="line">        input_words = input_words.replace(word, &apos;*&apos;*len(word))</div><div class="line">    print(input_words)</div><div class="line"></div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    input_words = input(&quot;Please Input Your Words:\n&quot;)</div><div class="line">    replace_string(input_words)</div></pre></td></tr></table></figure>
@@ -47,9 +151,26 @@
     </entry>
     
     <entry>
-      <title><![CDATA[安装captiveportal错误]]></title>
-      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E5%AE%89%E8%A3%85captiveportal%E9%94%99%E8%AF%AF/</url>
-      <content type="html"></content>
+      <title><![CDATA[树莓派无线终端上网模块]]></title>
+      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%97%A0%E7%BA%BF%E7%BB%88%E7%AB%AF%E4%B8%8A%E7%BD%91%E6%A8%A1%E5%9D%97/</url>
+      <content type="html"><![CDATA[<p>树莓派3G上网<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://blog.csdn.net/chiliaolm/article/details/51883366</div><div class="line">http://blog.csdn.net/rk2900/article/details/8667833</div></pre></td></tr></table></figure></p>
+<p>上网模块：华为e173，好像华为的上网模块只支持电信的。<br>4G/3G/2G上网卡，不推荐使用模块，需要配置环境，太麻烦。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 树莓派 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[树莓派dd，烧录新卡[转载]]]></title>
+      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%A0%91%E8%8E%93%E6%B4%BEdd%EF%BC%8C%E7%83%A7%E5%BD%95%E6%96%B0%E5%8D%A1%5B%E8%BD%AC%E8%BD%BD%5D/</url>
+      <content type="html"><![CDATA[<p>如何把现在的系统转移到新的存储卡？<br>把新买来的32G存储卡插入读卡器，然后接到树莓派上，如果没有异常树莓派会自动挂载磁盘，那么我们就需要先卸载掉磁盘。用df命令查看挂载的位置，然后用umount命令卸载掉【具体方法如：umount /media/disk】。<br>接着，就是把现在的系统完整的复制到新卡上。由于树莓派本身就是Linux系统，所以我们可以参考苹果电脑烧写镜像的教程【毕竟mac系统也是基于Linux的……】，用<br>dd bs=4m if=2013-02-09-wheezy-raspbian.img of=/dev/rdisk1<br>命令把镜像写入磁盘。而在这里我们就不需要镜像了，直接把正在使用的存储卡dd过去。<br>所以我们用的命令是这样的：<br>dd bs=4m if=/dev/mmcblk0 of=/dev/sda<br>mmcblk0就是树莓派上的存储卡【正在使用的】<br>sda就是插入的USB存储设备【可能会随着接入的设备多少而改变，如可能为sdb，sdc等，自己根据情况去判断是哪一个】<br>然后耐心的等待写入完成就可以了。<br>用命令init 0 或者其他命令关机【我习惯用init 0，简单方便容易记……】，然后把树莓派断电，取出旧的TF卡，插入新的TF卡，上电开机。之后你会发现树莓派上的配置还是原来的样子，磁盘大小也没有改变。那么为了能使用整个完整的存储卡，我们还需要像刚安装好镜像那样用raspi-config的第一个功能来扩展整个磁盘。这样重启后就可以使用整个32G的磁盘了。</p>
+]]></content>
       
         <categories>
             
@@ -159,27 +280,9 @@
     </entry>
     
     <entry>
-      <title><![CDATA[vim下复制]]></title>
-      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/vim%E4%B8%8B%E5%A4%8D%E5%88%B6/</url>
-      <content type="html"><![CDATA[<p>首先，可以在命令模式下输入v进入自由选取模式，选择需要剪切的文字后，按下d就可以进行剪切了。<br>其他命令模式下剪切命令：<br>dd：剪切当前行<br>ndd：n表示大于1的数字，剪切n行<br>dw：从光标处剪切至一个单子/单词的末尾，包括空格<br>de：从光标处剪切至一个单子/单词的末尾，不包括空格<br>d$：从当前光标剪切到行末<br>d0：从当前光标位置（不包括光标位置）剪切之行首<br>d3l：从光标位置（包括光标位置）向右剪切3个字符<br>d5G：将当前行（包括当前行）至第5行（不包括它）剪切<br>d3B：从当前光标位置（不包括光标位置）反向剪切3个单词<br>dH：剪切从当前行至所显示屏幕顶行的全部行<br>dM：剪切从当前行至命令M所指定行的全部行<br>dL：剪切从当前行至所显示屏幕底的全部行</p>
-]]></content>
-      
-        <categories>
-            
-            <category> 树莓派 </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[树莓派安装mongodb的奇怪问题]]></title>
-      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AE%89%E8%A3%85mongodb%E7%9A%84%E5%A5%87%E6%80%AA%E9%97%AE%E9%A2%98/</url>
-      <content type="html"><![CDATA[<p>安装好三月那个镜像以后，先<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure></p>
-<p>不修改阿里的镜像直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install mongodb</div></pre></td></tr></table></figure></p>
-<p>这样好像就可以直接安装好。。。虽然我也不知道为啥可以这样。。。</p>
-]]></content>
+      <title><![CDATA[安装captiveportal错误]]></title>
+      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E5%AE%89%E8%A3%85captiveportal%E9%94%99%E8%AF%AF/</url>
+      <content type="html"></content>
       
         <categories>
             
@@ -194,6 +297,21 @@
       <title><![CDATA[安装MongoDB]]></title>
       <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E5%AE%89%E8%A3%85MongoDB/</url>
       <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install MongoDB</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> 树莓派 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[vim下复制]]></title>
+      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/vim%E4%B8%8B%E5%A4%8D%E5%88%B6/</url>
+      <content type="html"><![CDATA[<p>首先，可以在命令模式下输入v进入自由选取模式，选择需要剪切的文字后，按下d就可以进行剪切了。<br>其他命令模式下剪切命令：<br>dd：剪切当前行<br>ndd：n表示大于1的数字，剪切n行<br>dw：从光标处剪切至一个单子/单词的末尾，包括空格<br>de：从光标处剪切至一个单子/单词的末尾，不包括空格<br>d$：从当前光标剪切到行末<br>d0：从当前光标位置（不包括光标位置）剪切之行首<br>d3l：从光标位置（包括光标位置）向右剪切3个字符<br>d5G：将当前行（包括当前行）至第5行（不包括它）剪切<br>d3B：从当前光标位置（不包括光标位置）反向剪切3个单词<br>dH：剪切从当前行至所显示屏幕顶行的全部行<br>dM：剪切从当前行至命令M所指定行的全部行<br>dL：剪切从当前行至所显示屏幕底的全部行</p>
 ]]></content>
       
         <categories>
@@ -292,46 +410,16 @@
     </entry>
     
     <entry>
-      <title><![CDATA[树莓派dd，烧录新卡[转载]]]></title>
-      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%A0%91%E8%8E%93%E6%B4%BEdd%EF%BC%8C%E7%83%A7%E5%BD%95%E6%96%B0%E5%8D%A1%5B%E8%BD%AC%E8%BD%BD%5D/</url>
-      <content type="html"><![CDATA[<p>如何把现在的系统转移到新的存储卡？<br>把新买来的32G存储卡插入读卡器，然后接到树莓派上，如果没有异常树莓派会自动挂载磁盘，那么我们就需要先卸载掉磁盘。用df命令查看挂载的位置，然后用umount命令卸载掉【具体方法如：umount /media/disk】。<br>接着，就是把现在的系统完整的复制到新卡上。由于树莓派本身就是Linux系统，所以我们可以参考苹果电脑烧写镜像的教程【毕竟mac系统也是基于Linux的……】，用<br>dd bs=4m if=2013-02-09-wheezy-raspbian.img of=/dev/rdisk1<br>命令把镜像写入磁盘。而在这里我们就不需要镜像了，直接把正在使用的存储卡dd过去。<br>所以我们用的命令是这样的：<br>dd bs=4m if=/dev/mmcblk0 of=/dev/sda<br>mmcblk0就是树莓派上的存储卡【正在使用的】<br>sda就是插入的USB存储设备【可能会随着接入的设备多少而改变，如可能为sdb，sdc等，自己根据情况去判断是哪一个】<br>然后耐心的等待写入完成就可以了。<br>用命令init 0 或者其他命令关机【我习惯用init 0，简单方便容易记……】，然后把树莓派断电，取出旧的TF卡，插入新的TF卡，上电开机。之后你会发现树莓派上的配置还是原来的样子，磁盘大小也没有改变。那么为了能使用整个完整的存储卡，我们还需要像刚安装好镜像那样用raspi-config的第一个功能来扩展整个磁盘。这样重启后就可以使用整个32G的磁盘了。</p>
+      <title><![CDATA[树莓派安装mongodb的奇怪问题]]></title>
+      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AE%89%E8%A3%85mongodb%E7%9A%84%E5%A5%87%E6%80%AA%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<p>安装好三月那个镜像以后，先<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure></p>
+<p>不修改阿里的镜像直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install mongodb</div></pre></td></tr></table></figure></p>
+<p>这样好像就可以直接安装好。。。虽然我也不知道为啥可以这样。。。</p>
 ]]></content>
       
         <categories>
             
             <category> 树莓派 </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[树莓派无线终端上网模块]]></title>
-      <url>/2017/08/18/%E6%A0%91%E8%8E%93%E6%B4%BE/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%97%A0%E7%BA%BF%E7%BB%88%E7%AB%AF%E4%B8%8A%E7%BD%91%E6%A8%A1%E5%9D%97/</url>
-      <content type="html"><![CDATA[<p>树莓派3G上网<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://blog.csdn.net/chiliaolm/article/details/51883366</div><div class="line">http://blog.csdn.net/rk2900/article/details/8667833</div></pre></td></tr></table></figure></p>
-<p>上网模块：华为e173，好像华为的上网模块只支持电信的。<br>4G/3G/2G上网卡，不推荐使用模块，需要配置环境，太麻烦。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> 树莓派 </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[0007-读出代码行书，注释以及空行]]></title>
-      <url>/2017/08/18/PythonPractice/0007-%E8%AF%BB%E5%87%BA%E4%BB%A3%E7%A0%81%E8%A1%8C%E4%B9%A6%EF%BC%8C%E6%B3%A8%E9%87%8A%E4%BB%A5%E5%8F%8A%E7%A9%BA%E8%A1%8C/</url>
-      <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">import glob</div><div class="line">import os</div><div class="line"></div><div class="line"></div><div class="line">def get_files():</div><div class="line">    file_full = &apos;&apos;.join([os.getcwd(), &apos;/code/*.py&apos;])</div><div class="line">    files = glob.glob(file_full)</div><div class="line">    return files</div><div class="line"></div><div class="line"></div><div class="line">def count_lines(files):</div><div class="line">    for file in files:</div><div class="line">        total_lines = 0</div><div class="line">        notes_lines = 0</div><div class="line">        blank_lines = 0</div><div class="line">        print(&quot;Filename is &#123;0&#125;&quot;.format(file.split(r&apos;/&apos;)[-1]))</div><div class="line">        with open(file) as lines:</div><div class="line">            for line in lines:</div><div class="line">                total_lines += 1</div><div class="line">                if line == &apos;\n&apos;:</div><div class="line">                    blank_lines += 1</div><div class="line">                elif line.startswith(&apos;#&apos;):</div><div class="line">                    notes_lines += 1</div><div class="line">        print_result(total_lines, notes_lines, blank_lines)</div><div class="line"></div><div class="line"></div><div class="line">def print_result(total_lines,</div><div class="line">                 notes_lines,</div><div class="line">                 blank_lines):</div><div class="line"></div><div class="line">    print(&quot;Total is &#123;0&#125;, Notes is &#123;1&#125;, Blank is &#123;2&#125;\n&quot;.format(total_lines,</div><div class="line">                                                              notes_lines,</div><div class="line">                                                              blank_lines))</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    files = get_files()</div><div class="line">    count_lines(files)</div></pre></td></tr></table></figure>
-<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p>按行读入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">lines = open(&apos;/home/1.txt&quot;)</div><div class="line">for line in lines:</div><div class="line">  print(line)</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> PythonPractice </category>
             
         </categories>
         
@@ -364,10 +452,10 @@
     </entry>
     
     <entry>
-      <title><![CDATA[0009-HTML提出链接]]></title>
-      <url>/2017/08/18/PythonPractice/0009-HTML%E6%8F%90%E5%87%BA%E9%93%BE%E6%8E%A5/</url>
-      <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">import re</div><div class="line">import requests</div><div class="line"></div><div class="line"></div><div class="line">def request_get(url):</div><div class="line">    response = requests.get(url)</div><div class="line">    response.encoding = &apos;gb2312&apos;   # 中文乱码处理</div><div class="line">    text = response.text</div><div class="line">    re_handle(text)</div><div class="line"></div><div class="line"></div><div class="line">def re_handle(text):</div><div class="line">    text = re.findall(&apos;([a-zA-z]+:\/\/[a-zA-Z0-9]+.+?)[\&quot;|\&apos;]&apos;, text, re.S)  # 跨行 re.S</div><div class="line">    print_text(text)</div><div class="line"></div><div class="line"></div><div class="line">def print_text(text):</div><div class="line">    print(text)</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    url = &apos;http://www.jj59.com/jjart/412827.html&apos;</div><div class="line">    request_get(url)</div></pre></td></tr></table></figure>
-<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p>正则表达式括号使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">() 是为了提取匹配的字符串。表达式中有几个()就有几个相应的匹配字符串。</div><div class="line"></div><div class="line">(\s*)表示连续空格的字符串。</div><div class="line"></div><div class="line">[]是定义匹配的字符范围。比如 [a-zA-Z0-9] 表示相应位置的字符要匹配英文字符和数字。[\s*]表示空格或者*号。</div><div class="line"></div><div class="line">&#123;&#125;一般用来表示匹配的长度，比如 \s&#123;3&#125; 表示匹配三个空格，\s[1,3]表示匹配一到三个空格。</div></pre></td></tr></table></figure></p>
+      <title><![CDATA[0007-读出代码行书，注释以及空行]]></title>
+      <url>/2017/08/18/PythonPractice/0007-%E8%AF%BB%E5%87%BA%E4%BB%A3%E7%A0%81%E8%A1%8C%E4%B9%A6%EF%BC%8C%E6%B3%A8%E9%87%8A%E4%BB%A5%E5%8F%8A%E7%A9%BA%E8%A1%8C/</url>
+      <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">import glob</div><div class="line">import os</div><div class="line"></div><div class="line"></div><div class="line">def get_files():</div><div class="line">    file_full = &apos;&apos;.join([os.getcwd(), &apos;/code/*.py&apos;])</div><div class="line">    files = glob.glob(file_full)</div><div class="line">    return files</div><div class="line"></div><div class="line"></div><div class="line">def count_lines(files):</div><div class="line">    for file in files:</div><div class="line">        total_lines = 0</div><div class="line">        notes_lines = 0</div><div class="line">        blank_lines = 0</div><div class="line">        print(&quot;Filename is &#123;0&#125;&quot;.format(file.split(r&apos;/&apos;)[-1]))</div><div class="line">        with open(file) as lines:</div><div class="line">            for line in lines:</div><div class="line">                total_lines += 1</div><div class="line">                if line == &apos;\n&apos;:</div><div class="line">                    blank_lines += 1</div><div class="line">                elif line.startswith(&apos;#&apos;):</div><div class="line">                    notes_lines += 1</div><div class="line">        print_result(total_lines, notes_lines, blank_lines)</div><div class="line"></div><div class="line"></div><div class="line">def print_result(total_lines,</div><div class="line">                 notes_lines,</div><div class="line">                 blank_lines):</div><div class="line"></div><div class="line">    print(&quot;Total is &#123;0&#125;, Notes is &#123;1&#125;, Blank is &#123;2&#125;\n&quot;.format(total_lines,</div><div class="line">                                                              notes_lines,</div><div class="line">                                                              blank_lines))</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    files = get_files()</div><div class="line">    count_lines(files)</div></pre></td></tr></table></figure>
+<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p>按行读入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">lines = open(&apos;/home/1.txt&quot;)</div><div class="line">for line in lines:</div><div class="line">  print(line)</div></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>
@@ -380,13 +468,11 @@
     </entry>
     
     <entry>
-      <title><![CDATA[0006-日记找词]]></title>
-      <url>/2017/08/18/PythonPractice/0006-%E6%97%A5%E8%AE%B0%E6%89%BE%E8%AF%8D/</url>
-      <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">import re</div><div class="line"></div><div class="line"></div><div class="line">def get_words(text):</div><div class="line">    words = re.findall(&apos;(\w+)\s&apos;, text)</div><div class="line">    return words</div><div class="line"></div><div class="line"></div><div class="line">def get_counter(words):</div><div class="line">    words_set = set(words)</div><div class="line">    dic_word_num = &#123;&#125;</div><div class="line">    for word in words_set:</div><div class="line">        dic_word_num[word] = words.count(word)</div><div class="line">    print(max(dic_word_num.items(), key=lambda x:x[1]))</div><div class="line"></div><div class="line">with open(&apos;text.txt&apos;) as text:</div><div class="line">    text = text.read()</div><div class="line">    get_counter(get_words(text))</div></pre></td></tr></table></figure>
-<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p><strong>1)列表转集合，去重</strong><br><figure class="highlight plain"><figcaption><span>= set(my_list)```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">__2)max函数，第一个参数为一个可迭代对象，如果key没有指定，就是默认取最大，如果key参数有指定，就按指定规则来比较__</div><div class="line">__3)匿名函数，参数是x，返回结果是x[1]，就是value的值，一般用在max函数的key上__</div><div class="line">```lambda x: x[1]</div></pre></td></tr></table></figure></p>
-<p><strong>4)返回<code>python_code</code>文件夹里面的py文件的路径</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">[&apos;/home/kk/python_code/FlaskAuth/run.py&apos;, &apos;/home/kk/python_code/FlaskAuth/FlaskAuth.py&apos;, &apos;/home/kk/python_code/FlaskAuth/hello.py&apos;]</div></pre></td></tr></table></figure></p>
-<p><strong>5)返回列表中出现次数最多的元素</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from collections import Counter</div><div class="line">Counter(my_list).most_common(1)</div></pre></td></tr></table></figure></p>
-<p><strong>6)map使用</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">map(f, iterable)</div><div class="line"></div><div class="line">基本上等于：</div><div class="line"></div><div class="line">[f(x) for x in iterable]  # 列表推导式</div></pre></td></tr></table></figure></p>
+      <title><![CDATA[0008-HTML提出出正文]]></title>
+      <url>/2017/08/18/PythonPractice/0008-HTML%E6%8F%90%E5%87%BA%E5%87%BA%E6%AD%A3%E6%96%87/</url>
+      <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line">import re</div><div class="line"></div><div class="line"></div><div class="line">def request_get(url):</div><div class="line">    response = requests.get(url)</div><div class="line">    response.encoding = &apos;gb2312&apos;   # 中文乱码处理</div><div class="line">    text = response.text</div><div class="line">    re_handle(text)</div><div class="line"></div><div class="line"></div><div class="line">def re_handle(text):</div><div class="line">    text = re.findall(r&apos;&lt;div id=&quot;twgg&quot; class=&quot;gg&quot;&gt;.*&lt;p&gt;\s+(.*?)&lt;/p&gt;&apos;, text, re.S)[0]  # 跨行 re.S</div><div class="line">    text = re.sub(&apos;&lt;.*?&gt;&apos;, &apos;&apos;, text)</div><div class="line">    text = re.sub(&apos;\s+&apos;, &apos;&apos;, text)</div><div class="line">    print_text(text)</div><div class="line"></div><div class="line"></div><div class="line">def print_text(text):</div><div class="line">    print(text)</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    url = &apos;http://www.jj59.com/jjart/412827.html&apos;</div><div class="line">    request_get(url)</div><div class="line">```  </div><div class="line">### 新知识</div><div class="line">__requests.get中文乱码，指定编码格式__</div></pre></td></tr></table></figure>
+<p>response = requests.get(url)<br>response.encoding = ‘gb2312’<br>text = response.text<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">__正则跨行匹配，要加`re.S`__</div></pre></td></tr></table></figure></p>
+<p>text = re.findall(r’<div id="twgg" class="gg">.<em><p>\s+(.</p></em>?)</div></p>‘, text, re.S)[0]  # 跨行 re.S<br>```<p></p>
 ]]></content>
       
         <categories>
@@ -414,11 +500,10 @@
     </entry>
     
     <entry>
-      <title><![CDATA[0008-HTML提出出正文]]></title>
-      <url>/2017/08/18/PythonPractice/0008-HTML%E6%8F%90%E5%87%BA%E5%87%BA%E6%AD%A3%E6%96%87/</url>
-      <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line">import re</div><div class="line"></div><div class="line"></div><div class="line">def request_get(url):</div><div class="line">    response = requests.get(url)</div><div class="line">    response.encoding = &apos;gb2312&apos;   # 中文乱码处理</div><div class="line">    text = response.text</div><div class="line">    re_handle(text)</div><div class="line"></div><div class="line"></div><div class="line">def re_handle(text):</div><div class="line">    text = re.findall(r&apos;&lt;div id=&quot;twgg&quot; class=&quot;gg&quot;&gt;.*&lt;p&gt;\s+(.*?)&lt;/p&gt;&apos;, text, re.S)[0]  # 跨行 re.S</div><div class="line">    text = re.sub(&apos;&lt;.*?&gt;&apos;, &apos;&apos;, text)</div><div class="line">    text = re.sub(&apos;\s+&apos;, &apos;&apos;, text)</div><div class="line">    print_text(text)</div><div class="line"></div><div class="line"></div><div class="line">def print_text(text):</div><div class="line">    print(text)</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    url = &apos;http://www.jj59.com/jjart/412827.html&apos;</div><div class="line">    request_get(url)</div><div class="line">```  </div><div class="line">### 新知识</div><div class="line">__requests.get中文乱码，指定编码格式__</div></pre></td></tr></table></figure>
-<p>response = requests.get(url)<br>response.encoding = ‘gb2312’<br>text = response.text<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">__正则跨行匹配，要加`re.S`__</div></pre></td></tr></table></figure></p>
-<p>text = re.findall(r’<div id="twgg" class="gg">.<em><p>\s+(.</p></em>?)</div></p>‘, text, re.S)[0]  # 跨行 re.S<br>```<p></p>
+      <title><![CDATA[0009-HTML提出链接]]></title>
+      <url>/2017/08/18/PythonPractice/0009-HTML%E6%8F%90%E5%87%BA%E9%93%BE%E6%8E%A5/</url>
+      <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">import re</div><div class="line">import requests</div><div class="line"></div><div class="line"></div><div class="line">def request_get(url):</div><div class="line">    response = requests.get(url)</div><div class="line">    response.encoding = &apos;gb2312&apos;   # 中文乱码处理</div><div class="line">    text = response.text</div><div class="line">    re_handle(text)</div><div class="line"></div><div class="line"></div><div class="line">def re_handle(text):</div><div class="line">    text = re.findall(&apos;([a-zA-z]+:\/\/[a-zA-Z0-9]+.+?)[\&quot;|\&apos;]&apos;, text, re.S)  # 跨行 re.S</div><div class="line">    print_text(text)</div><div class="line"></div><div class="line"></div><div class="line">def print_text(text):</div><div class="line">    print(text)</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    url = &apos;http://www.jj59.com/jjart/412827.html&apos;</div><div class="line">    request_get(url)</div></pre></td></tr></table></figure>
+<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p>正则表达式括号使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">() 是为了提取匹配的字符串。表达式中有几个()就有几个相应的匹配字符串。</div><div class="line"></div><div class="line">(\s*)表示连续空格的字符串。</div><div class="line"></div><div class="line">[]是定义匹配的字符范围。比如 [a-zA-Z0-9] 表示相应位置的字符要匹配英文字符和数字。[\s*]表示空格或者*号。</div><div class="line"></div><div class="line">&#123;&#125;一般用来表示匹配的长度，比如 \s&#123;3&#125; 表示匹配三个空格，\s[1,3]表示匹配一到三个空格。</div></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>
@@ -479,6 +564,25 @@
     </entry>
     
     <entry>
+      <title><![CDATA[0006-日记找词]]></title>
+      <url>/2017/08/18/PythonPractice/0006-%E6%97%A5%E8%AE%B0%E6%89%BE%E8%AF%8D/</url>
+      <content type="html"><![CDATA[<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">import re</div><div class="line"></div><div class="line"></div><div class="line">def get_words(text):</div><div class="line">    words = re.findall(&apos;(\w+)\s&apos;, text)</div><div class="line">    return words</div><div class="line"></div><div class="line"></div><div class="line">def get_counter(words):</div><div class="line">    words_set = set(words)</div><div class="line">    dic_word_num = &#123;&#125;</div><div class="line">    for word in words_set:</div><div class="line">        dic_word_num[word] = words.count(word)</div><div class="line">    print(max(dic_word_num.items(), key=lambda x:x[1]))</div><div class="line"></div><div class="line">with open(&apos;text.txt&apos;) as text:</div><div class="line">    text = text.read()</div><div class="line">    get_counter(get_words(text))</div></pre></td></tr></table></figure>
+<h3 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h3><p><strong>1)列表转集合，去重</strong><br><figure class="highlight plain"><figcaption><span>= set(my_list)```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">__2)max函数，第一个参数为一个可迭代对象，如果key没有指定，就是默认取最大，如果key参数有指定，就按指定规则来比较__</div><div class="line">__3)匿名函数，参数是x，返回结果是x[1]，就是value的值，一般用在max函数的key上__</div><div class="line">```lambda x: x[1]</div></pre></td></tr></table></figure></p>
+<p><strong>4)返回<code>python_code</code>文件夹里面的py文件的路径</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">[&apos;/home/kk/python_code/FlaskAuth/run.py&apos;, &apos;/home/kk/python_code/FlaskAuth/FlaskAuth.py&apos;, &apos;/home/kk/python_code/FlaskAuth/hello.py&apos;]</div></pre></td></tr></table></figure></p>
+<p><strong>5)返回列表中出现次数最多的元素</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from collections import Counter</div><div class="line">Counter(my_list).most_common(1)</div></pre></td></tr></table></figure></p>
+<p><strong>6)map使用</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">map(f, iterable)</div><div class="line"></div><div class="line">基本上等于：</div><div class="line"></div><div class="line">[f(x) for x in iterable]  # 列表推导式</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> PythonPractice </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[处理html-text转为html-content]]></title>
       <url>/2017/08/18/Python/%E5%A4%84%E7%90%86html-text%E8%BD%AC%E4%B8%BAhtml-content/</url>
       <content type="html"><![CDATA[<p>html = requests.get(url, cookies = cook).content</p>
@@ -496,10 +600,11 @@
     </entry>
     
     <entry>
-      <title><![CDATA[AttributeError--module-'fcntl'-has-no-attribute-'F_GETFD']]></title>
-      <url>/2017/08/18/Python/AttributeError--module-'fcntl'-has-no-attribute-'F_GETFD'/</url>
-      <content type="html"><![CDATA[<p>Lib文件里把<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fcntl.py</div></pre></td></tr></table></figure></p>
-<p>改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fcntl_ex.py</div></pre></td></tr></table></figure></p>
+      <title><![CDATA[sklearn-ImportError--No-module-named-'scipy',ImportError--cannot-impor]]></title>
+      <url>/2017/08/18/Python/sklearn-ImportError--No-module-named-'scipy',ImportError--cannot-impor/</url>
+      <content type="html"><![CDATA[<p>直接走<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy</div></pre></td></tr></table></figure></p>
+<p>下载对应的包安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install 文件名字</div></pre></td></tr></table></figure></p>
+<p>安装numpy_mkl可以会有报错，把文件后缀whl改为zip，手动解压后，把numpy文件覆盖到原本的lib里面的文件，就可以了</p>
 ]]></content>
       
         <categories>
@@ -515,6 +620,27 @@
       <title><![CDATA[Python-OpenSSL-SSL-Error]]></title>
       <url>/2017/08/18/Python/Python-OpenSSL-SSL-Error/</url>
       <content type="html"><![CDATA[<p>先膜一发stackoverflow -_-。。。这种蛋疼的问题都能解决<br>解决方法如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">html = requests.post(url,headers = header,data=data,verify=True)   #verify = True 可以使证书验证，安全通过。 SSL</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[启动redis出现Creating-Server-TCP-listening-socket---6379--bind--No-such-fi]]></title>
+      <url>/2017/08/18/Python/%E5%90%AF%E5%8A%A8redis%E5%87%BA%E7%8E%B0Creating-Server-TCP-listening-socket---6379--bind--No-such-fi/</url>
+      <content type="html"><![CDATA[<p>如下方法可以解决，我也是看了一个CSDN一个大佬的方法。<br>命令行输入：</p>
+<ol>
+<li>redis-cli.exe</li>
+<li>shutdown</li>
+<li>exit</li>
+<li>redis-server.exe redis.windows.conf</li>
+</ol>
 ]]></content>
       
         <categories>
@@ -563,32 +689,10 @@
     </entry>
     
     <entry>
-      <title><![CDATA[启动redis出现Creating-Server-TCP-listening-socket---6379--bind--No-such-fi]]></title>
-      <url>/2017/08/18/Python/%E5%90%AF%E5%8A%A8redis%E5%87%BA%E7%8E%B0Creating-Server-TCP-listening-socket---6379--bind--No-such-fi/</url>
-      <content type="html"><![CDATA[<p>如下方法可以解决，我也是看了一个CSDN一个大佬的方法。<br>命令行输入：</p>
-<ol>
-<li>redis-cli.exe</li>
-<li>shutdown</li>
-<li>exit</li>
-<li>redis-server.exe redis.windows.conf</li>
-</ol>
-]]></content>
-      
-        <categories>
-            
-            <category> Python </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[sklearn-ImportError--No-module-named-'scipy',ImportError--cannot-impor]]></title>
-      <url>/2017/08/18/Python/sklearn-ImportError--No-module-named-'scipy',ImportError--cannot-impor/</url>
-      <content type="html"><![CDATA[<p>直接走<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy</div></pre></td></tr></table></figure></p>
-<p>下载对应的包安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install 文件名字</div></pre></td></tr></table></figure></p>
-<p>安装numpy_mkl可以会有报错，把文件后缀whl改为zip，手动解压后，把numpy文件覆盖到原本的lib里面的文件，就可以了</p>
+      <title><![CDATA[AttributeError--module-'fcntl'-has-no-attribute-'F_GETFD']]></title>
+      <url>/2017/08/18/Python/AttributeError--module-'fcntl'-has-no-attribute-'F_GETFD'/</url>
+      <content type="html"><![CDATA[<p>Lib文件里把<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fcntl.py</div></pre></td></tr></table></figure></p>
+<p>改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fcntl_ex.py</div></pre></td></tr></table></figure></p>
 ]]></content>
       
         <categories>
@@ -726,10 +830,10 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Unicode转中文]]></title>
-      <url>/2017/08/18/Python/Unicode%E8%BD%AC%E4%B8%AD%E6%96%87/</url>
-      <content type="html"><![CDATA[<p>先检查text是什么类型<br>如果type(text) is bytes，<br>那么text.decode(‘unicode_escape’)<br>如果type(text) is str，那么text.encode(‘latin-1’).decode(‘unicode_escape’)<br>（感谢这个知乎作者，终于解决了我的问题）</p>
-<p>作者：mailto1587<br>链接：<a href="https://www.zhihu.com/question/26921730/answer/49625649" target="_blank" rel="external">https://www.zhihu.com/question/26921730/answer/49625649</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
+      <title><![CDATA[Selenium遇到iframe的问题]]></title>
+      <url>/2017/08/18/Python/Selenium%E9%81%87%E5%88%B0iframe%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<p>如果使用F12检查元素的时候，发现有iframe这么个东西，或者是用xpath或者find怎么都无法定位元素的时候，那很有可能就是iframe这么个东西在作怪了！使用如下方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">driver.switch_to.frame(&apos;app_canvas_frame&apos;)   #app_canvas_frame是iframe的name</div></pre></td></tr></table></figure></p>
+<p>进入到这个框架以后，在去操作定位元素，应该就没有问题了。</p>
 ]]></content>
       
         <categories>
@@ -1066,10 +1170,9 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Selenium遇到iframe的问题]]></title>
-      <url>/2017/08/18/Python/Selenium%E9%81%87%E5%88%B0iframe%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-      <content type="html"><![CDATA[<p>如果使用F12检查元素的时候，发现有iframe这么个东西，或者是用xpath或者find怎么都无法定位元素的时候，那很有可能就是iframe这么个东西在作怪了！使用如下方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">driver.switch_to.frame(&apos;app_canvas_frame&apos;)   #app_canvas_frame是iframe的name</div></pre></td></tr></table></figure></p>
-<p>进入到这个框架以后，在去操作定位元素，应该就没有问题了。</p>
+      <title><![CDATA[正则表达式-1]]></title>
+      <url>/2017/08/18/Python/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-1/</url>
+      <content type="html"><![CDATA[<p><strong>基本要领</strong><br>通常是一个前面一个匹配表达式，后面接一个长度判定表达式，例如<code>[0-9a-zA-Z\_]+</code>，即匹配一个任意长度的包含数字或字符串或下划线的字符串，即一个标准的Python变量。<br><strong>匹配知识</strong><br><code>\d</code>：匹配数字<br><code>\s</code>：匹配空格<br><code>\w</code>：匹配字母<br><code>.</code>   ： 匹配任意字符<br><code>^</code>：表示行开头，即以什么开头的行<br><code>$</code>：表示行结尾，即以什么结尾的行<br><code>^</code>：在括号内表示非<br><strong>长度知识</strong><br><code>*</code>：任意个字符，包括0个<br><code>+</code>：至少1字符<br><code>？</code>：0个或者1个字符<br><code>\d{3}</code>：匹配3个数字<br><code>\d{3,8}</code>：匹配3到8个数字<br><code>[0-9a-zA-Z]</code>：匹配一个包含数字或者字母的字符串<br><strong>一些表达式</strong><br><code>(.*?)</code>：非贪婪地匹配所有元素，按照懒惰匹配的方式，匹配尽可能短的元素</p>
 ]]></content>
       
         <categories>
@@ -1082,9 +1185,10 @@
     </entry>
     
     <entry>
-      <title><![CDATA[正则表达式-1]]></title>
-      <url>/2017/08/18/Python/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-1/</url>
-      <content type="html"><![CDATA[<p><strong>基本要领</strong><br>通常是一个前面一个匹配表达式，后面接一个长度判定表达式，例如<code>[0-9a-zA-Z\_]+</code>，即匹配一个任意长度的包含数字或字符串或下划线的字符串，即一个标准的Python变量。<br><strong>匹配知识</strong><br><code>\d</code>：匹配数字<br><code>\s</code>：匹配空格<br><code>\w</code>：匹配字母<br><code>.</code>   ： 匹配任意字符<br><code>^</code>：表示行开头，即以什么开头的行<br><code>$</code>：表示行结尾，即以什么结尾的行<br><code>^</code>：在括号内表示非<br><strong>长度知识</strong><br><code>*</code>：任意个字符，包括0个<br><code>+</code>：至少1字符<br><code>？</code>：0个或者1个字符<br><code>\d{3}</code>：匹配3个数字<br><code>\d{3,8}</code>：匹配3到8个数字<br><code>[0-9a-zA-Z]</code>：匹配一个包含数字或者字母的字符串<br><strong>一些表达式</strong><br><code>(.*?)</code>：非贪婪地匹配所有元素，按照懒惰匹配的方式，匹配尽可能短的元素</p>
+      <title><![CDATA[Unicode转中文]]></title>
+      <url>/2017/08/18/Python/Unicode%E8%BD%AC%E4%B8%AD%E6%96%87/</url>
+      <content type="html"><![CDATA[<p>先检查text是什么类型<br>如果type(text) is bytes，<br>那么text.decode(‘unicode_escape’)<br>如果type(text) is str，那么text.encode(‘latin-1’).decode(‘unicode_escape’)<br>（感谢这个知乎作者，终于解决了我的问题）</p>
+<p>作者：mailto1587<br>链接：<a href="https://www.zhihu.com/question/26921730/answer/49625649" target="_blank" rel="external">https://www.zhihu.com/question/26921730/answer/49625649</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
 ]]></content>
       
         <categories>
@@ -1852,6 +1956,23 @@
     </entry>
     
     <entry>
+      <title><![CDATA[无标题文章]]></title>
+      <url>/2017/08/18/Flask/%E6%97%A0%E6%A0%87%E9%A2%98%E6%96%87%E7%AB%A0/</url>
+      <content type="html"><![CDATA[<p>validate_on_submit（）总是验证错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://segmentfault.com/q/1010000008854162</div></pre></td></tr></table></figure></p>
+<p>‘Flask’ object has no attribute ‘login_manager’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://stackoverflow.com/questions/31067249/attributeerror-flask-object-has-no-attribute-login-manager-login-manager</div></pre></td></tr></table></figure></p>
+<p>在app/<strong>inin</strong>.py中添加，flask_manage()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">app.secret_key = &apos;xxxxyyyyyzzzzz&apos;</div><div class="line"></div><div class="line">login_manager = LoginManager()</div><div class="line">login_manager.init_app(app)</div><div class="line">login_manager.login_view = &apos;login&apos;</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Flask </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[flask使用mongoengine来login]]></title>
       <url>/2017/08/18/Flask/flask%E4%BD%BF%E7%94%A8mongoengine%E6%9D%A5login/</url>
       <content type="html"><![CDATA[<p>出现这个错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">AttributeError: &apos;BaseQuerySet&apos; object has no attribute &apos;is_authenticated&apos;</div></pre></td></tr></table></figure></p>
@@ -1870,11 +1991,9 @@
     </entry>
     
     <entry>
-      <title><![CDATA[无标题文章]]></title>
-      <url>/2017/08/18/Flask/%E6%97%A0%E6%A0%87%E9%A2%98%E6%96%87%E7%AB%A0/</url>
-      <content type="html"><![CDATA[<p>validate_on_submit（）总是验证错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://segmentfault.com/q/1010000008854162</div></pre></td></tr></table></figure></p>
-<p>‘Flask’ object has no attribute ‘login_manager’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://stackoverflow.com/questions/31067249/attributeerror-flask-object-has-no-attribute-login-manager-login-manager</div></pre></td></tr></table></figure></p>
-<p>在app/<strong>inin</strong>.py中添加，flask_manage()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">app.secret_key = &apos;xxxxyyyyyzzzzz&apos;</div><div class="line"></div><div class="line">login_manager = LoginManager()</div><div class="line">login_manager.init_app(app)</div><div class="line">login_manager.login_view = &apos;login&apos;</div></pre></td></tr></table></figure></p>
+      <title><![CDATA[ImportError，包导入错误]]></title>
+      <url>/2017/08/18/Flask/ImportError%EF%BC%8C%E5%8C%85%E5%AF%BC%E5%85%A5%E9%94%99%E8%AF%AF/</url>
+      <content type="html"><![CDATA[<p>使用<code>from app import db</code>这种导入包的方式的时候，可能会出现包导入错误，应该包的加载顺序的问题，每当一次引用，即<code>import</code>，就会加载一次包文件，当加载app包的时候，我写的时候把注册蓝图放到了上面，所以加载了一次蓝图的包，即auth包，而此时db变量还没有申明，所以会出现无法导出的错误，注意加载的顺序就可避免这种错误。</p>
 ]]></content>
       
         <categories>
@@ -1891,21 +2010,6 @@
       <url>/2017/08/18/Flask/Flask%E4%BD%BF%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
       <content type="html"><![CDATA[<p><strong>多线程使用</strong><br>一种是直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">app.run(threaded=True)</div></pre></td></tr></table></figure></p>
 <p>还有一直是使用gunicorn，-w后面的参数是使用几个进程的意思<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gunicorn -w 16 -b 0.0.0.0:9000 run:app</div></pre></td></tr></table></figure></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Flask </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[ImportError，包导入错误]]></title>
-      <url>/2017/08/18/Flask/ImportError%EF%BC%8C%E5%8C%85%E5%AF%BC%E5%85%A5%E9%94%99%E8%AF%AF/</url>
-      <content type="html"><![CDATA[<p>使用<code>from app import db</code>这种导入包的方式的时候，可能会出现包导入错误，应该包的加载顺序的问题，每当一次引用，即<code>import</code>，就会加载一次包文件，当加载app包的时候，我写的时候把注册蓝图放到了上面，所以加载了一次蓝图的包，即auth包，而此时db变量还没有申明，所以会出现无法导出的错误，注意加载的顺序就可避免这种错误。</p>
 ]]></content>
       
         <categories>
